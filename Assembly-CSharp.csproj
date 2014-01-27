@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\CameraScript.cs" />
+     <Compile Include="Assets\CoinController.cs" />
      <Compile Include="Assets\Config.cs" />
      <Compile Include="Assets\DrumRoller.cs" />
      <Compile Include="Assets\PlatformController.cs" />
