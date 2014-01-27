@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour 
 {
-	public CameraScript camera;
+	public CameraScript theCamera;
+	public Transform realTransform;
 	public Transform graphics;
 
 	public int currentJumpNumber;
@@ -19,14 +20,22 @@ public class PlayerController : MonoBehaviour
 	public float playerPushForce;
 	public float groundSkinWidth;
 
+	private Vector3 oldPosition;
+
 	void Start () 
 	{
-
+		oldPosition = rigidbody.position;
 	}
-	
-	void Update () 
+
+	void Update()
 	{
+		PlayerAttack ();
 		PlayerControlForces();
+	}
+
+	void FixedUpdate () 
+	{
+
 	}
 
 	void OnCollisionEnter(Collision theCollision)
@@ -59,6 +68,9 @@ public class PlayerController : MonoBehaviour
 
 	private void PlayerControlForces()
 	{
+		if (Vector3.Distance (oldPosition, rigidbody.position) < .05)
+			rigidbody.position = oldPosition;  // prevent small movements from slopes
+
 		bool isGrounded = getIfGrounded();
 
 		if (isGrounded)
@@ -68,8 +80,8 @@ public class PlayerController : MonoBehaviour
 		float horizontalInput = Input.GetAxisRaw("Horizontal");
 
 		Vector2 controlVector = new Vector2(
-			camera.transform.forward.x * verticalInput + camera.transform.right.x * horizontalInput, 
-			camera.transform.forward.z * verticalInput + camera.transform.right.z * horizontalInput
+			theCamera.transform.forward.x * verticalInput + theCamera.transform.right.x * horizontalInput, 
+			theCamera.transform.forward.z * verticalInput + theCamera.transform.right.z * horizontalInput
 		);
 		addVelocityX (controlVector.x * speed);
 		addVelocityZ (controlVector.y * speed);
@@ -89,11 +101,21 @@ public class PlayerController : MonoBehaviour
 			setVelocityZ ( maxSpeed / horizontalSpeed * rigidbody.velocity.z );
 		}
 
-		if (isGrounded && verticalInput == 0 && horizontalInput == 0)
-			addVelocity (-(1-friction) * rigidbody.velocity.x, 0, -(1-friction) * rigidbody.velocity.z);
+		if (isGrounded && verticalInput == 0 && horizontalInput == 0) 
+		{
+			setVelocityX (0);  // player shouldn't slide when on ground
+			setVelocityZ (0);
+		}
 
 		if(verticalInput != 0 || horizontalInput != 0)
-			graphics.forward = Vector3.RotateTowards(graphics.forward, new Vector3(controlVector.x, 0, controlVector.y), rotationSpeed*Time.deltaTime, 0);
+			realTransform.forward = Vector3.RotateTowards(realTransform.forward, new Vector3(controlVector.x, 0, controlVector.y), rotationSpeed*Time.deltaTime, 0);
+	
+		oldPosition = rigidbody.position;
+	}
+
+	void PlayerAttack()
+	{
+
 	}
 
 	bool getIfGrounded()
