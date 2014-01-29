@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
 	public CameraScript theCamera;
 	public Transform realTransform;
+
 	public Transform graphics;
 
 	public int currentJumpNumber;
@@ -47,25 +48,6 @@ public class PlayerController : MonoBehaviour
 	{
 		
 	}
-
-	void OnControllerColliderHit(ControllerColliderHit hit) 
-	{
-		if(hit.transform.tag.Equals("Drum"))
-		{
-			DrumRoller drum = hit.transform.parent.GetComponent<DrumRoller>();
-			Vector3 offset = transform.position - drum.transform.position;
-			offset = Vector3.Cross(drum.transform.forward, offset);
-		}
-		else if(hit.transform.tag.Equals("MovableByPlayer"))
-		{
-			hit.rigidbody.AddForce((hit.transform.position - transform.position).normalized*playerPushForce);
-		}
-		else if(hit.transform.tag.Equals("MovingBlock"))
-		{
-			
-		}
-	}
-
 	private void PlayerControlForces()
 	{
 		if (Vector3.Distance (oldPosition, rigidbody.position) < .05)

@@ -11,10 +11,6 @@ public class PlatformController : MonoBehaviour {
 	private float waitTimer;
 	private bool isWaiting;
 	private bool movingTowardsEnd;
-	/*Rotation would work the same way, but the code could be simplified*/
-	/*Use transform.rotation and set it to the appropriate interpolated rotation if using quaternions, else 
-	transform.eulerAngles for standard angles*/
-	// Use this for initialization
 	void Start () {
 		startPosition = transform.position;
 		if(movementSpeed > 0)
