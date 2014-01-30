@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
 {
 	public CameraScript theCamera;
 	public Transform realTransform;
-
+	public ParticleSystem flames;
 	public Transform graphics;
 
 	public int currentJumpNumber;
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 	void Start () 
 	{
 		oldPosition = rigidbody.position;
+		
 	}
 
 	void Update()
@@ -57,7 +58,6 @@ public class PlayerController : MonoBehaviour
 
 		if (isGrounded)
 			currentJumpNumber = 0;
-
 		float verticalInput = Input.GetAxisRaw("Vertical");
 		float horizontalInput = Input.GetAxisRaw("Horizontal");
 
@@ -97,7 +97,10 @@ public class PlayerController : MonoBehaviour
 
 	void PlayerAttack()
 	{
-
+		if(Input.GetMouseButtonDown(0))
+		{
+			flames.Play();
+		}
 	}
 
 	bool getIfGrounded()
