@@ -21,12 +21,20 @@ public class PlayerController : MonoBehaviour
 	public float playerPushForce;
 	public float groundSkinWidth;
 
+	public float minSpeed;
+
+	private float startFlameEmissionRate;
+	private float flameStartSize;
+	public float flameDuration;
+	private float flameTimer;
+	public float flameRechargeSpeed;
 	private Vector3 oldPosition;
 
 	void Start () 
 	{
 		oldPosition = rigidbody.position;
-		
+		startFlameEmissionRate = flames.emissionRate;
+		flameStartSize = flames.startSize;
 	}
 
 	void Update()
@@ -51,7 +59,7 @@ public class PlayerController : MonoBehaviour
 	}
 	private void PlayerControlForces()
 	{
-		if (Vector3.Distance (oldPosition, rigidbody.position) < .05)
+		if (Vector3.Distance (oldPosition, rigidbody.position) < minSpeed)
 			rigidbody.position = oldPosition;  // prevent small movements from slopes
 
 		bool isGrounded = getIfGrounded();
@@ -65,6 +73,7 @@ public class PlayerController : MonoBehaviour
 			theCamera.transform.forward.x * verticalInput + theCamera.transform.right.x * horizontalInput, 
 			theCamera.transform.forward.z * verticalInput + theCamera.transform.right.z * horizontalInput
 		);
+		controlVector = controlVector.normalized;
 		addVelocityX (controlVector.x * speed);
 		addVelocityZ (controlVector.y * speed);
 
@@ -76,11 +85,11 @@ public class PlayerController : MonoBehaviour
 		}
 
 		Vector3 xzSpeed = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
-		float horizontalSpeed = xzSpeed.magnitude;
-		if (horizontalSpeed > maxSpeed) 
+		float xzMagnitude = xzSpeed.magnitude;
+		if(xzMagnitude > maxSpeed) 
 		{
-			setVelocityX ( maxSpeed / horizontalSpeed * rigidbody.velocity.x );
-			setVelocityZ ( maxSpeed / horizontalSpeed * rigidbody.velocity.z );
+			setVelocityX ( maxSpeed / xzMagnitude * rigidbody.velocity.x );
+			setVelocityZ ( maxSpeed / xzMagnitude * rigidbody.velocity.z );
 		}
 
 		if (isGrounded && verticalInput == 0 && horizontalInput == 0) 
@@ -97,23 +106,34 @@ public class PlayerController : MonoBehaviour
 
 	void PlayerAttack()
 	{
-		if(Input.GetMouseButtonDown(0))
+		if(Input.GetMouseButton(0))
 		{
-			flames.Play();
+			flames.emissionRate = startFlameEmissionRate;
+			flames.startSize = Mathf.Lerp(flameStartSize, 0, flameTimer / flameDuration);
+			if(flameTimer < flameDuration)
+			{
+				flameTimer += Time.deltaTime;
+			}
+		}
+		else
+		{
+			flames.emissionRate = 0;
+			if(flameTimer > 0)
+			{
+				flameTimer -= flameRechargeSpeed * Time.deltaTime;
+			}
 		}
 	}
 
 	bool getIfGrounded()
 	{
 		RaycastHit hit;
-		bool raycastResult = Physics.Raycast(
-			new Ray(transform.position, -Vector3.up), 
+		return Physics.Raycast(
+			new Ray(rigidbody.position, -Vector3.up), 
 		    out hit, 
 			groundSkinWidth + transform.localScale.y,
 		    ~(1<<2 | 1<<8)
 		);
-
-		return raycastResult;
 	}
 
 	//----------
