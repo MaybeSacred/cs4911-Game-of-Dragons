@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
 
 	void PlayerAttack()
 	{
-		if(Input.GetMouseButton(0))
+		if(Input.GetMouseButton(0) || Input.GetKey(Config.keyBreath))
 		{
 			flames.emissionRate = startFlameEmissionRate;
 			flames.startSize = Mathf.Lerp(flameStartSize, 0, flameTimer / flameDuration);
