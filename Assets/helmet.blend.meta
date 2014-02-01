@@ -2,7 +2,21 @@ fileFormatVersion: 2
 guid: dad05d36cd98dc64ea2f0eba3f937c9d
 ModelImporter:
   serializedVersion: 16
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: BezierCurve
+    100002: //RootNode
+    100004: Sphere
+    400000: BezierCurve
+    400002: //RootNode
+    400004: Sphere
+    2300000: BezierCurve
+    2300002: Sphere
+    3300000: BezierCurve
+    3300002: Sphere
+    4300000: Sphere
+    4300002: BezierCurve
+    7400000: Default Take
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

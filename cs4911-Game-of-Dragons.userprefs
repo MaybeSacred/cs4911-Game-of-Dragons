@@ -1,9 +1,9 @@
 ﻿<Properties GitUserInfo="UsingMD">
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\ZOI\Assets\HyperBlimpController.cs">
     <Files>
-      <File FileName="Assets\PlayerController.cs" Line="17" Column="24" />
-      <File FileName="Assets\SnowmanController.cs" Line="10" Column="3" />
+      <File FileName="..\ZOI\Assets\HyperBlimpController.cs" Line="79" Column="56" />
+      <File FileName="..\ZOI\Assets\CameraScript.cs" Line="23" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
