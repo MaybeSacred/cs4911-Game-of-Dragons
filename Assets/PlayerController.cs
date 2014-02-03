@@ -30,6 +30,10 @@ public class PlayerController : MonoBehaviour
 	public float flameRechargeSpeed;
 	private Vector3 oldPosition;
 
+	public int gems;
+	public int smallGems;
+	public int coins;
+
 	void Start () 
 	{
 		oldPosition = rigidbody.position;
@@ -55,7 +59,23 @@ public class PlayerController : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		
+		switch (other.gameObject.tag) 
+		{
+		case "Gem":
+			Destroy (other.gameObject);
+			gems++;
+			break;
+
+		case "SmallGem":
+			Destroy (other.gameObject);
+			smallGems++;
+			break;
+
+		case "Coin":
+			Destroy (other.gameObject);
+			coins++;
+			break;
+		}
 	}
 	private void PlayerControlForces()
 	{
