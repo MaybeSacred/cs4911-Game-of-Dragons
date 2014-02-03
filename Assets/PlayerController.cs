@@ -23,11 +23,15 @@ public class PlayerController : MonoBehaviour
 
 	public float minSpeed;
 
-	private float startFlameEmissionRate;
+	public float startFlameEmissionRate;
 	private float flameStartSize;
 	public float flameDuration;
 	private float flameTimer;
 	public float flameRechargeSpeed;
+	public Transform fireCone;
+
+	public float maxAttackStrength;
+
 	private Vector3 oldPosition;
 
 	public int gems;
@@ -77,6 +81,7 @@ public class PlayerController : MonoBehaviour
 			break;
 		}
 	}
+
 	private void PlayerControlForces()
 	{
 		if (Vector3.Distance (oldPosition, rigidbody.position) < minSpeed)
@@ -128,6 +133,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if(Input.GetMouseButton(0) || Input.GetKey(Config.keyBreath))
 		{
+			fireCone.collider.enabled = true;
 			flames.emissionRate = startFlameEmissionRate;
 			flames.startSize = Mathf.Lerp(flameStartSize, 0, flameTimer / flameDuration);
 			if(flameTimer < flameDuration)
@@ -137,12 +143,26 @@ public class PlayerController : MonoBehaviour
 		}
 		else
 		{
+			fireCone.collider.enabled = false;
 			flames.emissionRate = 0;
 			if(flameTimer > 0)
 			{
 				flameTimer -= flameRechargeSpeed * Time.deltaTime;
 			}
 		}
+	}
+
+	public float getFlameScale()
+	{
+		if (flameStartSize == 0)
+			return 0;
+		else
+			return flames.startSize / flameStartSize;
+	}
+
+	public float getAttackDamage()
+	{
+		return getFlameScale() * maxAttackStrength;
 	}
 
 	bool getIfGrounded()
