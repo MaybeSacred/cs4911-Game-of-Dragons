@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CoinController : MonoBehaviour {
-	private Quaternion rotationQuaternion;
+
 	public float rotationSpeed;
 	void Start () {
 		Debug.Log("hi");
@@ -13,7 +13,8 @@ public class CoinController : MonoBehaviour {
 		
 	}
 	
-	void Update () {
-		transform.rotation *= new Quaternion(0, Mathf.Sin(rotationSpeed*Time.deltaTime), 0, Mathf.Cos(rotationSpeed*Time.deltaTime));
+	void Update () 
+	{
+		transform.RotateAround (transform.position, Vector3.up, rotationSpeed * Mathf.Rad2Deg * Time.deltaTime);
 	}
 }
