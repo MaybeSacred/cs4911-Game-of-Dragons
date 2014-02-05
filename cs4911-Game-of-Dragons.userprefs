@@ -1,10 +1,8 @@
-﻿<Properties GitUserInfo="UsingMD">
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PlayerController.cs">
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\ZOI\Assets\HyperBlimpController.cs">
     <Files>
-      <File FileName="Assets\PlayerController.cs" Line="146" Column="38" />
-      <File FileName="Assets\SnowmanController.cs" Line="29" Column="36" />
-      <File FileName="Assets\SnowballController.cs" Line="18" Column="4" />
+      <File FileName="..\..\ZOI\Assets\HyperBlimpController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
