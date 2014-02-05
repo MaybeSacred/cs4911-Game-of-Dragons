@@ -99,6 +99,13 @@ public class PlayerController : MonoBehaviour
 			theCamera.transform.forward.z * verticalInput + theCamera.transform.right.z * horizontalInput
 		);
 		controlVector = controlVector.normalized;
+
+		float airInfluence = .2f;  // percentage of regular control player has while in air
+		if (Input.GetKeyDown (Config.keyJump) && currentJumpNumber < totalJumps)
+			airInfluence = .8f;
+		if (!isGrounded)
+			controlVector = new Vector2 (controlVector.x * airInfluence, controlVector.y * airInfluence);
+
 		addVelocityX (controlVector.x * speed);
 		addVelocityZ (controlVector.y * speed);
 

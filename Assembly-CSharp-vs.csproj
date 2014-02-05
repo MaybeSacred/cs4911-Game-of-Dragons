@@ -58,6 +58,7 @@
      <Compile Include="Assets\RollingStoneCollector.cs" />
      <Compile Include="Assets\SnowballController.cs" />
      <Compile Include="Assets\SnowmanController.cs" />
+     <Compile Include="Assets\SnowmanPartController.cs" />
      <Compile Include="Assets\WorldScript.cs" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
