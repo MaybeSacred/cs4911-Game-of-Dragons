@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 	public ParticleSystem flames;
 	public Transform graphics;
 
+	public int health{get; private set;}
+	public int maxHealth;
 	public int currentJumpNumber;
 	public int totalJumps;
 	public float jumpStrength;
@@ -20,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
 	public float playerPushForce;
 	public float groundSkinWidth;
-
+	private bool isGrounded;
 	public float minSpeed;
 
 	public float startFlameEmissionRate;
@@ -38,8 +40,11 @@ public class PlayerController : MonoBehaviour
 	public int smallGems;
 	public int coins;
 
+	bool isOnIcyGround;
+
 	void Start () 
 	{
+		health = maxHealth;
 		oldPosition = rigidbody.position;
 		startFlameEmissionRate = flames.emissionRate;
 		flameStartSize = flames.startSize;
@@ -84,11 +89,12 @@ public class PlayerController : MonoBehaviour
 
 	private void PlayerControlForces()
 	{
-		if (Vector3.Distance (oldPosition, rigidbody.position) < minSpeed)
-			rigidbody.position = oldPosition;  // prevent small movements from slopes
-
-		bool isGrounded = getIfGrounded();
-
+		UpdateGroundedState();
+		if(!isOnIcyGround)
+		{
+			if (Vector3.Distance (oldPosition, rigidbody.position) < minSpeed)
+				rigidbody.position = oldPosition;  // prevent small movements from slopes
+		}
 		if (isGrounded)
 			currentJumpNumber = 0;
 		float verticalInput = Input.GetAxisRaw("Vertical");
@@ -117,15 +123,16 @@ public class PlayerController : MonoBehaviour
 			setVelocityZ ( maxSpeed / xzMagnitude * rigidbody.velocity.z );
 		}
 
-		if (isGrounded && verticalInput == 0 && horizontalInput == 0) 
+		if (isGrounded && verticalInput == 0 && horizontalInput == 0 && !isOnIcyGround) 
 		{
 			setVelocityX (0);  // player shouldn't slide when on ground
 			setVelocityZ (0);
 		}
-
-		if(verticalInput != 0 || horizontalInput != 0)
-			realTransform.forward = Vector3.RotateTowards(realTransform.forward, new Vector3(controlVector.x, 0, controlVector.y), rotationSpeed*Time.deltaTime, 0);
-	
+		if(!isOnIcyGround)
+		{
+			if(verticalInput != 0 || horizontalInput != 0)
+				realTransform.forward = Vector3.RotateTowards(realTransform.forward, new Vector3(controlVector.x, 0, controlVector.y), rotationSpeed*Time.deltaTime, 0);
+		}
 		oldPosition = rigidbody.position;
 	}
 
@@ -165,17 +172,41 @@ public class PlayerController : MonoBehaviour
 		return getFlameScale() * maxAttackStrength;
 	}
 
-	bool getIfGrounded()
+	private void UpdateGroundedState()
 	{
 		RaycastHit hit;
-		return Physics.Raycast(
+		isGrounded = Physics.Raycast(
 			new Ray(rigidbody.position, -Vector3.up), 
 		    out hit, 
 			groundSkinWidth + transform.localScale.y,
 		    ~(1<<2 | 1<<8)
 		);
+		if(hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Icy"))
+		{
+			isOnIcyGround = true;
+		}
+		else
+		{
+			isOnIcyGround = false;
+		}
 	}
-
+	public void GameOver()
+	{
+		
+	}
+	public void HealthChange(int deltaHealth)
+	{
+		health += deltaHealth;
+		if(health <=0)
+		{
+			health = 0;
+			GameOver();
+		}
+		else if(health > maxHealth)
+		{
+			health = maxHealth;
+		}
+	}
 	//----------
 	// Velocity Functions
 
