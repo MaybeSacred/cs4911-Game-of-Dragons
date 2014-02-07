@@ -11,6 +11,10 @@ public class HellmetBehavior : MonoBehaviour {
 	public float graphicsRotationSpeed;
 	private int updateCounter;
 	public int framesToSkip;
+	public int damageToPlayer;
+	private float isStunnedTimer;
+	public float stunTime;
+	public float playerPushForce;
 	void Start () {
 		navAgent = GetComponent<NavMeshAgent>();
 	}
@@ -18,13 +22,33 @@ public class HellmetBehavior : MonoBehaviour {
 	{
 		Debug.Log("bleh");
 	}
+	void OnTriggerEnter(Collider other)
+	{
+		if(other.tag.Equals("Player"))
+		{
+			WorldScript.thePlayer.HealthChange(-damageToPlayer);
+			WorldScript.thePlayer.rigidbody.AddForce((WorldScript.thePlayer.transform.position-transform.position).normalized*playerPushForce);
+			isStunnedTimer += Time.deltaTime;
+		}
+	}
 	void Update () {
 		ApplyBounce();
-		if(updateCounter%framesToSkip ==0)
+		if(isStunnedTimer > 0)
 		{
-			navAgent.SetDestination(WorldScript.thePlayer.transform.position);
+			isStunnedTimer += Time.deltaTime;
+			if(isStunnedTimer > stunTime)
+			{
+				isStunnedTimer = 0;
+			}
 		}
-		updateCounter++;
+		else
+		{
+			if(updateCounter%framesToSkip ==0)
+			{
+				navAgent.SetDestination(WorldScript.thePlayer.transform.position);
+			}
+			updateCounter++;
+		}
 		graphics.rotation = Quaternion.RotateTowards(graphics.rotation, Quaternion.LookRotation(graphics.position - WorldScript.thePlayer.transform.position), Time.deltaTime*graphicsRotationSpeed);
 	}
 	
