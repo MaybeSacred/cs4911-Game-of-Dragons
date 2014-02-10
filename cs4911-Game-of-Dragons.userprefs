@@ -1,6 +1,12 @@
 ﻿<Properties GitUserInfo="UsingMD">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SnowballController.cs">
+    <Files>
+      <File FileName="Assets\SnowmanController.cs" Line="130" Column="31" />
+      <File FileName="Assets\SnowballController.cs" Line="13" Column="24" />
+      <File FileName="Assets\PlayerController.cs" Line="66" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

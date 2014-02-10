@@ -15,6 +15,8 @@ public class SnowmanController : MonoBehaviour
 	public Transform hand;
 	public Transform snowBall;
 
+	public float throwDistance = 45;
+
 	private float throwTimer;
 	private float secondsBetweenThrows;
 	private float secondsBetweenReset;
@@ -67,6 +69,13 @@ public class SnowmanController : MonoBehaviour
 			if (bottom != null)
 				bottom.DeathShrink ();
 
+			if (snowBall != null)
+			{
+				snowBall.rigidbody.isKinematic = false;
+				SnowballController sc = (SnowballController)(snowBall.GetComponent("SnowballController"));
+				sc.setStartMelting();
+			}
+
 			bool allGone = top == null && middle == null && bottom == null;
 			if (allGone)
 			{
@@ -75,7 +84,7 @@ public class SnowmanController : MonoBehaviour
 		} 
 		else 
 		{
-			float throwAngle = 120;
+			float throwAngle = 140;
 
 			if (throwTimer > secondsBetweenThrows)
 			{
@@ -95,8 +104,6 @@ public class SnowmanController : MonoBehaviour
 					{
 						snowBall.rigidbody.isKinematic = false;
 
-						float grav = Physics.gravity.y;
-						float launchAngle = 45;
 						float targetX = objectToLookAt.transform.position.x;
 						float targetY = objectToLookAt.transform.position.y;
 						float targetZ = objectToLookAt.transform.position.z;
@@ -104,7 +111,7 @@ public class SnowmanController : MonoBehaviour
 						float dx = Mathf.Sqrt( Mathf.Pow(targetX - hand.transform.position.x, 2) + Mathf.Pow(targetZ - hand.transform.position.z, 2)  );
 						float dy = targetY - hand.transform.position.y;
 
-						// this is not correct, but it is good enough for now
+						// this is not correct trajectory, but it is good enough for now
 						snowBall.rigidbody.velocity = graphics.transform.forward * dx * 2 + graphics.transform.up * dy * 2;
 					}
 
@@ -114,8 +121,13 @@ public class SnowmanController : MonoBehaviour
 						curAngle = 0;
 						rightBranch.transform.localEulerAngles = new Vector3(rightBranch.transform.localEulerAngles.x, originalArmAngle, rightBranch.transform.localEulerAngles.z);
 					
+						SnowballController sc = (SnowballController)(snowBall.GetComponent("SnowballController"));
+						sc.setStartMelting();
+						snowBall = Instantiate(snowBall, hand.position, hand.rotation) as Transform;
 						snowBall.rigidbody.isKinematic = true;
-						snowBall.transform.position = hand.position;
+						snowBall.localScale = new Vector3(1, 1, 1);
+						sc = (SnowballController)(snowBall.GetComponent("SnowballController"));
+						sc.setIsDangerous(true);
 					}
 				}
 			}
@@ -123,7 +135,9 @@ public class SnowmanController : MonoBehaviour
 			{
 				snowBall.transform.position = hand.position;
 			}
-			throwTimer += Time.deltaTime;
+
+			if ( Vector3.Distance(transform.position, objectToLookAt.position) < throwDistance )
+				throwTimer += Time.deltaTime;
 		}
 	}
 }

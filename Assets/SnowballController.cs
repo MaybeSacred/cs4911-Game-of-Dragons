@@ -3,15 +3,58 @@ using System.Collections;
 
 public class SnowballController : MonoBehaviour 
 {
+	public bool startMelting;
+	public bool isDangerous = true;
+	private float dangerTimer = 0;  // sets isDangerous to false after counting down to 0
+	public int damageToPlayer = 1;
 
-	
 	void Start () 
 	{
+		startMelting = false;
+	}
 
+	void OnCollisionEnter(Collision theCollision)
+	{
+		switch (theCollision.gameObject.tag) 
+		{
+		case "Player":
+			if (isDangerous)
+			{
+				setIsDangerous(false);
+				PlayerController pc = (PlayerController)(theCollision.gameObject.GetComponent("PlayerController"));
+				pc.HealthChange(-damageToPlayer);
+			}
+			break;
+		}
+
+		if (isDangerous)
+			dangerTimer = .25f;
+	}
+
+	public void setStartMelting()
+	{
+		startMelting = true;
+	}
+
+	public void setIsDangerous(bool dangerous)
+	{
+		isDangerous = dangerous;
 	}
 
 	void Update()
 	{
-		
+		if (dangerTimer > 0) 
+		{
+			dangerTimer -= Time.deltaTime;
+			if (dangerTimer <= 0)
+				setIsDangerous(false);
+		}
+
+		if (startMelting) 
+		{
+			transform.localScale -= new Vector3(transform.localScale.x*.02f, transform.localScale.y*.02f, transform.localScale.z*.02f);
+			if (transform.localScale.x < 0)
+				Destroy(transform);
+		}
 	}
 }
