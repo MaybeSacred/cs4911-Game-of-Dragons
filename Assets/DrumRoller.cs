@@ -8,11 +8,6 @@ public class DrumRoller : MonoBehaviour {
 	public float totalRotationDegrees;
 	public float deadZoneAngle;
 	void Start () {
-		Debug.Log("hi");
-		Debug.Log("hi");
-		Debug.Log("hi");
-		Debug.Log("hi");
-		Debug.Log("hi");
 	}
 	
 	void Update () {

@@ -15,25 +15,28 @@ public class SnowmanController : MonoBehaviour
 	public Transform hand;
 	public Transform snowBall;
 
-	public float throwDistance = 45;
+	public float throwDistance;
 
 	private float throwTimer;
-	private float secondsBetweenThrows;
-	private float secondsBetweenReset;
+	public float secondsBetweenThrows;
+	public float secondsBetweenReset;
 	private float originalArmAngle;
 	private float curAngle;
 	private float throwSpeed;
-	private float maxThrowSpeed;
-
+	public float maxThrowSpeed;
+	private SnowmanPartController top;
+	private SnowmanPartController middle;
+	private SnowmanPartController bottom;
 	void Start () 
 	{
 		throwTimer = 0;
-		secondsBetweenThrows = 3;
-		secondsBetweenReset = 5;
 		originalArmAngle = rightBranch.transform.localEulerAngles.y;
 		curAngle = 0;
 		throwSpeed = 0;
-		maxThrowSpeed = 15;
+		
+		top = (SnowmanPartController)(topSphere.GetComponent("SnowmanPartController"));
+		middle = (SnowmanPartController)(middleSphere.GetComponent("SnowmanPartController"));
+		bottom = (SnowmanPartController)(bottomSphere.GetComponent("SnowmanPartController"));
 	}
 
 	void OnCollisionStay(Collision other)
@@ -45,13 +48,6 @@ public class SnowmanController : MonoBehaviour
 	{
 		graphics.transform.LookAt (objectToLookAt);
 		graphics.transform.localEulerAngles = new Vector3 (0, graphics.transform.localEulerAngles.y, 0);
-
-		SnowmanPartController top = null;
-		if (topSphere != null) top = (SnowmanPartController)(topSphere.GetComponent("SnowmanPartController"));
-		SnowmanPartController middle = null;
-		if (middleSphere != null) middle = (SnowmanPartController)(middleSphere.GetComponent("SnowmanPartController"));
-		SnowmanPartController bottom = null;
-		if (bottomSphere != null) bottom = (SnowmanPartController)(bottomSphere.GetComponent("SnowmanPartController"));
 
 		bool isDead = (top == null || top.isDead ()) || (middle == null || middle.isDead ()) || (bottom == null || bottom.isDead ());
 		if (isDead) 
@@ -75,9 +71,7 @@ public class SnowmanController : MonoBehaviour
 				SnowballController sc = (SnowballController)(snowBall.GetComponent("SnowballController"));
 				sc.setStartMelting();
 			}
-
-			bool allGone = top == null && middle == null && bottom == null;
-			if (allGone)
+			if (top == null && middle == null && bottom == null)
 			{
 				Destroy (gameObject);
 			}
@@ -127,7 +121,7 @@ public class SnowmanController : MonoBehaviour
 						snowBall.rigidbody.isKinematic = true;
 						snowBall.localScale = new Vector3(1, 1, 1);
 						sc = (SnowballController)(snowBall.GetComponent("SnowballController"));
-						sc.setIsDangerous(true);
+						sc.isDangerous = true;
 					}
 				}
 			}

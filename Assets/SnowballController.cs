@@ -4,7 +4,7 @@ using System.Collections;
 public class SnowballController : MonoBehaviour 
 {
 	public bool startMelting;
-	public bool isDangerous = true;
+	public bool isDangerous;
 	private float dangerTimer = 0;  // sets isDangerous to false after counting down to 0
 	public int damageToPlayer = 1;
 
@@ -20,13 +20,12 @@ public class SnowballController : MonoBehaviour
 		case "Player":
 			if (isDangerous)
 			{
-				setIsDangerous(false);
+				isDangerous = false;
 				PlayerController pc = (PlayerController)(theCollision.gameObject.GetComponent("PlayerController"));
 				pc.HealthChange(-damageToPlayer);
 			}
 			break;
 		}
-
 		if (isDangerous)
 			dangerTimer = .25f;
 	}
@@ -36,18 +35,13 @@ public class SnowballController : MonoBehaviour
 		startMelting = true;
 	}
 
-	public void setIsDangerous(bool dangerous)
-	{
-		isDangerous = dangerous;
-	}
-
 	void Update()
 	{
 		if (dangerTimer > 0) 
 		{
 			dangerTimer -= Time.deltaTime;
 			if (dangerTimer <= 0)
-				setIsDangerous(false);
+				isDangerous = false;
 		}
 
 		if (startMelting) 

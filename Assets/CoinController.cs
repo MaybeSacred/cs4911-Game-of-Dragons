@@ -5,11 +5,6 @@ public class CoinController : MonoBehaviour {
 
 	public float rotationSpeed;
 	void Start () {
-		Debug.Log("hi");
-		Debug.Log("hi");
-		Debug.Log("hi");
-		Debug.Log("hi");
-		Debug.Log("hi");Debug.Log("hi");
 		
 	}
 	

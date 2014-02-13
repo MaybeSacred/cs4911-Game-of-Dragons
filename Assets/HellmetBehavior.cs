@@ -15,19 +15,22 @@ public class HellmetBehavior : MonoBehaviour {
 	private float isStunnedTimer;
 	public float stunTime;
 	public float playerPushForce;
+	public float detectionRange;
+	public float health{get; private set;}
+	public static float maxHealth;
 	void Start () {
 		navAgent = GetComponent<NavMeshAgent>();
 	}
 	void OnCollisionEnter(Collision other)
 	{
-		Debug.Log("bleh");
+		
 	}
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.tag.Equals("Player"))
 		{
 			WorldScript.thePlayer.HealthChange(-damageToPlayer);
-			WorldScript.thePlayer.rigidbody.AddForce((WorldScript.thePlayer.transform.position-transform.position).normalized*playerPushForce);
+			WorldScript.thePlayer.rigidbody.AddForce((WorldScript.thePlayer.transform.position-transform.position+transform.up).normalized*playerPushForce);
 			isStunnedTimer += Time.deltaTime;
 		}
 	}
