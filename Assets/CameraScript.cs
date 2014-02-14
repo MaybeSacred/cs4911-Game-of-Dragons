@@ -52,7 +52,7 @@ public class CameraScript : MonoBehaviour
 		if (xzDist == 0)
 			xzDist = .0001f;  // prevent divide by zero
 		float deltaAngle = rightSpeed / xzDist;
-		transform.RotateAround (Vector3.zero, Vector3.up, deltaAngle);
+		//transform.RotateAround (Vector3.zero, Vector3.up, deltaAngle);
 
 		// set camera based on rotation
 		transform.position = playerCharacter.transform.position - transform.forward * maxCameraOffset;
