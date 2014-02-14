@@ -40,6 +40,8 @@ public class HellmetBehavior : MonoBehaviour {
 	public Color coolColor;
 	private Vector3[] patrolPoints;
 	private int currentPatrolPoint;
+	public float patrolPointTimeToWait;
+	private float patrolPointWaitTimer;
 	public float acceptablePatrolPointError;
 	private bool foundPlayer;
 	/// <summary>
@@ -163,11 +165,18 @@ public class HellmetBehavior : MonoBehaviour {
 							UpdateWhenPlayerFound(distanceToPlayer);
 						}
 					}
+					else
+					{
+						detectionTimeoutTimer += Time.deltaTime;
+						if(detectionTimeoutTimer > detectionTimeout)
+						{
+							foundPlayer = false;
+						}
+					}
 				}
 				else
 				{
 					foundPlayer = false;
-					detectionTimeoutTimer = detectionTimeout;
 				}
 				if(!foundPlayer)
 				{
@@ -203,7 +212,6 @@ public class HellmetBehavior : MonoBehaviour {
 		else
 		{
 			detectionTimeoutTimer += Time.deltaTime;
-			graphics.localRotation = Quaternion.RotateTowards(graphics.localRotation, Quaternion.identity, Time.deltaTime*graphicsRotationSpeed);
 			if(detectionTimeoutTimer > detectionTimeout)
 			{
 				ReturnToCurrentPatrolPoint();
@@ -218,21 +226,31 @@ public class HellmetBehavior : MonoBehaviour {
 			navAgent.SetDestination(WorldScript.thePlayer.transform.position);
 		}
 		updateCounter++;
-		graphics.rotation = Quaternion.RotateTowards(graphics.rotation, Quaternion.LookRotation(vectorToPlayer), Time.deltaTime*graphicsRotationSpeed);
 	}
 	private void ReturnToCurrentPatrolPoint()
 	{
 		patrolProperties.SetNavMeshAgent(navAgent);
 		navAgent.SetDestination(patrolPoints[currentPatrolPoint]);
+		patrolPointWaitTimer = patrolPointTimeToWait;
 	}
 	private void PatrolPath()
 	{
-		graphics.localRotation = Quaternion.RotateTowards(graphics.localRotation, Quaternion.identity, Time.deltaTime*graphicsRotationSpeed);
-		Vector3 distanceToCurrentPoint = patrolPoints[currentPatrolPoint] - transform.position;
-		if(distanceToCurrentPoint.magnitude < acceptablePatrolPointError)
+		if(patrolPointWaitTimer < patrolPointTimeToWait)
 		{
-			IncrementCurrentPatrolPoint();
-			navAgent.SetDestination(patrolPoints[currentPatrolPoint]);
+			patrolPointWaitTimer += Time.deltaTime;
+			if(patrolPointWaitTimer > patrolPointTimeToWait)
+			{
+				IncrementCurrentPatrolPoint();
+				navAgent.SetDestination(patrolPoints[currentPatrolPoint]);
+			}
+		}
+		else
+		{
+			Vector3 distanceToCurrentPoint = patrolPoints[currentPatrolPoint] - transform.position;
+			if(distanceToCurrentPoint.magnitude < acceptablePatrolPointError)
+			{
+				patrolPointWaitTimer = 0;
+			}
 		}
 	}
 	private void IncrementCurrentPatrolPoint()
