@@ -2,9 +2,13 @@
 using System.Collections;
 
 public class HellmetBehavior : MonoBehaviour {
+	public Transform editorPatrolPoints;
+	public NavMeshSettings patrolProperties;
+	public NavMeshSettings attackProperties;
 	public float bounceSpeed;
 	public float bounciness;
 	public Transform graphics;
+	public Transform meshParent;
 	public float yGraphicsOffset;
 	private NavMeshAgent navAgent;
 	private float timer;
@@ -15,11 +19,72 @@ public class HellmetBehavior : MonoBehaviour {
 	private float isStunnedTimer;
 	public float stunTime;
 	public float playerPushForce;
+	/// <summary>
+	/// Together, detectionRange and detectionAngle define a sight cone in front of the hellment
+	/// </summary>
 	public float detectionRange;
+	public float detectionAngle;
+	public float foundDetectionRange;
+	public float foundDetectionAngle;
+	/// <summary>
+	/// Defines when the bot gives up and returns to patrolling
+	/// </summary>
+	public float detectionTimeout;
+	private float detectionTimeoutTimer;
 	public float health{get; private set;}
-	public static float maxHealth;
+	public float maxHealth;
+	public float healthRechargeRate;
+	private float deathTimeoutTimer;
+	public Material meshMainTex;
+	public Color heatUpColor;
+	public Color coolColor;
+	private Vector3[] patrolPoints;
+	private int currentPatrolPoint;
+	public float acceptablePatrolPointError;
+	private bool foundPlayer;
+	/// <summary>
+	/// How long the enemy will stay around after death for cleanup animations
+	/// </summary>
+	public float deathTimeout;
+	private Vector3 medianPoint;
+	public float maxAcceptableDistFromPatrolMedian;
+	private bool isUnderAttack;
+	public float angerTime;
+	private float theAngerTimer;
 	void Start () {
+		HealthChange(maxHealth);
 		navAgent = GetComponent<NavMeshAgent>();
+		meshMainTex = (Material)Instantiate(meshMainTex);
+		foreach(MeshRenderer m in meshParent.GetComponentsInChildren<MeshRenderer>())
+		{
+			m.material = meshMainTex;
+		}
+		Transform[] points = editorPatrolPoints.GetComponentsInChildren<Transform>();
+		RaycastHit hit;
+		if(points.Length > 0)
+		{
+			patrolPoints = new Vector3[points.Length];
+			for(int i = 0; i < points.Length; i++)
+			{
+				if(Physics.Raycast(points[i].position, -Vector3.up, out hit))
+				{
+					patrolPoints[i] = points[i].position - (new Vector3(0, hit.distance, 0));
+					medianPoint += patrolPoints[i];
+				}
+				else
+				{
+					throw new UnassignedReferenceException("Error with auto patrol point generation in:" + this.name);
+				}
+			}
+			medianPoint /= patrolPoints.Length;
+		}
+		else
+		{
+			throw new MissingReferenceException("No patrol points given to Hellmet behavior");
+		}
+		Destroy(editorPatrolPoints.gameObject);
+		meshMainTex.SetColor("_ReflectColor", coolColor);
+		ReturnToCurrentPatrolPoint();
 	}
 	void OnCollisionEnter(Collision other)
 	{
@@ -34,8 +99,88 @@ public class HellmetBehavior : MonoBehaviour {
 			isStunnedTimer += Time.deltaTime;
 		}
 	}
-	void Update () {
-		ApplyBounce();
+	void OnTriggerStay(Collider other)
+	{
+		if(other.tag.Equals("FireBreath"))
+		{
+			HealthChange(-Time.deltaTime*WorldScript.thePlayer.GetAttackDamage());
+			isUnderAttack = true;
+			theAngerTimer = 0;
+		}
+	}
+	void Update ()
+	{
+		if(deathTimeoutTimer > 0)
+		{
+			if(deathTimeoutTimer > deathTimeout)
+			{
+				Destroy(gameObject);
+			}
+			deathTimeoutTimer += Time.deltaTime;
+		}
+		else
+		{
+			Vector3 distanceToPlayer = WorldScript.thePlayer.transform.position-transform.position;
+			if(isUnderAttack)
+			{
+				if(!foundPlayer)
+				{
+					foundPlayer = true;
+					attackProperties.SetNavMeshAgent(navAgent);
+					navAgent.SetDestination(WorldScript.thePlayer.transform.position);
+				}
+				theAngerTimer += Time.deltaTime;
+				if(theAngerTimer > angerTime)
+				{
+					isUnderAttack = false;
+					foundPlayer = false;
+					detectionTimeoutTimer = detectionTimeout;
+					ReturnToCurrentPatrolPoint();
+				}
+				else
+				{
+					UpdateWhenPlayerFound(distanceToPlayer);
+				}
+			}
+			else
+			{
+				if((WorldScript.thePlayer.transform.position - medianPoint).magnitude < maxAcceptableDistFromPatrolMedian)
+				{
+					if(distanceToPlayer.magnitude < foundDetectionRange && Vector3.Angle(distanceToPlayer, graphics.forward) < foundDetectionAngle)
+					{
+						if(distanceToPlayer.magnitude < detectionRange && Vector3.Angle(distanceToPlayer, graphics.forward) < detectionAngle)
+						{
+							if(!foundPlayer)
+							{
+								foundPlayer = true;
+								attackProperties.SetNavMeshAgent(navAgent);
+								navAgent.SetDestination(WorldScript.thePlayer.transform.position);
+							}
+							UpdateWhenPlayerFound(distanceToPlayer);
+						}
+						else if(foundPlayer)
+						{
+							UpdateWhenPlayerFound(distanceToPlayer);
+						}
+					}
+				}
+				else
+				{
+					foundPlayer = false;
+					detectionTimeoutTimer = detectionTimeout;
+				}
+				if(!foundPlayer)
+				{
+					UpdateNoPlayerFound();
+				}
+			}
+			HealthChange(healthRechargeRate*Time.deltaTime);
+			ApplyBounce();
+		}
+	}
+	private void UpdateWhenPlayerFound(Vector3 distanceToPlayer)
+	{
+		detectionTimeoutTimer = 0;
 		if(isStunnedTimer > 0)
 		{
 			isStunnedTimer += Time.deltaTime;
@@ -46,15 +191,81 @@ public class HellmetBehavior : MonoBehaviour {
 		}
 		else
 		{
-			if(updateCounter%framesToSkip ==0)
-			{
-				navAgent.SetDestination(WorldScript.thePlayer.transform.position);
-			}
-			updateCounter++;
+			MoveTowardsPlayer(distanceToPlayer);
 		}
-		graphics.rotation = Quaternion.RotateTowards(graphics.rotation, Quaternion.LookRotation(graphics.position - WorldScript.thePlayer.transform.position), Time.deltaTime*graphicsRotationSpeed);
 	}
-	
+	private void UpdateNoPlayerFound()
+	{
+		if(detectionTimeoutTimer > detectionTimeout)
+		{
+			PatrolPath();
+		}
+		else
+		{
+			detectionTimeoutTimer += Time.deltaTime;
+			graphics.localRotation = Quaternion.RotateTowards(graphics.localRotation, Quaternion.identity, Time.deltaTime*graphicsRotationSpeed);
+			if(detectionTimeoutTimer > detectionTimeout)
+			{
+				ReturnToCurrentPatrolPoint();
+				foundPlayer = false;
+			}
+		}
+	}
+	private void MoveTowardsPlayer(Vector3 vectorToPlayer)
+	{
+		if(updateCounter%framesToSkip ==0)
+		{
+			navAgent.SetDestination(WorldScript.thePlayer.transform.position);
+		}
+		updateCounter++;
+		graphics.rotation = Quaternion.RotateTowards(graphics.rotation, Quaternion.LookRotation(vectorToPlayer), Time.deltaTime*graphicsRotationSpeed);
+	}
+	private void ReturnToCurrentPatrolPoint()
+	{
+		patrolProperties.SetNavMeshAgent(navAgent);
+		navAgent.SetDestination(patrolPoints[currentPatrolPoint]);
+	}
+	private void PatrolPath()
+	{
+		graphics.localRotation = Quaternion.RotateTowards(graphics.localRotation, Quaternion.identity, Time.deltaTime*graphicsRotationSpeed);
+		Vector3 distanceToCurrentPoint = patrolPoints[currentPatrolPoint] - transform.position;
+		if(distanceToCurrentPoint.magnitude < acceptablePatrolPointError)
+		{
+			IncrementCurrentPatrolPoint();
+			navAgent.SetDestination(patrolPoints[currentPatrolPoint]);
+		}
+	}
+	private void IncrementCurrentPatrolPoint()
+	{
+		currentPatrolPoint++;
+		if(currentPatrolPoint >= patrolPoints.Length)
+		{
+			currentPatrolPoint = 0;
+		}
+	}
+	public void KillMe()
+	{
+		if(deathTimeoutTimer <= 0)
+		{
+			graphics.gameObject.AddComponent<Rigidbody>();
+			navAgent.enabled = false;
+			deathTimeoutTimer = .0001f;
+		}
+	}
+	public void HealthChange(float deltaHealth)
+	{
+		health += deltaHealth;
+		if(health <=0)
+		{
+			health = 0;
+			KillMe();
+		}
+		else if(health > maxHealth)
+		{
+			health = maxHealth;
+		}
+		meshMainTex.SetColor("_ReflectColor", Color.Lerp(coolColor, heatUpColor, (maxHealth-health)/maxHealth));
+	}
 	private void ApplyBounce()
 	{
 		float temp = Mathf.Sin(bounceSpeed*Time.timeSinceLevelLoad);

@@ -50,9 +50,11 @@
      <Compile Include="Assets\CoinController.cs" />
      <Compile Include="Assets\Config.cs" />
      <Compile Include="Assets\DrumRoller.cs" />
+     <Compile Include="Assets\ExplosionScript.cs" />
      <Compile Include="Assets\FallingIcicleBehavior.cs" />
      <Compile Include="Assets\GameGUI.cs" />
      <Compile Include="Assets\HellmetBehavior.cs" />
+     <Compile Include="Assets\NavMeshSettings.cs" />
      <Compile Include="Assets\PlatformController.cs" />
      <Compile Include="Assets\PlayerController.cs" />
      <Compile Include="Assets\RockGenerator.cs" />

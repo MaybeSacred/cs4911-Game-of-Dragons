@@ -73,16 +73,19 @@ public class PlayerController : MonoBehaviour
 		case "Gem":
 			Destroy (other.gameObject);
 			gems++;
+			HealthChange(maxHealth);
 			break;
 
 		case "SmallGem":
 			Destroy (other.gameObject);
 			smallGems++;
+			HealthChange(2);
 			break;
 
 		case "Coin":
 			Destroy (other.gameObject);
 			coins++;
+			HealthChange(1);
 			break;
 		}
 	}
@@ -166,7 +169,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public float getFlameScale()
+	public float GetFlameScale()
 	{
 		if (flameStartSize == 0)
 			return 0;
@@ -174,9 +177,9 @@ public class PlayerController : MonoBehaviour
 			return flames.startSize / flameStartSize;
 	}
 
-	public float getAttackDamage()
+	public float GetAttackDamage()
 	{
-		return getFlameScale() * maxAttackStrength;
+		return GetFlameScale() * maxAttackStrength;
 	}
 
 	private void UpdateGroundedState()
@@ -214,6 +217,7 @@ public class PlayerController : MonoBehaviour
 			health = maxHealth;
 		}
 	}
+
 	//----------
 	// Velocity Functions
 

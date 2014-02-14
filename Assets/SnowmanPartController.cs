@@ -17,9 +17,9 @@ public class SnowmanPartController : MonoBehaviour
 		case "FireBreath":
 			PlayerController pc = (PlayerController)(GameObject.FindGameObjectWithTag("Player").GetComponent("PlayerController"));
 			transform.localScale = new Vector3(
-				transform.localScale.x - .9f * pc.getFlameScale() * Time.deltaTime, 
-				transform.localScale.y - .9f * pc.getFlameScale() * Time.deltaTime,
-				transform.localScale.z - .9f * pc.getFlameScale() * Time.deltaTime
+				transform.localScale.x - .9f * pc.GetFlameScale() * Time.deltaTime, 
+				transform.localScale.y - .9f * pc.GetFlameScale() * Time.deltaTime,
+				transform.localScale.z - .9f * pc.GetFlameScale() * Time.deltaTime
 			);
 			break;
 		}
