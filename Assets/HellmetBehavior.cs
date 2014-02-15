@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class HellmetBehavior : MonoBehaviour {
+	public Transform deathParticleSystem;
 	public Transform editorPatrolPoints;
 	public NavMeshSettings patrolProperties;
 	public NavMeshSettings attackProperties;
@@ -116,8 +117,10 @@ public class HellmetBehavior : MonoBehaviour {
 		{
 			if(deathTimeoutTimer > deathTimeout)
 			{
+				Instantiate(deathParticleSystem, graphics.position, graphics.rotation);
 				Destroy(gameObject);
 			}
+			GetComponentInChildren<ParticleSystem>().emissionRate = Mathf.Lerp(GetComponentInChildren<ParticleSystem>().emissionRate, 0, Time.deltaTime);
 			deathTimeoutTimer += Time.deltaTime;
 		}
 		else

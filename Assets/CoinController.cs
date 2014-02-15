@@ -10,6 +10,6 @@ public class CoinController : MonoBehaviour {
 	
 	void Update () 
 	{
-		transform.RotateAround (transform.position, Vector3.up, rotationSpeed * Mathf.Rad2Deg * Time.deltaTime);
+		transform.localRotation *= new Quaternion(0, Mathf.Sin(rotationSpeed*Time.deltaTime), 0, Mathf.Cos(rotationSpeed*Time.deltaTime));
 	}
 }
