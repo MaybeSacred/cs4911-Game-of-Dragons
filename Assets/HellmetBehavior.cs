@@ -161,11 +161,6 @@ public class HellmetBehavior : MonoBehaviour {
 								attackProperties.SetNavMeshAgent(navAgent);
 								navAgent.SetDestination(WorldScript.thePlayer.transform.position);
 							}
-							UpdateWhenPlayerFound(distanceToPlayer);
-						}
-						else if(foundPlayer)
-						{
-							UpdateWhenPlayerFound(distanceToPlayer);
 						}
 					}
 					else
@@ -181,7 +176,11 @@ public class HellmetBehavior : MonoBehaviour {
 				{
 					foundPlayer = false;
 				}
-				if(!foundPlayer)
+				if(foundPlayer)
+				{
+					UpdateWhenPlayerFound(distanceToPlayer);
+				}
+				else
 				{
 					UpdateNoPlayerFound();
 				}

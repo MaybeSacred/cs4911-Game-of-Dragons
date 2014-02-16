@@ -165,16 +165,17 @@ public class PlayerController : MonoBehaviour
 			if(flameTimer > 0)
 			{
 				flameTimer -= flameRechargeSpeed * Time.deltaTime;
+				if(flameTimer <= 0)
+				{
+					flameTimer = 0;
+				}
 			}
 		}
 	}
 
 	public float GetFlameScale()
 	{
-		if (flameStartSize == 0)
-			return 0;
-		else
-			return flames.startSize / flameStartSize;
+		return (flameDuration-flameTimer) / flameDuration;
 	}
 
 	public float GetAttackDamage()
