@@ -1,11 +1,11 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class WorldScript : MonoBehaviour 
 {
 	public static PlayerController thePlayer;
 
-	public ArrayList<IResettable> objectsToReset;
+	public List<IResettable> objectsToReset;
 
 	void Start()
 	{

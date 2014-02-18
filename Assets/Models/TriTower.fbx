@@ -11,9 +11,9 @@ FBXHeaderExtension:  {
 		Year: 2014
 		Month: 02
 		Day: 17
-		Hour: 15
-		Minute: 49
-		Second: 35
+		Hour: 22
+		Minute: 14
+		Second: 29
 		Millisecond: 0
 	}
 	Creator: "FBX SDK/FBX Plugins build 20070228"
@@ -21,7 +21,7 @@ FBXHeaderExtension:  {
 		FlagPLE: 0
 	}
 }
-CreationTime: "2014-02-17 15:49:35:000"
+CreationTime: "2014-02-17 22:14:29:000"
 Creator: "Blender version 2.69 (sub 0)"
 
 ; Object definitions
@@ -29,7 +29,7 @@ Creator: "Blender version 2.69 (sub 0)"
 
 Definitions:  {
 	Version: 100
-	Count: 19
+	Count: 22
 	ObjectType: "Model" {
 		Count: 9
 	}
@@ -37,13 +37,13 @@ Definitions:  {
 		Count: 1
 	}
 	ObjectType: "Material" {
-		Count: 3
+		Count: 4
 	}
 	ObjectType: "Texture" {
-		Count: 3
+		Count: 4
 	}
 	ObjectType: "Video" {
-		Count: 3
+		Count: 4
 	}
 	ObjectType: "Pose" {
 		Count: 1
@@ -221,12 +221,12 @@ Objects:  {
 		MultiTake: 1
 		Shading: Y
 		Culling: "CullingOff"
-		Vertices: 0.000000,1.414214,-1.000000,2.747618,-0.000000,-1.000000,-0.000000,-1.414213,-1.000000,-1.414214,0.000001,-1.000000,
+		Vertices: 0.000000,1.414214,-2.419026,2.747618,-0.000000,-2.419026,-0.000000,-1.414213,-2.419026,-1.414214,0.000001,-2.419026,
 		          0.000001,1.414214,1.000000,2.747618,-0.000001,1.000000,-0.000001,-1.414214,1.000000,-1.414214,0.000000,1.000000,
-		          -0.088389,-1.502602,-1.000000,-1.502602,-0.088388,-1.000000,-0.088389,-1.502602,1.000000,-1.502602,-0.088388,1.000000,
-		          -0.088388,1.502602,-1.000000,-1.502602,0.088389,-1.000000,-0.088388,1.502602,1.000000,-1.502602,0.088388,1.000000,
-		          0.057205,1.525356,-1.000000,2.804823,0.111142,-1.000000,0.057206,1.525356,1.000000,2.804823,0.111141,1.000000,
-		          2.804823,-0.111142,-1.000000,0.057205,-1.525355,-1.000000,2.804823,-0.111143,1.000000,0.057205,-1.525356,1.000000,
+		          -0.088389,-1.502602,-2.419026,-1.502602,-0.088388,-2.419026,-0.088389,-1.502602,1.000000,-1.502602,-0.088388,1.000000,
+		          -0.088388,1.502602,-2.419026,-1.502602,0.088389,-2.419026,-0.088388,1.502602,1.000000,-1.502602,0.088388,1.000000,
+		          0.057205,1.525356,-2.419026,2.804823,0.111142,-2.419026,0.057206,1.525356,1.000000,2.804823,0.111141,1.000000,
+		          2.804823,-0.111142,-2.419026,0.057205,-1.525355,-2.419026,2.804823,-0.111143,1.000000,0.057205,-1.525356,1.000000,
 		          2.804935,-0.000001,1.889546,-1.502602,0.000000,1.463317,-1.502602,-0.088388,1.418346,-1.491995,-0.077782,1.433762,
 		          -1.502602,-0.072973,1.433762,-0.077777,-1.491990,1.120146,-0.088391,-1.502600,1.105127,-1.209153,-0.360624,1.338978,
 		          -1.222052,-0.368938,1.324331,-0.926310,-0.643467,1.256668,-0.938899,-0.652092,1.241931,-0.643468,-0.926310,1.186769,
@@ -454,38 +454,41 @@ Objects:  {
 			Name: "UVMap"
 			MappingInformationType: "ByPolygonVertex"
 			ReferenceInformationType: "IndexToDirect"
-			UV: -2.164296,-0.129927,3.199349,2.056922,0.657905,0.420559,-0.506560,1.873038,0.000000,1.000000,2.840386,0.250037,
-			    4.989666,0.625568,-2.372483,-0.313812,0.110162,0.250037,3.240052,-0.129928,-0.448766,4.125739,-0.506554,2.056923,
-			    1.000000,1.000000,0.070200,1.841497,3.417958,2.808446,1.314422,2.385345,2.716236,2.589990,-0.240437,0.625569,
-			    -0.174820,-0.522658,3.240051,-1.578083,-2.372480,-0.129927,0.403350,1.838467,-0.028816,1.658399,3.417952,1.188345,
-			    2.169317,-1.014470,1.252703,0.998643,3.253862,-1.608262,-3.948936,4.125741,-1.986390,1.372230,2.298766,0.692786,
-			    3.417957,1.372230,2.334895,1.113951,-1.986392,-0.075925,0.110161,0.106526,-0.240437,4.125741,3.417957,1.325293,
-			    0.394557,1.763348,4.989666,-2.874601,1.515231,-0.756457,2.362469,-1.011502,-2.141023,1.393368,3.417957,-1.578084,
-			    -0.298371,2.056923,-1.622064,-0.348194,1.841497,0.499999,2.015080,2.507782,1.654207,1.222995,5.167696,-2.874601,
-			    5.167697,4.125739,3.417957,2.056922,-1.718867,1.424600,-0.540213,-0.438828,-0.372637,0.679977,1.104506,1.756258,
-			    2.505476,1.489713,-0.915656,0.487687,1.000000,0.000000,1.205208,0.484728,0.614110,2.241237,-4.126964,-2.874600,
-			    -0.874138,1.514606,0.000000,0.000000,-3.948937,0.625570,3.405951,-1.608262,-0.418464,-2.874599,-1.296560,1.464115,
-			    -0.079764,2.808447,-3.918635,0.625570,-3.918635,-2.874600,-4.167697,0.625570,0.247487,-0.562172,-1.458178,0.224485,
-			    1.752122,0.580300,0.070199,-0.841497,1.626298,-0.822181,-2.164287,-0.313759,0.110161,0.393532,0.669908,-0.612663,
-			    5.167697,0.625568,-0.418464,0.625570,-0.418465,-2.874601,5.167697,0.625569,-0.240437,4.125739,0.657906,0.079516,
-			    2.875724,1.153962,-1.081234,-0.388206,1.205209,0.015347,1.083911,-0.687729,-4.167696,4.125741,-0.841497,0.500000,
-			    -0.298366,1.873070,2.711838,-1.277673,0.711383,0.916884,1.793873,1.063328,-1.020227,-0.464546,1.805164,1.633820,
-			    2.840385,0.250038,3.199349,1.325293,3.417955,2.624561,0.110162,0.250037,0.169751,0.814429,1.752124,-0.080225,
-			    -0.596976,-0.491425,-1.020229,-0.321052,3.417957,-0.129928,1.654208,2.353385,2.298768,-0.192711,3.198256,-0.321052,
-			    -0.240436,0.625570,-2.564275,1.222995,0.818422,1.913444,1.241899,2.118892,0.542278,-0.585273,-2.564275,1.366505,
-			    -0.448766,0.625570,-4.126965,0.625570,1.938604,-0.861406,1.092449,-0.676482,-0.451598,1.578425,3.218413,1.298334,
-			    3.198256,-1.451443,0.000957,-0.503514,-0.418464,0.625569,-0.079764,2.076819,3.399407,1.298334,2.840386,-0.321052,
-			    2.840385,0.821127,2.785947,-1.216951
-			UVIndex: 80,122,67,68,61,56,12,62,114,10,27,61,56,12,4,27,88,69,62,90,42,11,3,6,79,64,37,61,56,12,4,67,115,59,68,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,61,56,12,4,89,73,44,13,61,56,12,4,5,8,
-			         33,83,86,101,106,125,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,9,0,75,43,85,51,121,112,87,74,24,91,19,61,56,12,4,96,126,29,72,57,2,76,99,61,56,12,4,61,56,12,4,61,56,12,66,123,
-			         58,15,45,16,98,14,61,56,12,61,56,12,4,37,47,78,6,30,28,32,71,55,52,100,92,25,93,31,84,23,61,56,12,4,61,56,12,61,56,12,4,61,56,12,61,56,12,4,61,56,12,61,56,12,4,61,56,12,61,56,12,4,46,105,
-			         111,110,36,22,118,60,65,50,40,113,109,10,114,17,82,81,48,34,108,0,20,7,75,61,56,12,4,61,56,12,4,49,1,97,119,124,35,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,
-			         4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,
-			         61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,1,42,90,21,53,95,54,97,61,56,12,4,61,56,12,4,61,56,12,61,56,12,61,56,12,4,61,56,12,4,61,56,
-			         12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,
-			         12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,107,103,94,102,18,70,77,117,38,116,39,127,120,61,56,12,61,56,
-			         12,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,4,61,56,12,
-			         4,104,9,19,26,63,41,61,56,12,61,56,12,61,56,12,4,61,56,12,61,56,12,4,61,56,12,4,61,56,12,4
+			UV: 0.492189,0.197916,0.076502,0.085960,0.451928,0.422657,0.803922,0.073842,-0.471397,1.262678,-0.546176,0.000000,
+			    0.455806,-1.709513,0.748699,0.544194,0.902412,0.290487,0.249319,0.000000,-0.362162,0.062403,0.748699,0.000000,
+			    -0.087151,0.088315,0.555571,-1.709513,-0.546175,0.052564,1.000000,1.000000,0.000000,1.000000,0.902412,2.000000,
+			    -0.065245,0.062457,0.463586,0.197916,0.748699,0.209173,-0.207107,-0.500000,-0.207107,0.052558,0.792893,0.500000,
+			    1.500000,0.000000,0.070200,1.841497,-0.058548,0.088315,-0.499999,0.052564,0.354311,0.159476,0.050417,0.106809,
+			    0.160931,0.290487,1.902412,-1.709513,-0.546176,2.000000,1.455806,0.290487,0.444429,0.000000,0.528602,0.737322,
+			    0.070199,-0.841497,0.359725,0.162166,0.748699,0.455806,1.216626,0.130184,0.902412,0.000000,0.168638,0.216881,
+			    1.358139,0.062457,-0.196078,0.073842,0.160931,2.000000,1.354311,0.159476,1.030551,0.120965,-0.500000,0.052558,
+			    0.218148,0.120965,0.528603,0.000000,0.739535,0.328141,0.555571,0.414028,1.902412,1.444429,1.000000,0.000000,
+			    -0.471395,0.052558,0.500000,0.000000,-0.224680,0.073842,0.463586,0.197916,0.933168,0.162166,0.792893,0.000000,
+			    0.455806,0.251301,0.528603,-1.709513,1.500001,0.052564,1.079020,0.106809,1.455806,0.000000,0.873809,0.000000,
+			    1.768138,0.328141,0.902412,0.414028,0.000000,0.000000,1.216392,0.085960,-0.471397,0.290487,0.500000,-1.207107,
+			    0.902412,0.444429,0.748699,2.000000,0.325708,0.159476,0.455806,0.748699,0.160931,0.000000,0.873809,0.500000,
+			    1.902412,0.000000,0.528602,-1.709513,0.188024,0.130184,-0.500000,0.000000,1.841497,0.499999,-0.262567,0.085960,
+			    0.941452,0.088315,0.902412,0.555571,-0.404315,0.062457,0.444429,-1.709513,0.079020,0.106809,0.546942,0.422657,
+			    1.455805,0.052573,0.528605,0.052573,0.500000,0.207107,0.768138,0.328141,0.444429,0.414028,1.313945,0.062457,
+			    1.873809,-0.500000,0.748699,0.290487,-0.362162,0.062403,0.216626,0.130184,0.888974,0.162166,1.873809,1.500000,
+			    0.528602,0.000000,-0.224681,0.073842,-0.087150,0.088315,-0.333559,0.062403,0.528603,0.262678,0.455805,0.052573,
+			    1.455806,-0.251301,0.160931,-1.709513,0.325709,0.159476,0.455806,0.000000,0.601623,0.252891,0.792893,0.209173,
+			    0.249319,-1.709513,1.630226,0.252891,0.160931,0.209173,0.249319,0.209173,-0.500000,0.000000,1.455806,2.000000,
+			    -0.841497,0.500000,1.492188,0.197916,1.902412,0.414028,-0.120921,0.120965,0.241819,0.216881,0.188023,0.130184,
+			    1.172197,0.085960,0.601624,0.252891,-0.500000,1.207107,0.020656,0.162166,-0.251301,-0.455806,0.455805,0.052564,
+			    1.500000,-0.207107,-0.471397,0.000000,0.500000,0.209173,0.455806,0.000000,0.528605,0.052558,0.050417,0.106809,
+			    1.074745,0.120965,0.666440,0.062403,-0.546176,0.290487,-0.207107,0.000000,0.555571,0.000000,0.630226,0.252891,
+			    0.873809,0.414028,-0.471397,2.000000,0.455806,-1.709513,0.500000,0.792893
+			UVIndex: 97,73,119,33,68,53,15,30,140,32,44,68,53,15,16,76,9,114,109,131,111,102,91,8,70,145,17,68,53,15,16,135,49,61,6,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,92,96,71,21,120,36,82,25,68,53,15,16,59,24,
+			         62,42,69,138,58,113,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,40,133,54,105,43,26,88,99,28,0,143,93,67,68,53,15,16,55,134,37,48,1,18,22,141,68,53,15,16,68,53,15,16,68,53,15,11,20,
+			         100,46,126,95,90,64,68,53,15,68,53,15,16,142,34,87,13,102,78,122,66,115,121,45,39,63,84,3,139,91,77,128,4,85,92,60,106,60,92,21,130,23,38,7,38,23,132,108,147,35,75,35,147,101,52,77,85,72,68,53,15,16,65,144,
+			         50,127,19,110,80,137,104,56,10,27,81,111,146,79,102,102,79,31,78,49,135,107,136,68,53,15,16,68,53,15,16,9,76,116,41,124,117,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,
+			         16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,
+			         68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,76,5,14,86,83,123,129,116,68,53,15,16,68,53,15,16,68,53,15,68,53,15,68,53,15,16,68,53,15,16,68,53,
+			         15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,
+			         15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,65,118,47,98,103,12,29,125,74,57,112,50,144,68,53,15,68,53,
+			         15,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,16,68,53,15,
+			         16,34,142,51,89,2,94,68,53,15,68,53,15,68,53,15,16,68,53,15,68,53,15,16,68,53,15,16,68,53,15,16
 		}
 		LayerElementTexture: 0 {
 			Version: 101
@@ -494,18 +497,18 @@ Objects:  {
 			ReferenceInformationType: "IndexToDirect"
 			BlendMode: "Translucent"
 			TextureAlpha: 1
-			TextureId: 0,0,0,2,0,0,0,2,0,2,2,2,1,0,0,2,0,2,2,2,2,2,0,2,0,2,2,2,0,2,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-			           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,2,1,2,2,1,1,2,1,1,1,1,1,1,1,2,2,1,1,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,
-			           1,1,1,1,1,1,0,2,2,2,1,2,2,2
+			TextureId: 1,2,1,3,1,1,1,3,1,3,3,3,2,1,0,3,1,3,3,3,3,3,1,3,1,3,3,3,1,3,3,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,
+			           2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,
+			           2,2,2,2,2,2,1,3,3,3,2,3,3,3
 		}
 		LayerElementMaterial: 0 {
 			Version: 101
 			Name: ""
 			MappingInformationType: "ByPolygon"
 			ReferenceInformationType: "IndexToDirect"
-			Materials: 0,0,0,2,0,0,0,2,0,2,2,2,1,0,0,2,0,2,2,2,2,2,0,2,0,2,2,2,0,2,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-			           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,2,1,2,2,1,1,2,1,1,1,1,1,1,1,2,2,1,1,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,
-			           1,1,1,1,1,1,0,2,2,2,1,2,2,2
+			Materials: 1,2,1,3,1,1,1,3,1,3,3,3,2,1,0,3,1,3,3,3,3,3,1,3,1,3,3,3,1,3,3,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,
+			           2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,
+			           2,2,2,2,2,2,1,3,3,3,2,3,3,3
 		}
 		Layer: 0 {
 			Version: 100
@@ -1609,6 +1612,36 @@ Objects:  {
 		AudioColor: 0,1,0
 		CameraOrthoZoom: 1
 	}
+	Material: "Material::Material__Blue_Painted_Tiles_jpg", "" {
+		Version: 102
+		ShadingModel: "lambert"
+		MultiLayer: 0
+		Properties60:  {
+			Property: "ShadingModel", "KString", "", "Lambert"
+			Property: "MultiLayer", "bool", "",0
+			Property: "EmissiveColor", "ColorRGB", "",0.8000,0.8000,0.8000
+			Property: "EmissiveFactor", "double", "",0.0000
+			Property: "AmbientColor", "ColorRGB", "",1.0000,1.0000,1.0000
+			Property: "AmbientFactor", "double", "",1.0000
+			Property: "DiffuseColor", "ColorRGB", "",0.8000,0.8000,0.8000
+			Property: "DiffuseFactor", "double", "",0.8000
+			Property: "Bump", "Vector3D", "",0,0,0
+			Property: "TransparentColor", "ColorRGB", "",1,1,1
+			Property: "TransparencyFactor", "double", "",0.0000
+			Property: "SpecularColor", "ColorRGB", "",1.0000,1.0000,1.0000
+			Property: "SpecularFactor", "double", "",0.5000
+			Property: "ShininessExponent", "double", "",12.3
+			Property: "ReflectionColor", "ColorRGB", "",0,0,0
+			Property: "ReflectionFactor", "double", "",1
+			Property: "Emissive", "ColorRGB", "",0,0,0
+			Property: "Ambient", "ColorRGB", "",1.0,1.0,1.0
+			Property: "Diffuse", "ColorRGB", "",0.8,0.8,0.8
+			Property: "Specular", "ColorRGB", "",1.0,1.0,1.0
+			Property: "Shininess", "double", "",12.3
+			Property: "Opacity", "double", "",1.0
+			Property: "Reflectivity", "double", "",0
+		}
+	}
 	Material: "Material::Material__SnowBricksNew_Diffuse_jpg", "" {
 		Version: 102
 		ShadingModel: "lambert"
@@ -1699,6 +1732,27 @@ Objects:  {
 			Property: "Reflectivity", "double", "",0
 		}
 	}
+	Video: "Video::Blue_Painted_Tiles_jpg", "Clip" {
+		Type: "Clip"
+		Properties60:  {
+			Property: "FrameRate", "double", "",0
+			Property: "LastFrame", "int", "",0
+			Property: "Width", "int", "",0
+			Property: "Height", "int", "",0
+			Property: "Path", "charptr", "", "Blue Painted Tiles.jpg"
+			Property: "StartFrame", "int", "",0
+			Property: "StopFrame", "int", "",0
+			Property: "PlaySpeed", "double", "",1
+			Property: "Offset", "KTime", "",0
+			Property: "InterlaceMode", "enum", "",0
+			Property: "FreeRunning", "bool", "",0
+			Property: "Loop", "bool", "",0
+			Property: "AccessMode", "enum", "",0
+		}
+		UseMipMap: 0
+		Filename: "Blue Painted Tiles.jpg"
+		RelativeFilename: "C:\Users\Jon\Documents\GitHub\cs4911-Game-of-Dragons\Assets\Images\Blue Painted Tiles.jpg"
+	}
 	Video: "Video::SnowBricksNew_Diffuse_jpg", "Clip" {
 		Type: "Clip"
 		Properties60:  {
@@ -1727,7 +1781,7 @@ Objects:  {
 			Property: "LastFrame", "int", "",0
 			Property: "Width", "int", "",0
 			Property: "Height", "int", "",0
-			Property: "Path", "charptr", "", "."
+			Property: "Path", "charptr", "", "blue.png"
 			Property: "StartFrame", "int", "",0
 			Property: "StopFrame", "int", "",0
 			Property: "PlaySpeed", "double", "",1
@@ -1738,8 +1792,8 @@ Objects:  {
 			Property: "AccessMode", "enum", "",0
 		}
 		UseMipMap: 0
-		Filename: "."
-		RelativeFilename: "."
+		Filename: "blue.png"
+		RelativeFilename: "Materials\blue.png"
 	}
 	Video: "Video::Untitled_001", "Clip" {
 		Type: "Clip"
@@ -1748,7 +1802,7 @@ Objects:  {
 			Property: "LastFrame", "int", "",0
 			Property: "Width", "int", "",0
 			Property: "Height", "int", "",0
-			Property: "Path", "charptr", "", "."
+			Property: "Path", "charptr", "", "purple.png"
 			Property: "StartFrame", "int", "",0
 			Property: "StopFrame", "int", "",0
 			Property: "PlaySpeed", "double", "",1
@@ -1759,8 +1813,37 @@ Objects:  {
 			Property: "AccessMode", "enum", "",0
 		}
 		UseMipMap: 0
-		Filename: "."
-		RelativeFilename: "."
+		Filename: "purple.png"
+		RelativeFilename: "Materials\purple.png"
+	}
+	Texture: "Texture::Blue_Painted_Tiles_jpg", "TextureVideoClip" {
+		Type: "TextureVideoClip"
+		Version: 202
+		TextureName: "Texture::Blue_Painted_Tiles_jpg"
+		Properties60:  {
+			Property: "Translation", "Vector", "A+",0,0,0
+			Property: "Rotation", "Vector", "A+",0,0,0
+			Property: "Scaling", "Vector", "A+",1,1,1
+			Property: "Texture alpha", "Number", "A+",0
+			Property: "TextureTypeUse", "enum", "",0
+			Property: "CurrentTextureBlendMode", "enum", "",1
+			Property: "UseMaterial", "bool", "",0
+			Property: "UseMipMap", "bool", "",0
+			Property: "CurrentMappingType", "enum", "",0
+			Property: "UVSwap", "bool", "",0
+			Property: "WrapModeU", "enum", "",0
+			Property: "WrapModeV", "enum", "",0
+			Property: "TextureRotationPivot", "Vector3D", "",0,0,0
+			Property: "TextureScalingPivot", "Vector3D", "",0,0,0
+			Property: "VideoProperty", "object", ""
+		}
+		Media: "Video::Blue_Painted_Tiles_jpg"
+		FileName: "Blue Painted Tiles.jpg"
+		RelativeFilename: "C:\Users\Jon\Documents\GitHub\cs4911-Game-of-Dragons\Assets\Images\Blue Painted Tiles.jpg"
+		ModelUVTranslation: 0,0
+		ModelUVScaling: 1,1
+		Texture_Alpha_Source: "None"
+		Cropping: 0,0,0,0
 	}
 	Texture: "Texture::SnowBricksNew_Diffuse_jpg", "TextureVideoClip" {
 		Type: "TextureVideoClip"
@@ -1770,7 +1853,7 @@ Objects:  {
 			Property: "Translation", "Vector", "A+",0,0,0
 			Property: "Rotation", "Vector", "A+",0,0,0
 			Property: "Scaling", "Vector", "A+",1,1,1
-			Property: "Texture alpha", "Number", "A+",0
+			Property: "Texture alpha", "Number", "A+",1
 			Property: "TextureTypeUse", "enum", "",0
 			Property: "CurrentTextureBlendMode", "enum", "",1
 			Property: "UseMaterial", "bool", "",0
@@ -1799,35 +1882,6 @@ Objects:  {
 			Property: "Translation", "Vector", "A+",0,0,0
 			Property: "Rotation", "Vector", "A+",0,0,0
 			Property: "Scaling", "Vector", "A+",1,1,1
-			Property: "Texture alpha", "Number", "A+",1
-			Property: "TextureTypeUse", "enum", "",0
-			Property: "CurrentTextureBlendMode", "enum", "",1
-			Property: "UseMaterial", "bool", "",0
-			Property: "UseMipMap", "bool", "",0
-			Property: "CurrentMappingType", "enum", "",0
-			Property: "UVSwap", "bool", "",0
-			Property: "WrapModeU", "enum", "",0
-			Property: "WrapModeV", "enum", "",0
-			Property: "TextureRotationPivot", "Vector3D", "",0,0,0
-			Property: "TextureScalingPivot", "Vector3D", "",0,0,0
-			Property: "VideoProperty", "object", ""
-		}
-		Media: "Video::Untitled"
-		FileName: "."
-		RelativeFilename: "."
-		ModelUVTranslation: 0,0
-		ModelUVScaling: 1,1
-		Texture_Alpha_Source: "None"
-		Cropping: 0,0,0,0
-	}
-	Texture: "Texture::Untitled_001", "TextureVideoClip" {
-		Type: "TextureVideoClip"
-		Version: 202
-		TextureName: "Texture::Untitled_001"
-		Properties60:  {
-			Property: "Translation", "Vector", "A+",0,0,0
-			Property: "Rotation", "Vector", "A+",0,0,0
-			Property: "Scaling", "Vector", "A+",1,1,1
 			Property: "Texture alpha", "Number", "A+",2
 			Property: "TextureTypeUse", "enum", "",0
 			Property: "CurrentTextureBlendMode", "enum", "",1
@@ -1841,9 +1895,38 @@ Objects:  {
 			Property: "TextureScalingPivot", "Vector3D", "",0,0,0
 			Property: "VideoProperty", "object", ""
 		}
+		Media: "Video::Untitled"
+		FileName: "blue.png"
+		RelativeFilename: "Materials\blue.png"
+		ModelUVTranslation: 0,0
+		ModelUVScaling: 1,1
+		Texture_Alpha_Source: "None"
+		Cropping: 0,0,0,0
+	}
+	Texture: "Texture::Untitled_001", "TextureVideoClip" {
+		Type: "TextureVideoClip"
+		Version: 202
+		TextureName: "Texture::Untitled_001"
+		Properties60:  {
+			Property: "Translation", "Vector", "A+",0,0,0
+			Property: "Rotation", "Vector", "A+",0,0,0
+			Property: "Scaling", "Vector", "A+",1,1,1
+			Property: "Texture alpha", "Number", "A+",3
+			Property: "TextureTypeUse", "enum", "",0
+			Property: "CurrentTextureBlendMode", "enum", "",1
+			Property: "UseMaterial", "bool", "",0
+			Property: "UseMipMap", "bool", "",0
+			Property: "CurrentMappingType", "enum", "",0
+			Property: "UVSwap", "bool", "",0
+			Property: "WrapModeU", "enum", "",0
+			Property: "WrapModeV", "enum", "",0
+			Property: "TextureRotationPivot", "Vector3D", "",0,0,0
+			Property: "TextureScalingPivot", "Vector3D", "",0,0,0
+			Property: "VideoProperty", "object", ""
+		}
 		Media: "Video::Untitled_001"
-		FileName: "."
-		RelativeFilename: "."
+		FileName: "purple.png"
+		RelativeFilename: "Materials\purple.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"
@@ -1896,17 +1979,23 @@ Relations:  {
 	}
 	Model: "Model::Camera Switcher", "CameraSwitcher" {
 	}
+	Material: "Material::Material__Blue_Painted_Tiles_jpg", "" {
+	}
 	Material: "Material::Material__SnowBricksNew_Diffuse_jpg", "" {
 	}
 	Material: "Material::Material__Untitled", "" {
 	}
 	Material: "Material::Material__Untitled_001", "" {
 	}
+	Texture: "Texture::Blue_Painted_Tiles_jpg", "TextureVideoClip" {
+	}
 	Texture: "Texture::SnowBricksNew_Diffuse_jpg", "TextureVideoClip" {
 	}
 	Texture: "Texture::Untitled", "TextureVideoClip" {
 	}
 	Texture: "Texture::Untitled_001", "TextureVideoClip" {
+	}
+	Video: "Video::Blue_Painted_Tiles_jpg", "Clip" {
 	}
 	Video: "Video::SnowBricksNew_Diffuse_jpg", "Clip" {
 	}
@@ -1921,12 +2010,15 @@ Relations:  {
 
 Connections:  {
 	Connect: "OO", "Model::Cube", "Model::Scene"
+	Connect: "OO", "Material::Material__Blue_Painted_Tiles_jpg", "Model::Cube"
 	Connect: "OO", "Material::Material__SnowBricksNew_Diffuse_jpg", "Model::Cube"
 	Connect: "OO", "Material::Material__Untitled", "Model::Cube"
 	Connect: "OO", "Material::Material__Untitled_001", "Model::Cube"
+	Connect: "OO", "Texture::Blue_Painted_Tiles_jpg", "Model::Cube"
 	Connect: "OO", "Texture::SnowBricksNew_Diffuse_jpg", "Model::Cube"
 	Connect: "OO", "Texture::Untitled", "Model::Cube"
 	Connect: "OO", "Texture::Untitled_001", "Model::Cube"
+	Connect: "OO", "Video::Blue_Painted_Tiles_jpg", "Texture::Blue_Painted_Tiles_jpg"
 	Connect: "OO", "Video::SnowBricksNew_Diffuse_jpg", "Texture::SnowBricksNew_Diffuse_jpg"
 	Connect: "OO", "Video::Untitled", "Texture::Untitled"
 	Connect: "OO", "Video::Untitled_001", "Texture::Untitled_001"

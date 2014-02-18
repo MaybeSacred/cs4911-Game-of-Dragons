@@ -12,16 +12,20 @@ public class CameraScript : MonoBehaviour
 
 	public float movingRotationSpeed;
 	public float stationaryRotationSpeed;
-
+	
 	public float yAxisUpperAngleBound, yAxisLowerAngleBound;
 
-	public Vector3 cameraOffset;
-	public float minCameraOffset, maxCameraOffset;
+	private float currentCameraOffset, attemptedCameraOffset;
+	public float attemptedZoomSpeed;
+	public float zoomSpeed;
+	public float minZoomCameraOffset, maxZoomCameraOffset;
 
 	public float scrollSpeed;
 
 	void Start () {
+		yAxisUpperAngleBound += 360;
 		mousePos = new Vector2();
+		attemptedCameraOffset = (maxZoomCameraOffset+minZoomCameraOffset)/2;
 	}
 
 	void Update () 
@@ -35,15 +39,21 @@ public class CameraScript : MonoBehaviour
 		mousePos.y = Input.GetAxis("Mouse Y");
 
 		// rotate vertically
-		if (transform.eulerAngles.x + mousePos.y * mouseSensitivity.y < yAxisUpperAngleBound)
-			transform.eulerAngles = new Vector3 (yAxisUpperAngleBound, transform.eulerAngles.y, transform.eulerAngles.z);
-		else if (transform.eulerAngles.x + mousePos.y * mouseSensitivity.y > yAxisLowerAngleBound)
-	 		transform.eulerAngles = new Vector3 (yAxisLowerAngleBound, transform.eulerAngles.y, transform.eulerAngles.z);
+		if (transform.eulerAngles.x + mousePos.y * mouseSensitivity.y < yAxisUpperAngleBound && transform.eulerAngles.x + mousePos.y * mouseSensitivity.y > yAxisLowerAngleBound)
+		{
+			if(transform.eulerAngles.x + mousePos.y * mouseSensitivity.y > 180)
+			{
+				transform.eulerAngles = new Vector3 (yAxisUpperAngleBound, transform.eulerAngles.y + mousePos.x * mouseSensitivity.x, transform.eulerAngles.z);
+			}
+			else
+			{
+				transform.eulerAngles = new Vector3 (yAxisLowerAngleBound, transform.eulerAngles.y + mousePos.x * mouseSensitivity.x, transform.eulerAngles.z);
+			}
+		}
 		else
-			transform.RotateAround (Vector3.zero, transform.right, mousePos.y * mouseSensitivity.y);
-
-		// rotate horizontally
-		transform.RotateAround (Vector3.zero, Vector3.up, mousePos.x * mouseSensitivity.x);
+		{
+			transform.eulerAngles = new Vector3 (transform.eulerAngles.x + mousePos.y * mouseSensitivity.y, transform.eulerAngles.y + mousePos.x * mouseSensitivity.x, transform.eulerAngles.z);
+		}
 
 		// rotate to make player run in circle
 		Vector3 xzSpeed = new Vector3(playerCharacter.rigidbody.velocity.x, 0, playerCharacter.rigidbody.velocity.z);
@@ -53,8 +63,10 @@ public class CameraScript : MonoBehaviour
 			xzDist = .0001f;  // prevent divide by zero
 		float deltaAngle = rightSpeed / xzDist;
 		//transform.RotateAround (Vector3.zero, Vector3.up, deltaAngle);
-
+		attemptedCameraOffset -= Input.GetAxisRaw("Mouse ScrollWheel")*Time.deltaTime*attemptedZoomSpeed;
+		attemptedCameraOffset = Mathf.Clamp(attemptedCameraOffset, minZoomCameraOffset, maxZoomCameraOffset);
+		currentCameraOffset = Mathf.Lerp(currentCameraOffset, attemptedCameraOffset, Time.deltaTime*zoomSpeed);
 		// set camera based on rotation
-		transform.position = playerCharacter.transform.position - transform.forward * maxCameraOffset;
+		transform.position = playerCharacter.transform.position - transform.forward * currentCameraOffset;
 	}
 }
