@@ -10,6 +10,6 @@ public class CoinController : MonoBehaviour {
 	
 	void Update () 
 	{
-		transform.localRotation *= new Quaternion(0, Mathf.Sin(rotationSpeed*Time.deltaTime), 0, Mathf.Cos(rotationSpeed*Time.deltaTime));
+		transform.rotation *= new Quaternion(0, Mathf.Sin(rotationSpeed*Time.deltaTime), 0, Mathf.Cos(rotationSpeed*Time.deltaTime));
 	}
 }

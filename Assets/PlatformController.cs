@@ -4,6 +4,7 @@ using System.Collections;
 public class PlatformController : MonoBehaviour {
 	private Vector3 startPosition;
 	public Vector3 endPosition;
+	public bool endPositionIsFromStart;
 	public float movementSpeed;
 	private float movementTimer;
 	private float totalTimeToNextPoint;
@@ -13,11 +14,18 @@ public class PlatformController : MonoBehaviour {
 	private bool movingTowardsEnd;
 	void Start () {
 		startPosition = transform.position;
+		if(endPositionIsFromStart)
+		{
+			endPosition = endPosition + transform.position;
+		}
 		if(movementSpeed > 0)
 		{
-			totalTimeToNextPoint = endPosition.magnitude/movementSpeed;
+			totalTimeToNextPoint = (endPosition-startPosition).magnitude/movementSpeed;
 		}
-		endPosition = endPosition + transform.position;
+		if(totalTimeToNextPoint <=0)
+		{
+			throw new UnassignedReferenceException("Error in " + this.name + ": endPosition unassigned or incorrectly applied");
+		}
 	}
 	
 	void Update () 

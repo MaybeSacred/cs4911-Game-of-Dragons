@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 
 public class HellmetBehavior : MonoBehaviour {
+	public Color angryLightColor;
+	public float angryLightIntensity;
+	private Color normalLightColor;
+	private float normalLightIntensity;
+	private Light guardLight;
 	public Transform deathParticleSystem;
 	public Transform editorPatrolPoints;
 	public List<HellmetBehavior> friends;
@@ -56,6 +61,9 @@ public class HellmetBehavior : MonoBehaviour {
 	public float angerTime;
 	private float theAngerTimer;
 	void Start () {
+		guardLight = GetComponentInChildren<Light>();
+		normalLightColor = guardLight.color;
+		normalLightIntensity = guardLight.intensity;
 		HealthChange(maxHealth);
 		navAgent = GetComponent<NavMeshAgent>();
 		meshMainTex = (Material)Instantiate(meshMainTex);
@@ -84,7 +92,7 @@ public class HellmetBehavior : MonoBehaviour {
 		}
 		else
 		{
-			throw new MissingReferenceException("No patrol points given to Hellmet behavior");
+			throw new MissingReferenceException(this.name + " contains no control points");
 		}
 		Destroy(editorPatrolPoints.gameObject);
 		meshMainTex.SetColor("_ReflectColor", coolColor);
@@ -121,6 +129,7 @@ public class HellmetBehavior : MonoBehaviour {
 				Instantiate(deathParticleSystem, graphics.position, graphics.rotation);
 				Destroy(gameObject);
 			}
+			guardLight.intensity = Mathf.Lerp(guardLight.intensity, 0, Time.deltaTime);
 			GetComponentInChildren<ParticleSystem>().emissionRate = Mathf.Lerp(GetComponentInChildren<ParticleSystem>().emissionRate, 0, Time.deltaTime);
 			deathTimeoutTimer += Time.deltaTime;
 		}
@@ -134,6 +143,7 @@ public class HellmetBehavior : MonoBehaviour {
 					foundPlayer = true;
 					AlertFriends();
 					attackProperties.SetNavMeshAgent(navAgent);
+					SetAngryLight();
 					navAgent.SetDestination(WorldScript.thePlayer.transform.position);
 				}
 				theAngerTimer += Time.deltaTime;
@@ -141,6 +151,7 @@ public class HellmetBehavior : MonoBehaviour {
 				{
 					isUnderAttack = false;
 					foundPlayer = false;
+					SetNormalLight();
 					detectionTimeoutTimer = detectionTimeout;
 					ReturnToCurrentPatrolPoint();
 				}
@@ -161,6 +172,7 @@ public class HellmetBehavior : MonoBehaviour {
 							{
 								foundPlayer = true;
 								AlertFriends();
+								SetAngryLight();
 								attackProperties.SetNavMeshAgent(navAgent);
 								navAgent.SetDestination(WorldScript.thePlayer.transform.position);
 							}
@@ -172,6 +184,7 @@ public class HellmetBehavior : MonoBehaviour {
 						if(detectionTimeoutTimer > detectionTimeout)
 						{
 							foundPlayer = false;
+							SetNormalLight();
 						}
 					}
 				}
@@ -288,6 +301,16 @@ public class HellmetBehavior : MonoBehaviour {
 			health = maxHealth;
 		}
 		meshMainTex.SetColor("_ReflectColor", Color.Lerp(coolColor, heatUpColor, (maxHealth-health)/maxHealth));
+	}
+	private void SetAngryLight()
+	{
+		guardLight.intensity = angryLightIntensity;
+		guardLight.color = angryLightColor;
+	}
+	private void SetNormalLight()
+	{
+		guardLight.intensity = normalLightIntensity;
+		guardLight.color = normalLightColor;
 	}
 	private void ApplyBounce()
 	{
