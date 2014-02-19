@@ -204,8 +204,8 @@ public class HellmetBehavior : GameBehaviour {
 				{
 					UpdateNoPlayerFound();
 				}
+				HealthChange(healthRechargeRate*Time.deltaTime);
 			}
-			HealthChange(healthRechargeRate*Time.deltaTime);
 			ApplyBounce();
 		}
 	}

@@ -12,7 +12,7 @@ public class RestartSetter : MonoBehaviour {
 	{
 		if(other.tag.Equals("Player"))
 		{
-			WorldScript.player.SetLastCheckpoint(desiredPosition + transform.position, desiredRotation, checkPointNumber);
+			//WorldScript.thePlayer.SetLastCheckpoint(desiredPosition + transform.position, desiredRotation, checkPointNumber);
 		}
 	}
 }
