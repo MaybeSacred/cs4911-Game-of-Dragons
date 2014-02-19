@@ -6,7 +6,7 @@ public class GameBehaviour : MonoBehaviour
 	protected virtual void Start()
 	{
 		IResettable resettable = this as IResettable;
-		if (resettable == null) 
+		if (resettable != null) 
 		{
 			WorldScript world = (WorldScript)(GameObject.Find("World").GetComponent("WorldScript"));
 			world.objectsToReset.Add(resettable);

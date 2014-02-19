@@ -23,4 +23,13 @@ public class WorldScript : GameBehaviour
 			}
 		}
 	}
+
+	public void reset()
+	{
+		foreach (IResettable resettable in objectsToReset) 
+		{
+			if (resettable != null)
+				resettable.Reset ();
+		}
+	}
 }

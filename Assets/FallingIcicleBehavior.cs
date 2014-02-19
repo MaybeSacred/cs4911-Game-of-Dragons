@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FallingIcicleBehavior : GameBehaviour {
+public class FallingIcicleBehavior : GameBehaviour, IResettable {
 	public float dropTimeAfterTriggered;
 	public float deathTimeout;
 	private float dropTimer;
@@ -12,12 +12,18 @@ public class FallingIcicleBehavior : GameBehaviour {
 	public float shakingAmplitude;
 	public float shakingSpeed;
 
+	private float resetDropTimer;
+	private float resetShrinkTimer;
+	private Vector3 resetRigidbodyPosition;
+
 	override protected void Start()
 	{
 		base.Start ();
 
 		initialPosition = transform.position;
 		initialScale = transform.localScale;
+
+		SaveState ();
 	}
 	
 	void Update () {
@@ -29,7 +35,7 @@ public class FallingIcicleBehavior : GameBehaviour {
 				shrinkTimer += Time.deltaTime;
 				if(shrinkTimer > shrinkingTime)
 				{
-					Destroy(gameObject);
+					//Destroy(gameObject);
 				}
 			}
 			else
@@ -56,5 +62,23 @@ public class FallingIcicleBehavior : GameBehaviour {
 		{
 			dropTimer += Time.deltaTime;
 		}
+	}
+
+	public void SaveState()
+	{
+		resetDropTimer = dropTimer;
+		resetShrinkTimer = shrinkTimer;
+		resetRigidbodyPosition = transform.rigidbody.position;
+	}
+
+	public void Reset()
+	{
+		dropTimer = resetShrinkTimer;
+		shrinkTimer = resetShrinkTimer;
+		transform.position = initialPosition;
+		transform.localScale = initialScale;
+		transform.rigidbody.position = resetRigidbodyPosition;
+
+		transform.rigidbody.isKinematic = true;
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraScript : GameBehaviour 
+public class CameraScript : GameBehaviour, IResettable
 {
 	public PlayerController playerCharacter;
 	public Transform playerGraphics;
@@ -22,6 +22,9 @@ public class CameraScript : GameBehaviour
 
 	public float scrollSpeed;
 
+	private Vector3 resetPosition;
+	private Vector3 resetRotation;
+
 	override protected void Start()
 	{
 		base.Start ();
@@ -29,6 +32,8 @@ public class CameraScript : GameBehaviour
 		yAxisUpperAngleBound += 360;
 		mousePos = new Vector2();
 		attemptedCameraOffset = (maxZoomCameraOffset+minZoomCameraOffset)/2;
+
+		SaveState ();
 	}
 
 	void Update () 
@@ -71,5 +76,17 @@ public class CameraScript : GameBehaviour
 		currentCameraOffset = Mathf.Lerp(currentCameraOffset, attemptedCameraOffset, Time.deltaTime*zoomSpeed);
 		// set camera based on rotation
 		transform.position = playerCharacter.transform.position - transform.forward * currentCameraOffset;
+	}
+
+	public void SaveState()
+	{
+		resetPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+		resetRotation = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
+	}
+
+	public void Reset()
+	{
+		transform.position = resetPosition;
+		transform.eulerAngles = resetRotation;
 	}
 }

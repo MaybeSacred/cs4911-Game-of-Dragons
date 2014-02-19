@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : GameBehaviour 
+public class PlayerController : GameBehaviour, IResettable 
 {
 	public CameraScript theCamera;
 	public Transform realTransform;
@@ -42,6 +42,12 @@ public class PlayerController : GameBehaviour
 
 	bool isOnIcyGround;
 
+	private Vector3 resetPosition;
+	private Vector3 resetRotation;
+	private Vector3 resetVelocity;
+	private Vector3 resetAngularVelocity;
+
+
 	override protected void Start()
 	{
 		base.Start ();
@@ -50,6 +56,8 @@ public class PlayerController : GameBehaviour
 		oldPosition = rigidbody.position;
 		startFlameEmissionRate = flames.emissionRate;
 		flameStartSize = flames.startSize;
+
+		SaveState ();
 	}
 
 	void Update()
@@ -94,6 +102,9 @@ public class PlayerController : GameBehaviour
 
 	private void PlayerControlForces()
 	{
+		if (Input.GetKeyDown ("k"))
+			GameOver ();  // instant kill for debugging
+
 		UpdateGroundedState();
 		if(!isOnIcyGround)
 		{
@@ -205,7 +216,8 @@ public class PlayerController : GameBehaviour
 	}
 	public void GameOver()
 	{
-		
+		WorldScript world = (WorldScript)(GameObject.Find("World").GetComponent("WorldScript"));
+		world.reset ();
 	}
 	public void HealthChange(int deltaHealth)
 	{
@@ -219,6 +231,23 @@ public class PlayerController : GameBehaviour
 		{
 			health = maxHealth;
 		}
+	}
+
+	public void SaveState()
+	{
+		resetPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+		resetRotation = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
+		resetVelocity = new Vector3(transform.rigidbody.velocity.x, transform.rigidbody.velocity.y, transform.rigidbody.velocity.z);
+		resetAngularVelocity = new Vector3(transform.rigidbody.angularVelocity.x, transform.rigidbody.angularVelocity.y, transform.rigidbody.angularVelocity.z);;
+	}
+
+	public void Reset()
+	{
+		transform.position = resetPosition;
+		transform.eulerAngles = resetRotation;
+		transform.rigidbody.velocity = resetVelocity;
+		transform.rigidbody.angularVelocity = resetAngularVelocity;
+		health = maxHealth;
 	}
 
 	//----------
