@@ -109,9 +109,9 @@ public class PlayerController : MonoBehaviour
 		);
 		controlVector = controlVector.normalized;
 
-		float airInfluence = .2f;  // percentage of regular control player has while in air
+		float airInfluence = .09f;  // percentage of regular control player has while in air
 		if (Input.GetKeyDown (Config.keyJump) && currentJumpNumber < totalJumps)
-			airInfluence = .8f;
+			airInfluence = .5f;
 		if (!isGrounded)
 			controlVector = new Vector2 (controlVector.x * airInfluence, controlVector.y * airInfluence);
 

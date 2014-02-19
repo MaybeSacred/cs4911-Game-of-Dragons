@@ -10,10 +10,10 @@ FBXHeaderExtension:  {
 		Version: 1000
 		Year: 2014
 		Month: 02
-		Day: 17
-		Hour: 23
-		Minute: 22
-		Second: 34
+		Day: 18
+		Hour: 22
+		Minute: 30
+		Second: 54
 		Millisecond: 0
 	}
 	Creator: "FBX SDK/FBX Plugins build 20070228"
@@ -21,7 +21,7 @@ FBXHeaderExtension:  {
 		FlagPLE: 0
 	}
 }
-CreationTime: "2014-02-17 23:22:34:000"
+CreationTime: "2014-02-18 22:30:54:000"
 Creator: "Blender version 2.69 (sub 0)"
 
 ; Object definitions
@@ -29,7 +29,7 @@ Creator: "Blender version 2.69 (sub 0)"
 
 Definitions:  {
 	Version: 100
-	Count: 14
+	Count: 16
 	ObjectType: "Model" {
 		Count: 9
 	}
@@ -40,10 +40,10 @@ Definitions:  {
 		Count: 2
 	}
 	ObjectType: "Texture" {
-		Count: 1
+		Count: 2
 	}
 	ObjectType: "Video" {
-		Count: 1
+		Count: 2
 	}
 	ObjectType: "Pose" {
 		Count: 1
@@ -412,22 +412,43 @@ Objects:  {
 		}
 		LayerElementUV: 0 {
 			Version: 101
-			Name: "UV coord"
+			Name: "UVMap"
 			MappingInformationType: "ByPolygonVertex"
 			ReferenceInformationType: "IndexToDirect"
-			UV: 0.000000,1.000000,1.000000,0.000000,0.000000,0.000000,1.000000,1.000000
-			UVIndex: 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-			         2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-			         2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-			         2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-			         2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,3,0,2,1,3,0,2,1,3,0,2,2,2,2,2,1,3,0,2,2,2,2,
-			         2,1,3,0,2,2,2,2,2,2,2,2,2,1,3,0,2,2,2,2,2,1,3,0,2,2,2,2,2,1,3,0,2,2,2,2,2,1,3,0,2,1,3,0,2,1,3,0,2,2,2,2,2,1,3,0,2,2,2,2,2,1,3,0,
-			         2,2,2,2,2,1,3,0,2,1,3,0,2,2,2,2,2,1,3,0,2,1,3,0,2,1,3,0,2,1,3,0,2,1,3,0,2,1,3,0,2,1,3,0,2,1,3,0,2,1,3,0,2,1,3,0,2,1,3,0,2,2,2,2,
-			         2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
+			UV: 0.247319,0.266806,0.526009,0.266315,0.306284,0.316042,0.136596,0.307473,0.843309,0.044859,0.371907,0.235260,
+			    0.525175,0.674073,0.085390,0.259531,0.411142,0.171125,0.051238,0.814471,0.613478,0.169377,0.526146,0.199525,
+			    0.525886,0.326648,0.000000,1.000000,0.002430,0.389041,0.186149,0.387191,0.257287,0.854466,0.084911,0.319974,
+			    0.084478,0.374566,0.056321,0.315166,0.830035,1.000000,0.055921,0.363395,0.081988,0.688766,0.821946,0.963733,
+			    0.201183,0.232469,0.716319,0.709116,0.613519,0.240558,0.184161,0.689838,0.409275,0.692449,0.304334,0.708178,
+			    0.263392,0.279287,0.246358,0.832932,0.832046,0.279021,0.371649,0.298124,0.045428,0.380791,0.831891,0.202979,
+			    0.711820,0.718251,0.328824,0.682470,0.499491,0.219010,0.244983,0.672109,0.963964,0.085351,0.832939,0.717531,
+			    0.043052,0.662140,0.444196,0.216956,0.529927,0.904657,0.613556,0.304772,0.443989,0.283170,1.000000,0.741336,
+			    0.711882,0.251907,0.843710,0.227619,0.053479,0.657315,0.261187,0.676663,0.375862,0.837572,0.198359,0.674993,
+			    0.200785,0.294774,0.000000,0.000000,0.263753,0.214188,0.263066,0.338091,0.727440,0.943474,0.132539,0.880272,
+			    0.498765,0.145524,0.098271,0.304545,0.097531,0.400026,0.716323,0.226373,0.442720,0.687385,0.843520,0.140846,
+			    0.084976,0.822226,0.716324,0.148054,1.000000,0.000000,0.095512,0.660562,0.008370,0.825122,0.137108,0.289209,
+			    0.186494,0.334597,0.003321,0.290278,0.042759,0.833740,0.598611,0.707551,0.613770,0.672960,0.348930,0.849566,
+			    0.598170,0.116481,0.133052,0.840016,0.997690,0.198074,0.711893,0.171732,0.134395,0.664341,0.996848,0.000000,
+			    0.000000,0.658577,0.503947,0.669905,0.517745,0.919264,0.137054,0.244108,0.102656,0.872137,0.725060,0.975493,
+			    0.964618,0.257181,0.590629,0.917812,1.000000,1.000000,0.410880,0.244459,0.598288,0.275465,0.136380,0.389798,
+			    0.997290,0.104020,0.055559,0.406940,0.598232,0.200070,0.443801,0.342981,0.716323,0.297303,0.331107,0.191482,
+			    0.246990,0.323895,0.844810,0.728493,0.214824,0.844958,0.711905,0.083251,0.186877,0.276362,0.306604,0.251795,
+			    0.162143,0.868793,0.136725,0.342067,0.246693,0.375453,0.330496,0.322988,0.371416,0.354906,0.287288,0.841459,
+			    0.200426,0.351050,0.966410,0.727842,0.500148,0.285481,0.410642,0.310715,0.406071,0.819775,0.133797,0.694196,
+			    0.582581,0.931802,0.305995,0.374074,0.046298,0.277721,0.136181,0.364707,0.964307,0.175604,0.045841,0.331881,
+			    0.370075,0.681773,0.406917,0.762809,0.330786,0.260572,0.097882,0.354720,0.002853,0.342177,0.831719,0.118836
+			UVIndex: 2,33,5,107,101,5,43,8,128,30,56,101,107,56,24,0,107,5,101,56,8,43,11,60,128,101,8,93,112,126,64,99,60,11,10,78,93,8,60,38,99,64,6,12,38,60,78,98,12,6,76,45,0,24,87,106,57,51,53,114,2,107,0,102,
+			         106,87,7,71,114,53,119,123,102,0,106,72,123,119,22,18,72,106,71,109,71,7,122,61,18,22,42,34,109,71,61,129,130,21,19,73,129,61,19,21,34,42,84,14,61,122,73,19,78,10,67,105,98,78,105,81,45,76,25,100,4,131,40,83,
+			         105,67,131,4,81,105,4,65,100,25,41,32,64,118,127,28,37,28,127,77,52,126,37,77,64,126,52,118,127,118,52,77,86,44,6,85,120,75,76,91,44,86,120,91,75,120,86,85,76,6,44,91,20,23,58,89,89,36,103,20,103,41,23,20,
+			         41,25,58,23,36,89,58,25,16,113,31,104,113,29,39,31,51,16,104,53,113,16,51,29,31,39,53,104,22,88,79,82,59,119,27,108,79,88,59,108,119,59,88,22,27,82,79,108,70,74,66,9,50,9,66,69,50,84,70,9,84,42,74,70,
+			         29,51,37,126,28,85,6,64,119,53,39,27,42,22,82,69,76,75,36,25,124,96,83,40,65,4,83,96,41,103,47,115,32,41,115,90,69,66,74,42,55,68,92,13,55,68,92,13,55,68,92,13,5,33,46,43,55,68,92,13,43,46,1,11,
+			         55,68,92,13,11,1,26,10,56,30,54,24,55,68,92,13,24,54,3,87,55,68,92,13,87,3,17,7,55,68,92,13,7,17,125,122,55,68,92,13,55,68,92,13,55,68,92,13,122,125,130,73,55,68,92,13,10,26,63,67,55,68,92,13,
+			         67,63,35,131,55,68,92,13,55,68,92,13,131,35,124,40,55,68,92,13,55,68,92,13,55,68,92,13,55,68,92,13,55,68,92,13,55,68,92,13,55,68,92,13,55,68,92,13,55,68,92,13,55,68,92,13,55,68,92,13,29,126,112,121,
+			         37,51,57,111,37,111,117,28,28,117,116,85,85,116,94,75,29,121,110,39,39,110,15,27,27,15,95,82,82,95,62,69,84,50,97,14,69,62,97,50,75,94,48,36,36,48,49,103,115,47,80,90,103,49,80,47
 		}
 		LayerElementTexture: 0 {
 			Version: 101
-			Name: "UV coord"
+			Name: "UVMap"
 			MappingInformationType: "ByPolygon"
 			ReferenceInformationType: "IndexToDirect"
 			BlendMode: "Translucent"
@@ -1545,6 +1566,36 @@ Objects:  {
 		AudioColor: 0,1,0
 		CameraOrthoZoom: 1
 	}
+	Material: "Material::None__Glacier_jpg", "" {
+		Version: 102
+		ShadingModel: "phong"
+		MultiLayer: 0
+		Properties60:  {
+			Property: "ShadingModel", "KString", "", "Phong"
+			Property: "MultiLayer", "bool", "",0
+			Property: "EmissiveColor", "ColorRGB", "",0.8000,0.8000,0.8000
+			Property: "EmissiveFactor", "double", "",0.0000
+			Property: "AmbientColor", "ColorRGB", "",1.0000,1.0000,1.0000
+			Property: "AmbientFactor", "double", "",1.0000
+			Property: "DiffuseColor", "ColorRGB", "",0.8000,0.8000,0.8000
+			Property: "DiffuseFactor", "double", "",0.8000
+			Property: "Bump", "Vector3D", "",0,0,0
+			Property: "TransparentColor", "ColorRGB", "",1,1,1
+			Property: "TransparencyFactor", "double", "",0.0000
+			Property: "SpecularColor", "ColorRGB", "",1.0000,1.0000,1.0000
+			Property: "SpecularFactor", "double", "",0.5000
+			Property: "ShininessExponent", "double", "",12.3
+			Property: "ReflectionColor", "ColorRGB", "",0,0,0
+			Property: "ReflectionFactor", "double", "",1
+			Property: "Emissive", "ColorRGB", "",0,0,0
+			Property: "Ambient", "ColorRGB", "",1.0,1.0,1.0
+			Property: "Diffuse", "ColorRGB", "",0.8,0.8,0.8
+			Property: "Specular", "ColorRGB", "",1.0,1.0,1.0
+			Property: "Shininess", "double", "",12.3
+			Property: "Opacity", "double", "",1.0
+			Property: "Reflectivity", "double", "",0
+		}
+	}
 	Material: "Material::None__blue_png", "" {
 		Version: 102
 		ShadingModel: "phong"
@@ -1575,35 +1626,26 @@ Objects:  {
 			Property: "Reflectivity", "double", "",0
 		}
 	}
-	Material: "Material::unnamed", "" {
-		Version: 102
-		ShadingModel: "phong"
-		MultiLayer: 0
+	Video: "Video::Glacier_jpg", "Clip" {
+		Type: "Clip"
 		Properties60:  {
-			Property: "ShadingModel", "KString", "", "Phong"
-			Property: "MultiLayer", "bool", "",0
-			Property: "EmissiveColor", "ColorRGB", "",0.8000,0.8000,0.8000
-			Property: "EmissiveFactor", "double", "",0.0000
-			Property: "AmbientColor", "ColorRGB", "",1.0000,1.0000,1.0000
-			Property: "AmbientFactor", "double", "",1.0000
-			Property: "DiffuseColor", "ColorRGB", "",0.8000,0.8000,0.8000
-			Property: "DiffuseFactor", "double", "",0.8000
-			Property: "Bump", "Vector3D", "",0,0,0
-			Property: "TransparentColor", "ColorRGB", "",1,1,1
-			Property: "TransparencyFactor", "double", "",0.0000
-			Property: "SpecularColor", "ColorRGB", "",1.0000,1.0000,1.0000
-			Property: "SpecularFactor", "double", "",0.5000
-			Property: "ShininessExponent", "double", "",12.3
-			Property: "ReflectionColor", "ColorRGB", "",0,0,0
-			Property: "ReflectionFactor", "double", "",1
-			Property: "Emissive", "ColorRGB", "",0,0,0
-			Property: "Ambient", "ColorRGB", "",1.0,1.0,1.0
-			Property: "Diffuse", "ColorRGB", "",0.8,0.8,0.8
-			Property: "Specular", "ColorRGB", "",1.0,1.0,1.0
-			Property: "Shininess", "double", "",12.3
-			Property: "Opacity", "double", "",1.0
-			Property: "Reflectivity", "double", "",0
+			Property: "FrameRate", "double", "",0
+			Property: "LastFrame", "int", "",0
+			Property: "Width", "int", "",0
+			Property: "Height", "int", "",0
+			Property: "Path", "charptr", "", "Glacier.jpg"
+			Property: "StartFrame", "int", "",0
+			Property: "StopFrame", "int", "",0
+			Property: "PlaySpeed", "double", "",1
+			Property: "Offset", "KTime", "",0
+			Property: "InterlaceMode", "enum", "",0
+			Property: "FreeRunning", "bool", "",0
+			Property: "Loop", "bool", "",0
+			Property: "AccessMode", "enum", "",0
 		}
+		UseMipMap: 0
+		Filename: "Glacier.jpg"
+		RelativeFilename: "C:\Users\Jon\Documents\GitHub\cs4911-Game-of-Dragons\Assets\Images\Glacier.jpg"
 	}
 	Video: "Video::blue_png", "Clip" {
 		Type: "Clip"
@@ -1626,6 +1668,35 @@ Objects:  {
 		Filename: "blue.png"
 		RelativeFilename: "Materials\blue.png"
 	}
+	Texture: "Texture::Glacier_jpg", "TextureVideoClip" {
+		Type: "TextureVideoClip"
+		Version: 202
+		TextureName: "Texture::Glacier_jpg"
+		Properties60:  {
+			Property: "Translation", "Vector", "A+",0,0,0
+			Property: "Rotation", "Vector", "A+",0,0,0
+			Property: "Scaling", "Vector", "A+",1,1,1
+			Property: "Texture alpha", "Number", "A+",0
+			Property: "TextureTypeUse", "enum", "",0
+			Property: "CurrentTextureBlendMode", "enum", "",1
+			Property: "UseMaterial", "bool", "",0
+			Property: "UseMipMap", "bool", "",0
+			Property: "CurrentMappingType", "enum", "",0
+			Property: "UVSwap", "bool", "",0
+			Property: "WrapModeU", "enum", "",0
+			Property: "WrapModeV", "enum", "",0
+			Property: "TextureRotationPivot", "Vector3D", "",0,0,0
+			Property: "TextureScalingPivot", "Vector3D", "",0,0,0
+			Property: "VideoProperty", "object", ""
+		}
+		Media: "Video::Glacier_jpg"
+		FileName: "Glacier.jpg"
+		RelativeFilename: "C:\Users\Jon\Documents\GitHub\cs4911-Game-of-Dragons\Assets\Images\Glacier.jpg"
+		ModelUVTranslation: 0,0
+		ModelUVScaling: 1,1
+		Texture_Alpha_Source: "None"
+		Cropping: 0,0,0,0
+	}
 	Texture: "Texture::blue_png", "TextureVideoClip" {
 		Type: "TextureVideoClip"
 		Version: 202
@@ -1634,7 +1705,7 @@ Objects:  {
 			Property: "Translation", "Vector", "A+",0,0,0
 			Property: "Rotation", "Vector", "A+",0,0,0
 			Property: "Scaling", "Vector", "A+",1,1,1
-			Property: "Texture alpha", "Number", "A+",0
+			Property: "Texture alpha", "Number", "A+",1
 			Property: "TextureTypeUse", "enum", "",0
 			Property: "CurrentTextureBlendMode", "enum", "",1
 			Property: "UseMaterial", "bool", "",0
@@ -1702,11 +1773,15 @@ Relations:  {
 	}
 	Model: "Model::Camera Switcher", "CameraSwitcher" {
 	}
+	Material: "Material::None__Glacier_jpg", "" {
+	}
 	Material: "Material::None__blue_png", "" {
 	}
-	Material: "Material::unnamed", "" {
+	Texture: "Texture::Glacier_jpg", "TextureVideoClip" {
 	}
 	Texture: "Texture::blue_png", "TextureVideoClip" {
+	}
+	Video: "Video::Glacier_jpg", "Clip" {
 	}
 	Video: "Video::blue_png", "Clip" {
 	}
@@ -1717,9 +1792,11 @@ Relations:  {
 
 Connections:  {
 	Connect: "OO", "Model::Cube", "Model::Scene"
-	Connect: "OO", "Material::unnamed", "Model::Cube"
+	Connect: "OO", "Material::None__Glacier_jpg", "Model::Cube"
 	Connect: "OO", "Material::None__blue_png", "Model::Cube"
+	Connect: "OO", "Texture::Glacier_jpg", "Model::Cube"
 	Connect: "OO", "Texture::blue_png", "Model::Cube"
+	Connect: "OO", "Video::Glacier_jpg", "Texture::Glacier_jpg"
 	Connect: "OO", "Video::blue_png", "Texture::blue_png"
 }
 ;Takes and animation section
