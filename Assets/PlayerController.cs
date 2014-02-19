@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour 
+public class PlayerController : GameBehaviour 
 {
 	public CameraScript theCamera;
 	public Transform realTransform;
@@ -42,8 +42,10 @@ public class PlayerController : MonoBehaviour
 
 	bool isOnIcyGround;
 
-	void Start () 
+	override protected void Start()
 	{
+		base.Start ();
+
 		health = maxHealth;
 		oldPosition = rigidbody.position;
 		startFlameEmissionRate = flames.emissionRate;

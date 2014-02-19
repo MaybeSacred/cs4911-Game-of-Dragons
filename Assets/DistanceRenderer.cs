@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class DistanceRenderer : MonoBehaviour {
+public class DistanceRenderer : GameBehaviour 
+{
 
-	void Start () {
+	override protected void Start()
+	{
+		base.Start ();
 	
 	}
 	

@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CoinController : MonoBehaviour {
+public class CoinController : GameBehaviour {
 
 	public float rotationSpeed;
-	void Start () {
+
+	override protected void Start()
+	{
+		base.Start ();
 		
 	}
 	

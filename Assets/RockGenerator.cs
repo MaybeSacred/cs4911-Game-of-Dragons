@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RockGenerator : MonoBehaviour {
+public class RockGenerator : GameBehaviour {
 	public float timeBetweenRocks;
 	public Transform[] rocks;
 	private float emissionTimer;
 	public float rockScalePermutePercent;
 	public float density;
-	void Start () {
+
+	override protected void Start()
+	{
+		base.Start ();
 	
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update()
+	{
 		if(emissionTimer >= timeBetweenRocks)
 		{
 			Transform temp = (Transform)Instantiate(rocks[Mathf.FloorToInt(Random.Range(0, rocks.Length))], new Vector3(transform.position.x+Random.Range(-transform.localScale.x/2, transform.localScale.x/2),

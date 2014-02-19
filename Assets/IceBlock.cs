@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class IceBlock : MonoBehaviour {
+public class IceBlock : GameBehaviour {
 	private Vector3 initialScale;
 	private float currentScaleMagnitude;
 	public float minAcceptableSize;
 	public float meltRate;
-	void Start () {
+
+	override protected void Start()
+	{
+		base.Start ();
+
 		initialScale = transform.localScale;
 		currentScaleMagnitude = initialScale.magnitude;
 	}

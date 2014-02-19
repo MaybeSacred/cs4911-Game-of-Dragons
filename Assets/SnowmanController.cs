@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SnowmanController : MonoBehaviour 
+public class SnowmanController : GameBehaviour 
 {
 	public Transform graphics;
 
@@ -25,8 +25,11 @@ public class SnowmanController : MonoBehaviour
 	private SnowmanPartController top;
 	private SnowmanPartController middle;
 	private SnowmanPartController bottom;
-	void Start () 
+
+	override protected void Start()
 	{
+		base.Start ();
+
 		throwTimer = 0;
 		originalArmAngle = rightBranch.transform.localEulerAngles.y;
 		curAngle = 0;

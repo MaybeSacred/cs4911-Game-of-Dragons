@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ExplosionScript : MonoBehaviour {
+public class ExplosionScript : GameBehaviour {
 	private float destructionTimer;
 	private ParticleSystem ps;
-	void Start () {
+
+	override protected void Start()
+	{
+		base.Start ();
+
 		ps = GetComponent<ParticleSystem>();
 	}
 	

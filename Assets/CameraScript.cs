@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraScript : MonoBehaviour 
+public class CameraScript : GameBehaviour 
 {
 	public PlayerController playerCharacter;
 	public Transform playerGraphics;
@@ -22,7 +22,10 @@ public class CameraScript : MonoBehaviour
 
 	public float scrollSpeed;
 
-	void Start () {
+	override protected void Start()
+	{
+		base.Start ();
+
 		yAxisUpperAngleBound += 360;
 		mousePos = new Vector2();
 		attemptedCameraOffset = (maxZoomCameraOffset+minZoomCameraOffset)/2;

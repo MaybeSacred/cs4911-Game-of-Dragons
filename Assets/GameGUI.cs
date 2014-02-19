@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameGUI : MonoBehaviour {
+public class GameGUI : GameBehaviour {
 	public GUIStyle currentStyle;
 	public Texture2D healthTex;
 	public Texture2D emptyHealthTex;
@@ -12,7 +12,10 @@ public class GameGUI : MonoBehaviour {
 	private Rect gemDisplayRectangle;
 	public float maxHPBarWidth;
 	
-	void Start () {
+	override protected void Start()
+	{
+		base.Start ();
+
 		gemDisplayRectangle = new Rect(Screen.width - fullGemTex.width*2-brokenGemTex.width*2, 0, fullGemTex.width*2+brokenGemTex.width*2, fullGemTex.height);
 	}
 	void OnGUI()

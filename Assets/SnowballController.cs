@@ -1,15 +1,17 @@
 using UnityEngine;
 using System.Collections;
 
-public class SnowballController : MonoBehaviour 
+public class SnowballController : GameBehaviour 
 {
 	public bool startMelting;
 	public bool isDangerous;
 	private float dangerTimer = 0;  // sets isDangerous to false after counting down to 0
 	public int damageToPlayer = 1;
 
-	void Start () 
+	override protected void Start()
 	{
+		base.Start ();
+
 		startMelting = false;
 	}
 

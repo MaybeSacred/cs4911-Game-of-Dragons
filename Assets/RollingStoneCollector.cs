@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RollingStoneCollector : MonoBehaviour {
+public class RollingStoneCollector : GameBehaviour {
 
-	void Start () {
+	override protected void Start()
+	{
+		base.Start ();
 	
 	}
 	

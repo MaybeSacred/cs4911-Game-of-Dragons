@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class HellmetBehavior : MonoBehaviour {
+public class HellmetBehavior : GameBehaviour {
 	public Color angryLightColor;
 	public float angryLightIntensity;
 	private Color normalLightColor;
@@ -60,7 +60,11 @@ public class HellmetBehavior : MonoBehaviour {
 	private bool isUnderAttack;
 	public float angerTime;
 	private float theAngerTimer;
-	void Start () {
+
+	override protected void Start()
+	{
+		base.Start ();
+
 		guardLight = GetComponentInChildren<Light>();
 		normalLightColor = guardLight.color;
 		normalLightIntensity = guardLight.intensity;

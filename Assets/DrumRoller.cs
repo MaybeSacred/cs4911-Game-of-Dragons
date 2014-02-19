@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DrumRoller : MonoBehaviour {
+public class DrumRoller : GameBehaviour {
 	public bool isOscillating;
 	public float rotationSpeedDegrees;
 	private float oscillationTimer;
 	public float totalRotationDegrees;
 	public float deadZoneAngle;
-	void Start () {
+
+	override protected void Start()
+	{
+		base.Start ();
 	}
 	
 	void Update () {

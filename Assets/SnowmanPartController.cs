@@ -1,13 +1,16 @@
 using UnityEngine;
 using System.Collections;
 
-public class SnowmanPartController : MonoBehaviour 
+public class SnowmanPartController : GameBehaviour 
 {
 	private float startScale;
 	public float fireResistance;
 	public float deathShrinkRate;
-	void Start () 
+
+	override protected void Start()
 	{
+		base.Start ();
+
 		startScale = transform.localScale.x;
 	}
 	

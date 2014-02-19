@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlatformController : MonoBehaviour {
+public class PlatformController : GameBehaviour {
 	private Vector3 startPosition;
 	public Vector3 endPosition;
 	public bool endPositionIsFromStart;
@@ -12,7 +12,11 @@ public class PlatformController : MonoBehaviour {
 	private float waitTimer;
 	private bool isWaiting;
 	private bool movingTowardsEnd;
-	void Start () {
+
+	override protected void Start()
+	{
+		base.Start ();
+
 		startPosition = transform.position;
 		if(endPositionIsFromStart)
 		{

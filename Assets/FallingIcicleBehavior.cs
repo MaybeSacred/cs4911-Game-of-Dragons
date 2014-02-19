@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FallingIcicleBehavior : MonoBehaviour {
+public class FallingIcicleBehavior : GameBehaviour {
 	public float dropTimeAfterTriggered;
 	public float deathTimeout;
 	private float dropTimer;
@@ -11,7 +11,11 @@ public class FallingIcicleBehavior : MonoBehaviour {
 	public float shrinkingTime;
 	public float shakingAmplitude;
 	public float shakingSpeed;
-	void Start () {
+
+	override protected void Start()
+	{
+		base.Start ();
+
 		initialPosition = transform.position;
 		initialScale = transform.localScale;
 	}
