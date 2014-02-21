@@ -15,7 +15,8 @@ public class PlayerController : GameBehaviour, IResettable
 	public float jumpStrength;
 	public float repeatedJumpStrengthFalloff;
 	
-	public float speed;
+	public float airAcceleration;
+	public float groundAcceleration;
 	public float maxSpeed;
 	public float rotationSpeed;
 	public float friction;
@@ -121,15 +122,11 @@ public class PlayerController : GameBehaviour, IResettable
 			theCamera.transform.forward.z * verticalInput + theCamera.transform.right.z * horizontalInput
 		);
 		controlVector = controlVector.normalized;
-
-		float airInfluence = .09f;  // percentage of regular control player has while in air
-		if (Input.GetKeyDown (Config.keyJump) && currentJumpNumber < totalJumps)
-			airInfluence = .5f;
 		if (!isGrounded)
-			controlVector = new Vector2 (controlVector.x * airInfluence, controlVector.y * airInfluence);
+			controlVector = new Vector2 (controlVector.x * airAcceleration, controlVector.y * airAcceleration);
 
-		addVelocityX (controlVector.x * speed);
-		addVelocityZ (controlVector.y * speed);
+		addVelocityX (controlVector.x * groundAcceleration);
+		addVelocityZ (controlVector.y * groundAcceleration);
 
 		if(Input.GetKeyDown(Config.keyJump) && currentJumpNumber < totalJumps)
 		{

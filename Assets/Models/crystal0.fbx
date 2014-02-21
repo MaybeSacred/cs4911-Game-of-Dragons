@@ -9,11 +9,11 @@ FBXHeaderExtension:  {
 	CreationTimeStamp:  {
 		Version: 1000
 		Year: 2014
-		Month: 01
-		Day: 29
+		Month: 02
+		Day: 20
 		Hour: 21
-		Minute: 19
-		Second: 07
+		Minute: 31
+		Second: 12
 		Millisecond: 0
 	}
 	Creator: "FBX SDK/FBX Plugins build 20070228"
@@ -21,7 +21,7 @@ FBXHeaderExtension:  {
 		FlagPLE: 0
 	}
 }
-CreationTime: "2014-01-29 21:19:07:000"
+CreationTime: "2014-02-20 21:31:12:000"
 Creator: "Blender version 2.69 (sub 0)"
 
 ; Object definitions
@@ -300,18 +300,22 @@ Objects:  {
 		}
 		LayerElementUV: 0 {
 			Version: 101
-			Name: "UV coord"
+			Name: "UVMap"
 			MappingInformationType: "ByPolygonVertex"
 			ReferenceInformationType: "IndexToDirect"
-			UV: 0.682124,1.000000,0.000000,1.000000,0.836538,0.520288,0.000000,0.000000,0.000000,0.109831,0.515384,0.418786,
-			    0.000000,0.482104,0.440336,0.179765,1.000000,1.000000
-			UVIndex: 0,2,8,1,6,0,6,5,0,5,2,0,5,7,2,6,4,5,4,7,5,4,3,7,0,8,2,1,0,6,6,0,5,5,0,2,5,2,7,6,5,4,4,5,7,4,7,3,0,8,2,1,0,6,6,0,5,5,0,2,5,2,7,6,
-			         5,4,4,5,7,4,7,3,0,2,8,1,6,0,6,5,0,5,2,0,5,7,2,6,4,5,4,7,5,4,3,7,0,8,2,1,0,6,6,0,5,5,0,2,5,2,7,6,5,4,4,5,7,4,7,3,0,2,8,1,6,0,6,5,
-			         0,5,2,0,5,7,2,6,4,5,4,7,5,4,3,7,0,2,8,1,6,0,6,5,0,5,2,0,5,7,2,6,4,5,4,7,5,4,3,7,0,8,2,1,0,6,6,0,5,5,0,2,5,2,7,6,5,4,4,5,7,4,7,3
+			UV: 0.768280,0.803845,0.641217,0.913052,0.360807,0.806973,0.179297,0.650000,0.333202,0.650000,0.500000,0.329297,
+			    0.500000,0.375092,0.340119,0.830302,0.358783,0.913052,0.500000,0.924908,0.500000,0.804590,0.500000,0.885301,
+			    0.639193,0.806973,0.659881,0.830302,0.500000,0.767583,0.500000,0.970703,0.500000,0.650000,0.231720,0.496155,
+			    0.820703,0.650000,0.666798,0.650000,0.231720,0.803845,0.292876,0.650000,0.340119,0.469697,0.639193,0.493027,
+			    0.768280,0.496155,0.500000,0.532417,0.500000,0.414699,0.707124,0.650000,0.500000,0.495410,0.641217,0.386948,
+			    0.360807,0.493027,0.659881,0.469697,0.358783,0.386948
+			UVIndex: 27,24,18,16,28,27,28,31,27,31,24,27,31,29,24,28,6,31,6,29,31,6,5,29,21,3,17,16,21,28,28,21,22,22,21,17,22,17,32,28,22,6,6,22,32,6,32,5,27,18,0,16,27,10,10,27,13,13,27,0,13,0,1,10,
+			         13,9,9,13,1,9,1,15,21,20,3,16,10,21,10,7,21,7,20,21,7,8,20,10,9,7,9,8,7,9,15,8,19,18,24,16,19,25,25,19,23,23,19,24,23,24,29,25,23,26,26,23,29,26,29,5,4,17,3,16,25,4,25,30,
+			         4,30,17,4,30,32,17,25,26,30,26,32,30,26,5,32,19,0,18,16,14,19,14,12,19,12,0,19,12,1,0,14,11,12,11,1,12,11,15,1,4,3,20,16,4,14,14,4,2,2,4,20,2,20,8,14,2,11,11,2,8,11,8,15
 		}
 		LayerElementTexture: 0 {
 			Version: 101
-			Name: "UV coord"
+			Name: "UVMap"
 			MappingInformationType: "AllSame"
 			ReferenceInformationType: "IndexToDirect"
 			BlendMode: "Translucent"
@@ -1427,7 +1431,7 @@ Objects:  {
 		AudioColor: 0,1,0
 		CameraOrthoZoom: 1
 	}
-	Material: "Material::None__TransIce1_png", "" {
+	Material: "Material::None__purpleGemWithHighlight_png", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -1457,14 +1461,14 @@ Objects:  {
 			Property: "Reflectivity", "double", "",0
 		}
 	}
-	Video: "Video::TransIce1_png", "Clip" {
+	Video: "Video::purpleGemWithHighlight_png", "Clip" {
 		Type: "Clip"
 		Properties60:  {
 			Property: "FrameRate", "double", "",0
 			Property: "LastFrame", "int", "",0
 			Property: "Width", "int", "",0
 			Property: "Height", "int", "",0
-			Property: "Path", "charptr", "", "TransIce1.png"
+			Property: "Path", "charptr", "", "purpleGemWithHighlight.png"
 			Property: "StartFrame", "int", "",0
 			Property: "StopFrame", "int", "",0
 			Property: "PlaySpeed", "double", "",1
@@ -1475,13 +1479,13 @@ Objects:  {
 			Property: "AccessMode", "enum", "",0
 		}
 		UseMipMap: 0
-		Filename: "TransIce1.png"
-		RelativeFilename: "TransIce1.png"
+		Filename: "purpleGemWithHighlight.png"
+		RelativeFilename: "C:\Users\Jon\Documents\GitHub\cs4911-Game-of-Dragons\Assets\Images\purpleGemWithHighlight.png"
 	}
-	Texture: "Texture::TransIce1_png", "TextureVideoClip" {
+	Texture: "Texture::purpleGemWithHighlight_png", "TextureVideoClip" {
 		Type: "TextureVideoClip"
 		Version: 202
-		TextureName: "Texture::TransIce1_png"
+		TextureName: "Texture::purpleGemWithHighlight_png"
 		Properties60:  {
 			Property: "Translation", "Vector", "A+",0,0,0
 			Property: "Rotation", "Vector", "A+",0,0,0
@@ -1499,9 +1503,9 @@ Objects:  {
 			Property: "TextureScalingPivot", "Vector3D", "",0,0,0
 			Property: "VideoProperty", "object", ""
 		}
-		Media: "Video::TransIce1_png"
-		FileName: "TransIce1.png"
-		RelativeFilename: "TransIce1.png"
+		Media: "Video::purpleGemWithHighlight_png"
+		FileName: "purpleGemWithHighlight.png"
+		RelativeFilename: "C:\Users\Jon\Documents\GitHub\cs4911-Game-of-Dragons\Assets\Images\purpleGemWithHighlight.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"
@@ -1554,11 +1558,11 @@ Relations:  {
 	}
 	Model: "Model::Camera Switcher", "CameraSwitcher" {
 	}
-	Material: "Material::None__TransIce1_png", "" {
+	Material: "Material::None__purpleGemWithHighlight_png", "" {
 	}
-	Texture: "Texture::TransIce1_png", "TextureVideoClip" {
+	Texture: "Texture::purpleGemWithHighlight_png", "TextureVideoClip" {
 	}
-	Video: "Video::TransIce1_png", "Clip" {
+	Video: "Video::purpleGemWithHighlight_png", "Clip" {
 	}
 }
 
@@ -1567,9 +1571,9 @@ Relations:  {
 
 Connections:  {
 	Connect: "OO", "Model::Cube", "Model::Scene"
-	Connect: "OO", "Material::None__TransIce1_png", "Model::Cube"
-	Connect: "OO", "Texture::TransIce1_png", "Model::Cube"
-	Connect: "OO", "Video::TransIce1_png", "Texture::TransIce1_png"
+	Connect: "OO", "Material::None__purpleGemWithHighlight_png", "Model::Cube"
+	Connect: "OO", "Texture::purpleGemWithHighlight_png", "Model::Cube"
+	Connect: "OO", "Video::purpleGemWithHighlight_png", "Texture::purpleGemWithHighlight_png"
 }
 ;Takes and animation section
 ;----------------------------------------------------

@@ -10,10 +10,10 @@ FBXHeaderExtension:  {
 		Version: 1000
 		Year: 2014
 		Month: 02
-		Day: 14
+		Day: 20
 		Hour: 21
-		Minute: 09
-		Second: 30
+		Minute: 41
+		Second: 13
 		Millisecond: 0
 	}
 	Creator: "FBX SDK/FBX Plugins build 20070228"
@@ -21,7 +21,7 @@ FBXHeaderExtension:  {
 		FlagPLE: 0
 	}
 }
-CreationTime: "2014-02-14 21:09:30:000"
+CreationTime: "2014-02-20 21:41:13:000"
 Creator: "Blender version 2.69 (sub 0)"
 
 ; Object definitions
@@ -29,7 +29,7 @@ Creator: "Blender version 2.69 (sub 0)"
 
 Definitions:  {
 	Version: 100
-	Count: 11
+	Count: 13
 	ObjectType: "Model" {
 		Count: 9
 	}
@@ -37,6 +37,12 @@ Definitions:  {
 		Count: 1
 	}
 	ObjectType: "Material" {
+		Count: 1
+	}
+	ObjectType: "Texture" {
+		Count: 1
+	}
+	ObjectType: "Video" {
 		Count: 1
 	}
 	ObjectType: "Pose" {
@@ -295,6 +301,31 @@ Objects:  {
 			ReferenceInformationType: "Direct"
 			Smoothing: 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 		}
+		LayerElementUV: 0 {
+			Version: 101
+			Name: "UVMap"
+			MappingInformationType: "ByPolygonVertex"
+			ReferenceInformationType: "IndexToDirect"
+			UV: 0.668913,0.454114,0.743480,0.373305,0.633386,0.418587,0.390096,0.477596,0.312161,0.810867,0.743481,0.801695,
+			    0.276633,0.399661,0.331087,0.454114,0.714195,0.344020,0.633386,0.418587,0.390096,0.697404,0.609904,0.697404,
+			    0.609904,0.477596,0.609904,0.697404,0.723367,0.775339,0.256520,0.801695,0.390096,0.697404,0.668913,0.454114,
+			    0.633386,0.756413,0.609904,0.477596,0.714195,0.830980,0.723366,0.399661,0.285805,0.344020,0.668913,0.720886,
+			    0.366614,0.418587,0.366615,0.756413,0.312161,0.364133,0.276633,0.775339,0.312161,0.810867,0.256519,0.373305,
+			    0.366614,0.418587,0.331087,0.720886,0.366614,0.756413,0.633386,0.756413,0.668913,0.720886,0.390096,0.477596,
+			    0.687839,0.364133,0.285805,0.830981,0.687839,0.810867
+			UVIndex: 27,31,7,6,14,34,17,21,16,35,19,11,36,9,24,26,32,4,38,33,23,14,21,0,2,36,26,30,31,27,6,7,28,25,18,38,31,32,10,13,33,23,12,0,2,30,7,3,25,31,16,11,34,18,19,9,17,7,24,35,15,27,28,37,
+			         38,14,5,20,21,36,8,1,26,6,29,22,6,26,22,29,32,33,13,10,10,3,7,31,27,31,25,28,23,0,12,13,38,18,34,14,2,30,3,12,21,17,9,36,26,24,7,6,16,11,18,25,31,7,35,16,11,19,17,34,19,35,24,9,
+			         4,32,31,27,14,23,33,38,36,2,0,21,6,7,30,26,28,38,20,37,14,21,1,5,36,26,22,8,37,20,38,4,5,1,21,14,37,4,27,15,15,29,6,27,10,13,12,3,27,6,29,15,8,36,21,1,8,22,26,36,5,14,38,20
+		}
+		LayerElementTexture: 0 {
+			Version: 101
+			Name: "UVMap"
+			MappingInformationType: "AllSame"
+			ReferenceInformationType: "IndexToDirect"
+			BlendMode: "Translucent"
+			TextureAlpha: 1
+			TextureId: 0
+		}
 		LayerElementMaterial: 0 {
 			Version: 101
 			Name: ""
@@ -310,6 +341,14 @@ Objects:  {
 			}
 			LayerElement:  {
 				Type: "LayerElementSmoothing"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementUV"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementTexture"
 				TypedIndex: 0
 			}
 			LayerElement:  {
@@ -1396,7 +1435,7 @@ Objects:  {
 		AudioColor: 0,1,0
 		CameraOrthoZoom: 1
 	}
-	Material: "Material::Material", "" {
+	Material: "Material::Material__purpleGemWithHighlight_png", "" {
 		Version: 102
 		ShadingModel: "lambert"
 		MultiLayer: 0
@@ -1425,6 +1464,56 @@ Objects:  {
 			Property: "Opacity", "double", "",1.0
 			Property: "Reflectivity", "double", "",0
 		}
+	}
+	Video: "Video::purpleGemWithHighlight_png", "Clip" {
+		Type: "Clip"
+		Properties60:  {
+			Property: "FrameRate", "double", "",0
+			Property: "LastFrame", "int", "",0
+			Property: "Width", "int", "",0
+			Property: "Height", "int", "",0
+			Property: "Path", "charptr", "", "purpleGemWithHighlight.png"
+			Property: "StartFrame", "int", "",0
+			Property: "StopFrame", "int", "",0
+			Property: "PlaySpeed", "double", "",1
+			Property: "Offset", "KTime", "",0
+			Property: "InterlaceMode", "enum", "",0
+			Property: "FreeRunning", "bool", "",0
+			Property: "Loop", "bool", "",0
+			Property: "AccessMode", "enum", "",0
+		}
+		UseMipMap: 0
+		Filename: "purpleGemWithHighlight.png"
+		RelativeFilename: "C:\Users\Jon\Documents\GitHub\cs4911-Game-of-Dragons\Assets\Images\purpleGemWithHighlight.png"
+	}
+	Texture: "Texture::purpleGemWithHighlight_png", "TextureVideoClip" {
+		Type: "TextureVideoClip"
+		Version: 202
+		TextureName: "Texture::purpleGemWithHighlight_png"
+		Properties60:  {
+			Property: "Translation", "Vector", "A+",0,0,0
+			Property: "Rotation", "Vector", "A+",0,0,0
+			Property: "Scaling", "Vector", "A+",1,1,1
+			Property: "Texture alpha", "Number", "A+",0
+			Property: "TextureTypeUse", "enum", "",0
+			Property: "CurrentTextureBlendMode", "enum", "",1
+			Property: "UseMaterial", "bool", "",0
+			Property: "UseMipMap", "bool", "",0
+			Property: "CurrentMappingType", "enum", "",0
+			Property: "UVSwap", "bool", "",0
+			Property: "WrapModeU", "enum", "",0
+			Property: "WrapModeV", "enum", "",0
+			Property: "TextureRotationPivot", "Vector3D", "",0,0,0
+			Property: "TextureScalingPivot", "Vector3D", "",0,0,0
+			Property: "VideoProperty", "object", ""
+		}
+		Media: "Video::purpleGemWithHighlight_png"
+		FileName: "purpleGemWithHighlight.png"
+		RelativeFilename: "C:\Users\Jon\Documents\GitHub\cs4911-Game-of-Dragons\Assets\Images\purpleGemWithHighlight.png"
+		ModelUVTranslation: 0,0
+		ModelUVScaling: 1,1
+		Texture_Alpha_Source: "None"
+		Cropping: 0,0,0,0
 	}
 	Pose: "Pose::BIND_POSES", "BindPose" {
 		Type: "BindPose"
@@ -1473,7 +1562,11 @@ Relations:  {
 	}
 	Model: "Model::Camera Switcher", "CameraSwitcher" {
 	}
-	Material: "Material::Material", "" {
+	Material: "Material::Material__purpleGemWithHighlight_png", "" {
+	}
+	Texture: "Texture::purpleGemWithHighlight_png", "TextureVideoClip" {
+	}
+	Video: "Video::purpleGemWithHighlight_png", "Clip" {
 	}
 }
 
@@ -1482,7 +1575,9 @@ Relations:  {
 
 Connections:  {
 	Connect: "OO", "Model::Cube", "Model::Scene"
-	Connect: "OO", "Material::Material", "Model::Cube"
+	Connect: "OO", "Material::Material__purpleGemWithHighlight_png", "Model::Cube"
+	Connect: "OO", "Texture::purpleGemWithHighlight_png", "Model::Cube"
+	Connect: "OO", "Video::purpleGemWithHighlight_png", "Texture::purpleGemWithHighlight_png"
 }
 ;Takes and animation section
 ;----------------------------------------------------
