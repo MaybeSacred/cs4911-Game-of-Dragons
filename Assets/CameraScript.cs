@@ -20,6 +20,8 @@ public class CameraScript : GameBehaviour, IResettable
 	public float zoomSpeed;
 	public float minZoomCameraOffset, maxZoomCameraOffset;
 
+	public float trueZoomSpeed;
+
 	public float scrollSpeed;
 
 	private Vector3 resetPosition;
@@ -75,36 +77,24 @@ public class CameraScript : GameBehaviour, IResettable
 			xzDist = .0001f;  // prevent divide by zero
 		float deltaAngle = rightSpeed / xzDist;
 		//transform.RotateAround (Vector3.zero, Vector3.up, deltaAngle);
-		if(isColliding)
+		trueCameraOffset -= Input.GetAxisRaw("Mouse ScrollWheel")*Time.deltaTime*trueZoomSpeed;
+		trueCameraOffset = Mathf.Clamp(trueCameraOffset, minZoomCameraOffset, maxZoomCameraOffset);
+		RaycastHit hit;
+		if(Physics.Raycast(WorldScript.thePlayer.transform.localPosition, -transform.forward, out hit, maxZoomCameraOffset, 1))
 		{
-			attemptedCameraOffset -= Time.deltaTime;
-		}
-		else
-		{
-			attemptedCameraOffset += Time.deltaTime;
-			if(attemptedCameraOffset >= 0)
+			if(hit.distance < trueCameraOffset)
 			{
-				attemptedCameraOffset = 0;
-			}
-		}
-		/*RaycastHit hit;
-		if(Physics.Raycast(new Vector3(Util.player.transform.localPosition.x, Util.player.transform.localPosition.y + cameraOffset.y, Util.player.transform.localPosition.z), new Vector3(-transform.forward.x, 0, -transform.forward.z).normalized, out hit, 2*startZ, Util.PLAYERWEAPONSIGNORELAYERS))
-		{
-			if(hit.distance < startZ)
-			{
-				cameraOffset.x = Mathf.Lerp(cameraOffset.x, hit.distance-cameraRaycastOffset, lerpthThpeed*Time.deltaTime);
+				attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, -trueCameraOffset+hit.distance-.5f, attemptedZoomSpeed * Time.deltaTime);
 			}
 			else
 			{
-				cameraOffset.x = Mathf.Lerp(cameraOffset.x, startZ, lerpthThpeed*Time.deltaTime);
+				attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, 0, attemptedZoomSpeed * Time.deltaTime);
 			}
 		}
 		else
 		{
-			cameraOffset.x = Mathf.Lerp(cameraOffset.x, startZ, lerpthThpeed*Time.deltaTime);
-		}*/
-		trueCameraOffset -= Input.GetAxisRaw("Mouse ScrollWheel")*Time.deltaTime*attemptedZoomSpeed;
-		trueCameraOffset = Mathf.Clamp(trueCameraOffset, minZoomCameraOffset, maxZoomCameraOffset);
+			attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, 0, attemptedZoomSpeed * Time.deltaTime);
+		}
 		currentCameraOffset = Mathf.Lerp(currentCameraOffset, trueCameraOffset + attemptedCameraOffset, Time.deltaTime*zoomSpeed);
 		// set camera based on rotation
 		transform.position = playerCharacter.transform.position - transform.forward * currentCameraOffset;
@@ -114,14 +104,6 @@ public class CameraScript : GameBehaviour, IResettable
 	{
 		resetPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 		resetRotation = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
-	}
-	void OnCollisionStay(Collision other)
-	{
-		isColliding = true;
-	}
-	void OnCollisionExit()
-	{
-		isColliding = false;
 	}
 	public void Reset()
 	{
