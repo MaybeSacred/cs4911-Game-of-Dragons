@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SnowmanController : GameBehaviour 
+public class SnowmanController : GameBehaviour, IResettable
 {
 	public Transform graphics;
 
@@ -26,6 +26,14 @@ public class SnowmanController : GameBehaviour
 	private SnowmanPartController middle;
 	private SnowmanPartController bottom;
 
+	private float resetThrowTimer;
+	private float resetCurAngle;
+	private float resetThrowSpeed;
+	private Vector3 resetRotation;
+	private Vector3 resetGraphicsRotation;
+	private Vector3 resetBranchRotation;
+	private Vector3 resetBranchPosition;
+
 	override protected void Start()
 	{
 		base.Start ();
@@ -38,6 +46,8 @@ public class SnowmanController : GameBehaviour
 		top = (SnowmanPartController)(topSphere.GetComponent("SnowmanPartController"));
 		middle = (SnowmanPartController)(middleSphere.GetComponent("SnowmanPartController"));
 		bottom = (SnowmanPartController)(bottomSphere.GetComponent("SnowmanPartController"));
+
+		SaveState ();
 	}
 
 	void OnCollisionStay(Collision other)
@@ -59,23 +69,22 @@ public class SnowmanController : GameBehaviour
 				snowBall.parent = null;
 			}
 
-			if (top != null)
-				top.DeathShrink ();
-			if (middle != null)
-				middle.DeathShrink ();
-			if (bottom != null)
-				bottom.DeathShrink ();
-
 			if (snowBall != null)
 			{
 				snowBall.rigidbody.isKinematic = false;
 				SnowballController sc = (SnowballController)(snowBall.GetComponent("SnowballController"));
 				sc.setStartMelting();
 			}
-			if (top == null && middle == null && bottom == null)
-			{
-				Destroy (gameObject);
-			}
+
+			if (top.gameObject.activeSelf)
+				top.DeathShrink();
+			if (middle.gameObject.activeSelf)
+				middle.DeathShrink();
+			if (bottom.gameObject.activeSelf)
+				bottom.DeathShrink();
+
+			if (!top.gameObject.activeSelf && !middle.gameObject.activeSelf && !bottom.gameObject.activeSelf)
+				Hide ();
 		} 
 		else 
 		{
@@ -116,13 +125,7 @@ public class SnowmanController : GameBehaviour
 						curAngle = 0;
 						rightBranch.transform.localEulerAngles = new Vector3(rightBranch.transform.localEulerAngles.x, originalArmAngle, rightBranch.transform.localEulerAngles.z);
 					
-						SnowballController sc = (SnowballController)(snowBall.GetComponent("SnowballController"));
-						sc.setStartMelting();
-						snowBall = Instantiate(snowBall, hand.position, hand.rotation) as Transform;
-						snowBall.rigidbody.isKinematic = true;
-						snowBall.localScale = new Vector3(1, 1, 1);
-						sc = (SnowballController)(snowBall.GetComponent("SnowballController"));
-						sc.isDangerous = true;
+						resetSnowball();
 					}
 				}
 			}
@@ -134,5 +137,39 @@ public class SnowmanController : GameBehaviour
 			if ( Vector3.Distance(transform.position, WorldScript.thePlayer.transform.position) < throwDistance )
 				throwTimer += Time.deltaTime;
 		}
+	}
+
+	public void SaveState()
+	{
+		resetThrowTimer = throwTimer;
+		resetCurAngle = curAngle;
+		resetThrowSpeed = throwSpeed;
+		resetRotation = transform.localEulerAngles;
+		resetGraphicsRotation = graphics.transform.localEulerAngles;
+		resetBranchRotation = rightBranch.transform.localEulerAngles;
+		resetBranchPosition = rightBranch.transform.localPosition;
+	}
+
+	public void Reset()
+	{
+		throwTimer = resetThrowTimer;
+		curAngle = resetCurAngle;
+		throwSpeed = resetThrowSpeed;
+		transform.localEulerAngles = resetRotation;
+		graphics.transform.localEulerAngles = resetGraphicsRotation;
+		rightBranch.transform.localEulerAngles = resetBranchRotation;
+		rightBranch.transform.localPosition = resetBranchPosition;
+		resetSnowball ();
+	}
+
+	private void resetSnowball()
+	{
+		SnowballController sc = (SnowballController)(snowBall.GetComponent("SnowballController"));
+		sc.setStartMelting();
+		snowBall = Instantiate(snowBall, hand.position, hand.rotation) as Transform;
+		snowBall.rigidbody.isKinematic = true;
+		snowBall.localScale = new Vector3(1, 1, 1);
+		sc = (SnowballController)(snowBall.GetComponent("SnowballController"));
+		sc.isDangerous = true;
 	}
 }

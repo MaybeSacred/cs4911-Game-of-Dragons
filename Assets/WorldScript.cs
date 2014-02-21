@@ -33,5 +33,7 @@ public class WorldScript : GameBehaviour
 			if (resettable != null)
 				resettable.Reset ();
 		}
+
+		GameBehaviour.UnHideAll ();
 	}
 }
