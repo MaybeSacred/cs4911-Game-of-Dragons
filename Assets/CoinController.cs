@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CoinController : GameBehaviour {
+public class CoinController : GameBehaviour, IResettable {
 
 	public float rotationSpeed;
 
@@ -10,9 +10,50 @@ public class CoinController : GameBehaviour {
 		base.Start ();
 		
 	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		switch (other.gameObject.tag) 
+		{
+		case "Player":
+			PlayerController player = WorldScript.thePlayer;
+
+			switch (gameObject.tag)
+			{
+			case "Gem":
+				Hide ();
+				player.incrementGems();
+				player.HealthChange(player.maxHealth);
+				break;
+				
+			case "SmallGem":
+				Hide ();
+				player.incrementSmallGems();
+				player.HealthChange(2);
+				break;
+				
+			case "Coin":
+				Hide ();
+				player.addCoins(1);
+				player.HealthChange(1);
+				break;
+			}
+			break;
+		}
+	}
 	
 	void Update () 
 	{
 		transform.rotation *= new Quaternion(0, Mathf.Sin(rotationSpeed*Time.deltaTime), 0, Mathf.Cos(rotationSpeed*Time.deltaTime));
+	}
+
+	public void SaveState()
+	{
+
+	}
+
+	public void Reset()
+	{
+
 	}
 }

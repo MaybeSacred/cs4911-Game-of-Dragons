@@ -81,23 +81,7 @@ public class PlayerController : GameBehaviour, IResettable
 	{
 		switch (other.gameObject.tag) 
 		{
-		case "Gem":
-			Destroy (other.gameObject);
-			gems++;
-			HealthChange(maxHealth);
-			break;
-
-		case "SmallGem":
-			Destroy (other.gameObject);
-			smallGems++;
-			HealthChange(2);
-			break;
-
-		case "Coin":
-			Destroy (other.gameObject);
-			coins++;
-			HealthChange(1);
-			break;
+			
 		}
 	}
 
@@ -228,6 +212,21 @@ public class PlayerController : GameBehaviour, IResettable
 		{
 			health = maxHealth;
 		}
+	}
+
+	public void incrementGems()
+	{
+		gems++;
+	}
+
+	public void incrementSmallGems()
+	{
+		smallGems++;
+	}
+
+	public void addCoins(int amt)
+	{
+		coins += amt;
 	}
 
 	public void SaveState()

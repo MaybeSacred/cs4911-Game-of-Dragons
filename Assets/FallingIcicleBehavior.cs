@@ -36,6 +36,7 @@ public class FallingIcicleBehavior : GameBehaviour, IResettable {
 				if(shrinkTimer > shrinkingTime)
 				{
 					//Destroy(gameObject);
+					Hide();
 				}
 			}
 			else
