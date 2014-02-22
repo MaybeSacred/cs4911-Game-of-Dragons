@@ -10,8 +10,7 @@ public class GameBehaviour : MonoBehaviour
 		IResettable resettable = this as IResettable;
 		if (resettable != null) 
 		{
-			WorldScript world = (WorldScript)(GameObject.Find("World").GetComponent("WorldScript"));
-			world.objectsToReset.Add(resettable);
+			WorldScript.objectsToReset.Add(resettable);
 		}
 	}
 

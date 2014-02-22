@@ -19,8 +19,8 @@ public class CameraScript : GameBehaviour, IResettable
 	public float attemptedZoomSpeed;
 	public float zoomSpeed;
 	public float minZoomCameraOffset, maxZoomCameraOffset;
-
 	public float trueZoomSpeed;
+	public float additionalCameraOffset;
 
 	public float scrollSpeed;
 
@@ -84,7 +84,7 @@ public class CameraScript : GameBehaviour, IResettable
 		{
 			if(hit.distance < trueCameraOffset)
 			{
-				attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, -trueCameraOffset+hit.distance-.5f, attemptedZoomSpeed * Time.deltaTime);
+				attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, -trueCameraOffset+hit.distance-additionalCameraOffset, attemptedZoomSpeed * Time.deltaTime);
 			}
 			else
 			{

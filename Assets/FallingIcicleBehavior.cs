@@ -18,15 +18,12 @@ public class FallingIcicleBehavior : GameBehaviour, IResettable {
 
 	override protected void Start()
 	{
-		base.Start ();
-
-		initialPosition = transform.position;
-		initialScale = transform.localScale;
-
+		base.Start();
 		SaveState ();
 	}
 	
-	void Update () {
+	void Update ()
+	{
 		if(dropTimer > 0)
 		{
 			if(shrinkTimer > 0)
@@ -35,7 +32,6 @@ public class FallingIcicleBehavior : GameBehaviour, IResettable {
 				shrinkTimer += Time.deltaTime;
 				if(shrinkTimer > shrinkingTime)
 				{
-					//Destroy(gameObject);
 					Hide();
 				}
 			}
@@ -67,19 +63,16 @@ public class FallingIcicleBehavior : GameBehaviour, IResettable {
 
 	public void SaveState()
 	{
-		resetDropTimer = dropTimer;
-		resetShrinkTimer = shrinkTimer;
-		resetRigidbodyPosition = transform.rigidbody.position;
+		initialPosition = transform.position;
+		initialScale = transform.localScale;
 	}
 
 	public void Reset()
 	{
-		dropTimer = resetShrinkTimer;
-		shrinkTimer = resetShrinkTimer;
+		dropTimer = 0;
+		shrinkTimer = 0;
+		transform.rigidbody.isKinematic = true;
 		transform.position = initialPosition;
 		transform.localScale = initialScale;
-		transform.rigidbody.position = resetRigidbodyPosition;
-
-		transform.rigidbody.isKinematic = true;
 	}
 }

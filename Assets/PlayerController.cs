@@ -79,10 +79,7 @@ public class PlayerController : GameBehaviour, IResettable
 
 	void OnTriggerEnter(Collider other)
 	{
-		switch (other.gameObject.tag) 
-		{
-			
-		}
+		
 	}
 
 	private void PlayerControlForces()
@@ -197,8 +194,7 @@ public class PlayerController : GameBehaviour, IResettable
 	}
 	public void GameOver()
 	{
-		WorldScript world = (WorldScript)(GameObject.Find("World").GetComponent("WorldScript"));
-		world.reset ();
+		WorldScript.reset();
 	}
 	public void HealthChange(int deltaHealth)
 	{

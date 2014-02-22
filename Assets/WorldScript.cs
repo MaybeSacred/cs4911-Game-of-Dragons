@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class WorldScript : GameBehaviour 
 {
 	public static PlayerController thePlayer;
-	public List<IResettable> objectsToReset = new List<IResettable>();
+	public static List<IResettable> objectsToReset = new List<IResettable>();
 
 	public static float drawDistanceSquared = 210;
 	void Awake()
@@ -26,14 +26,13 @@ public class WorldScript : GameBehaviour
 		}*/
 	}
 
-	public void reset()
+	public static void reset()
 	{
 		foreach (IResettable resettable in objectsToReset) 
 		{
 			if (resettable != null)
 				resettable.Reset ();
 		}
-
 		GameBehaviour.UnHideAll ();
 	}
 }
