@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class HellmetBehavior : GameBehaviour {
+public class HellmetBehavior : GameBehaviour, IResettable {
 	public Color angryLightColor;
 	public float angryLightIntensity;
 	private Color normalLightColor;
@@ -61,6 +61,26 @@ public class HellmetBehavior : GameBehaviour {
 	public float angerTime;
 	private float theAngerTimer;
 
+	private Light resetGuardLight;
+	private float resetTimer;
+	private int resetUpdateCounter;
+	private float resetIsStunnedTimer;
+	private float resetDetectionTimeoutTimer;
+	private float resetDeathTimeoutTimer;
+	private Vector3[] resetPatrolPoints;
+	private int resetCurrentPatrolPoint;
+	private float resetPatrolPointWaitTimer;
+	private bool resetFoundPlayer;
+	private Vector3 resetMedianPoint;
+	private bool resetIsUnderAttack;
+	private float resetTheAngerTimer;
+	private Vector3 resetPosition;
+	private Vector3 resetRotation;
+	private Vector3 resetScale;
+	private Vector3 resetGraphicsPosition;
+	private Vector3 resetGraphicsRotation;
+	private Vector3 resetGraphicsScale;
+
 	override protected void Start()
 	{
 		base.Start ();
@@ -101,6 +121,8 @@ public class HellmetBehavior : GameBehaviour {
 		Destroy(editorPatrolPoints.gameObject);
 		meshMainTex.SetColor("_ReflectColor", coolColor);
 		ReturnToCurrentPatrolPoint();
+
+		SaveState ();
 	}
 	void OnCollisionEnter(Collision other)
 	{
@@ -131,11 +153,15 @@ public class HellmetBehavior : GameBehaviour {
 			if(deathTimeoutTimer > deathTimeout)
 			{
 				Instantiate(deathParticleSystem, graphics.position, graphics.rotation);
-				Destroy(gameObject);
+				//Destroy(gameObject);
+				Hide ();
 			}
-			guardLight.intensity = Mathf.Lerp(guardLight.intensity, 0, Time.deltaTime);
-			GetComponentInChildren<ParticleSystem>().emissionRate = Mathf.Lerp(GetComponentInChildren<ParticleSystem>().emissionRate, 0, Time.deltaTime);
-			deathTimeoutTimer += Time.deltaTime;
+			else
+			{
+				guardLight.intensity = Mathf.Lerp(guardLight.intensity, 0, Time.deltaTime);
+				GetComponentInChildren<ParticleSystem>().emissionRate = Mathf.Lerp(GetComponentInChildren<ParticleSystem>().emissionRate, 0, Time.deltaTime);
+				deathTimeoutTimer += Time.deltaTime;
+			}
 		}
 		else
 		{
@@ -333,5 +359,55 @@ public class HellmetBehavior : GameBehaviour {
 	{
 		isUnderAttack = true;
 		theAngerTimer = 0;
+	}
+
+	public void SaveState()
+	{
+		resetGuardLight = guardLight;
+		resetTimer = timer;
+		resetUpdateCounter = updateCounter;
+		resetIsStunnedTimer = isStunnedTimer;
+		resetDetectionTimeoutTimer = detectionTimeoutTimer;
+		resetDeathTimeoutTimer = deathTimeoutTimer;
+		resetPatrolPoints = (Vector3[])patrolPoints.Clone();
+		resetCurrentPatrolPoint = currentPatrolPoint;
+		resetPatrolPointWaitTimer = patrolPointWaitTimer;
+		resetFoundPlayer = foundPlayer;
+		resetMedianPoint = medianPoint;
+		resetIsUnderAttack = isUnderAttack;
+		resetTheAngerTimer = theAngerTimer;
+		resetPosition = transform.localPosition;
+		resetRotation = transform.localEulerAngles;
+		resetScale = transform.localScale;
+		resetGraphicsPosition = graphics.transform.localPosition;
+		resetGraphicsRotation = graphics.transform.localEulerAngles;
+		resetGraphicsScale = graphics.transform.localScale;
+	}
+
+	public void Reset()
+	{
+		guardLight = resetGuardLight;
+		timer = resetTimer;
+		updateCounter = resetUpdateCounter;
+		isStunnedTimer = resetIsStunnedTimer;
+		detectionTimeoutTimer = resetDetectionTimeoutTimer;
+		deathTimeoutTimer = resetDeathTimeoutTimer;
+		patrolPoints = (Vector3[])resetPatrolPoints.Clone();
+		currentPatrolPoint = resetCurrentPatrolPoint;
+		patrolPointWaitTimer = resetPatrolPointWaitTimer;
+		foundPlayer = resetFoundPlayer;
+		medianPoint = resetMedianPoint;
+		isUnderAttack = resetIsUnderAttack;
+		theAngerTimer = resetTheAngerTimer;
+		transform.localPosition = resetPosition;
+		transform.localEulerAngles = resetRotation;
+		transform.localScale = resetScale;
+		graphics.transform.localPosition = resetGraphicsPosition;
+		graphics.transform.localEulerAngles = resetGraphicsRotation;
+		graphics.transform.localScale = resetGraphicsScale;
+		health = maxHealth;
+		navAgent.enabled = true;
+		if (graphics.gameObject.rigidbody != null)
+			Destroy(graphics.gameObject.rigidbody);
 	}
 }
