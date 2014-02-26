@@ -14,10 +14,21 @@ public class CheckpointBehaviour : GameBehaviour
 
 		letterCRotateSpeed = 5;
 	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		switch (other.gameObject.tag) 
+		{
+		case "Player":
+			WorldScript.save();
+			break;
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		letterC.Rotate(0, letterCRotateSpeed, 0);
+		if (letterC != null)
+			letterC.Rotate(0, letterCRotateSpeed, 0);
 	}
 }
