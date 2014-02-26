@@ -26,6 +26,25 @@ public class WorldScript : GameBehaviour
 		}*/
 	}
 
+	public static bool removeHiddenPredicate(IResettable resettable)
+	{
+		GameBehaviour behaviour = resettable as GameBehaviour;
+		if (behaviour != null) 
+		{
+			return behaviour.isHidden ();
+		}
+
+		return false;
+	}
+
+	public static void save()
+	{
+		objectsToReset.RemoveAll (removeHiddenPredicate);
+		foreach (IResettable resettable in objectsToReset)
+			if (resettable != null)
+				resettable.SaveState ();
+	}
+
 	public static void reset()
 	{
 		foreach (IResettable resettable in objectsToReset) 
