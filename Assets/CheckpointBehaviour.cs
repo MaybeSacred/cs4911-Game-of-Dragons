@@ -6,11 +6,13 @@ public class CheckpointBehaviour : GameBehaviour
 
 	public Transform letterC;
 	public float letterCRotateSpeed;
-
+	public Material savedSwitchMaterial;
+	private Material unSavedSwitchMaterial;
 	// Use this for initialization
 	void Start () 
 	{
 		base.Start ();
+		unSavedSwitchMaterial = letterC.renderer.material;
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -19,6 +21,7 @@ public class CheckpointBehaviour : GameBehaviour
 		{
 		case "Player":
 			WorldScript.save();
+			letterC.renderer.material = savedSwitchMaterial;
 			break;
 		}
 	}
