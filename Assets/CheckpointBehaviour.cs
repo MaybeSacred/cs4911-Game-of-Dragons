@@ -5,14 +5,12 @@ public class CheckpointBehaviour : GameBehaviour
 {
 
 	public Transform letterC;
-	private float letterCRotateSpeed;
+	public float letterCRotateSpeed;
 
 	// Use this for initialization
 	void Start () 
 	{
 		base.Start ();
-
-		letterCRotateSpeed = 5;
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -28,7 +26,7 @@ public class CheckpointBehaviour : GameBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if (letterC != null)
-			letterC.Rotate(0, letterCRotateSpeed, 0);
+		if (!isHidden())
+			letterC.Rotate(0, letterCRotateSpeed*Time.deltaTime, 0);
 	}
 }
