@@ -9,7 +9,7 @@ public class CheckpointBehaviour : GameBehaviour
 	public Material savedSwitchMaterial;
 	private Material unSavedSwitchMaterial;
 	// Use this for initialization
-	void Start () 
+	protected override void Start () 
 	{
 		base.Start ();
 		unSavedSwitchMaterial = letterC.renderer.material;
