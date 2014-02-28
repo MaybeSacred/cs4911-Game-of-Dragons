@@ -21,6 +21,7 @@ public class CameraScript : GameBehaviour, IResettable
 	public float minZoomCameraOffset, maxZoomCameraOffset;
 	public float trueZoomSpeed;
 	public float additionalCameraOffset;
+	public float cameraYZoomOffset;
 
 	public float scrollSpeed;
 
@@ -68,19 +69,10 @@ public class CameraScript : GameBehaviour, IResettable
 		{
 			transform.eulerAngles = new Vector3 (transform.eulerAngles.x + mousePos.y * mouseSensitivity.y, transform.eulerAngles.y + mousePos.x * mouseSensitivity.x, transform.eulerAngles.z);
 		}
-
-		// rotate to make player run in circle
-		Vector3 xzSpeed = new Vector3(playerCharacter.rigidbody.velocity.x, 0, playerCharacter.rigidbody.velocity.z);
-		float xzDist = Mathf.Sqrt (Mathf.Pow (transform.position.x - playerCharacter.transform.position.x, 2) + Mathf.Pow (transform.position.z - playerCharacter.transform.position.z, 2));
-		float rightSpeed = Vector3.Dot (xzSpeed, transform.right);
-		if (xzDist == 0)
-			xzDist = .0001f;  // prevent divide by zero
-		float deltaAngle = rightSpeed / xzDist;
-		//transform.RotateAround (Vector3.zero, Vector3.up, deltaAngle);
 		trueCameraOffset -= Input.GetAxisRaw("Mouse ScrollWheel")*Time.deltaTime*trueZoomSpeed;
 		trueCameraOffset = Mathf.Clamp(trueCameraOffset, minZoomCameraOffset, maxZoomCameraOffset);
 		RaycastHit hit;
-		if(Physics.Raycast(WorldScript.thePlayer.transform.localPosition, -transform.forward, out hit, maxZoomCameraOffset, 1))
+		if(Physics.Raycast(WorldScript.thePlayer.transform.localPosition, -transform.forward, out hit, maxZoomCameraOffset, WorldScript.cameraIgnoreLayers))
 		{
 			if(hit.distance < trueCameraOffset)
 			{
@@ -97,7 +89,9 @@ public class CameraScript : GameBehaviour, IResettable
 		}
 		currentCameraOffset = Mathf.Lerp(currentCameraOffset, trueCameraOffset + attemptedCameraOffset, Time.deltaTime*zoomSpeed);
 		// set camera based on rotation
-		transform.position = playerCharacter.transform.position - transform.forward * currentCameraOffset;
+		transform.position = new Vector3(playerCharacter.transform.position.x - transform.forward.x * currentCameraOffset,
+		                                 playerCharacter.transform.position.y - transform.forward.y * currentCameraOffset + (cameraYZoomOffset-currentCameraOffset/maxZoomCameraOffset),
+		                                 playerCharacter.transform.position.z - transform.forward.z * currentCameraOffset);
 	}
 
 	public void SaveState()

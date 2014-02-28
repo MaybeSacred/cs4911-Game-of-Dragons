@@ -5,9 +5,12 @@ public class WorldScript : GameBehaviour
 {
 	public static PlayerController thePlayer;
 	public static List<IResettable> objectsToReset = new List<IResettable>();
+	public static int cameraIgnoreLayers;
 	void Awake()
 	{
-	
+		Debug.Log(LayerMask.NameToLayer("Default"));
+		Debug.Log(LayerMask.NameToLayer("Icy"));
+		cameraIgnoreLayers = (1<<LayerMask.NameToLayer("Default") | 1<<LayerMask.NameToLayer("Icy"));
 	}
 	override protected void Start()
 	{
