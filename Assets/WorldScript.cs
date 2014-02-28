@@ -5,11 +5,12 @@ public class WorldScript : GameBehaviour
 {
 	public static PlayerController thePlayer;
 	public static List<IResettable> objectsToReset = new List<IResettable>();
-
-	public static float drawDistanceSquared = 210;
+	public static int cameraIgnoreLayers;
 	void Awake()
 	{
-		drawDistanceSquared *= drawDistanceSquared;
+		Debug.Log(LayerMask.NameToLayer("Default"));
+		Debug.Log(LayerMask.NameToLayer("Icy"));
+		cameraIgnoreLayers = (1<<LayerMask.NameToLayer("Default") | 1<<LayerMask.NameToLayer("Icy"));
 	}
 	override protected void Start()
 	{
@@ -17,13 +18,25 @@ public class WorldScript : GameBehaviour
 
 		thePlayer = GetComponentInChildren<PlayerController>();
 		Config.Initialize();
-		/*foreach(Transform go in GetComponentsInChildren<Transform>())
+	}
+
+	public static bool removeHiddenPredicate(IResettable resettable)
+	{
+		GameBehaviour behaviour = resettable as GameBehaviour;
+		if (behaviour != null) 
 		{
-			if(go.renderer != null && go.gameObject.GetComponent<DistanceRenderer>() == null)
-			{
-				go.gameObject.AddComponent<DistanceRenderer>();
-			}
-		}*/
+			return behaviour.isHidden ();
+		}
+
+		return false;
+	}
+
+	public static void save()
+	{
+		objectsToReset.RemoveAll (removeHiddenPredicate);
+		foreach (IResettable resettable in objectsToReset)
+			if (resettable != null)
+				resettable.SaveState ();
 	}
 
 	public static void reset()

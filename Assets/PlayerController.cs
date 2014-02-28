@@ -25,7 +25,8 @@ public class PlayerController : GameBehaviour, IResettable
 	public float groundSkinWidth;
 	private bool isGrounded;
 	public float minSpeed;
-
+	public float iceDrag;
+	
 	public float startFlameEmissionRate;
 	private float flameStartSize;
 	public float flameDuration;
@@ -57,7 +58,6 @@ public class PlayerController : GameBehaviour, IResettable
 		oldPosition = rigidbody.position;
 		startFlameEmissionRate = flames.emissionRate;
 		flameStartSize = flames.startSize;
-
 		SaveState ();
 	}
 
@@ -129,11 +129,12 @@ public class PlayerController : GameBehaviour, IResettable
 			setVelocityX (0);  // player shouldn't slide when on ground
 			setVelocityZ (0);
 		}
-		if(!isOnIcyGround)
+		else if(isOnIcyGround)
 		{
-			if(verticalInput != 0 || horizontalInput != 0)
-				realTransform.forward = Vector3.RotateTowards(realTransform.forward, new Vector3(controlVector.x, 0, controlVector.y), rotationSpeed*Time.deltaTime, 0);
+			rigidbody.velocity *= iceDrag;
 		}
+		if(verticalInput != 0 || horizontalInput != 0)
+			realTransform.forward = Vector3.RotateTowards(realTransform.forward, new Vector3(controlVector.x, 0, controlVector.y), rotationSpeed*Time.deltaTime, 0);
 		oldPosition = rigidbody.position;
 	}
 
