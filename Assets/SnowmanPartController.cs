@@ -9,6 +9,7 @@ public class SnowmanPartController : GameBehaviour, IResettable
 
 	private Transform resetParent;
 	private Vector3 resetPosition;
+	private Vector3 resetScale;
 	private Vector3 resetRotation;
 
 	override protected void Start()
@@ -67,6 +68,7 @@ public class SnowmanPartController : GameBehaviour, IResettable
 		resetParent = transform.parent;
 		resetPosition = transform.position;
 		resetRotation = transform.localEulerAngles;
+		resetScale = transform.localScale;
 	}
 
 	public void Reset()
@@ -74,7 +76,7 @@ public class SnowmanPartController : GameBehaviour, IResettable
 		transform.parent = resetParent;
 		transform.position = resetPosition;
 		transform.localEulerAngles = resetRotation;
-		transform.localScale = new Vector3(startScale, startScale, startScale);
+		transform.localScale = resetScale;
 		rigidbody.constraints = RigidbodyConstraints.FreezePositionX | 
 								RigidbodyConstraints.FreezePositionZ | 
 								RigidbodyConstraints.FreezeRotationX |

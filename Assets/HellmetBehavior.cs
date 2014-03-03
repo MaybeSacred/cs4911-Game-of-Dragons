@@ -80,6 +80,8 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 	private Vector3 resetGraphicsPosition;
 	private Vector3 resetGraphicsRotation;
 	private Vector3 resetGraphicsScale;
+	private Color resetTexColor;
+	private float resetHealth;
 
 	override protected void Start()
 	{
@@ -382,6 +384,8 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 		resetGraphicsPosition = graphics.transform.localPosition;
 		resetGraphicsRotation = graphics.transform.localEulerAngles;
 		resetGraphicsScale = graphics.transform.localScale;
+		resetHealth = health;
+		resetTexColor = meshMainTex.GetColor ("_ReflectColor");
 	}
 
 	public void Reset()
@@ -405,7 +409,8 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 		graphics.transform.localPosition = resetGraphicsPosition;
 		graphics.transform.localEulerAngles = resetGraphicsRotation;
 		graphics.transform.localScale = resetGraphicsScale;
-		health = maxHealth;
+		meshMainTex.SetColor ("_ReflectColor", resetTexColor);
+		health = resetHealth;
 		navAgent.enabled = true;
 		if (graphics.gameObject.rigidbody != null)
 			Destroy(graphics.gameObject.rigidbody);
