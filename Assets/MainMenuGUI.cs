@@ -25,6 +25,11 @@ public class MainMenuGUI : GameBehaviour
 		bool optionsButton = GUI.Button ( new Rect(0, 140, 100, 40), "Options" );
 		bool exitButton = GUI.Button ( new Rect(0, 180, 100, 40), "Exit" );
 
+		if (newGameButton) 
+		{
+			Application.LoadLevel("Scene0");
+		}
+
 		GUI.EndGroup ();
 	}
 	

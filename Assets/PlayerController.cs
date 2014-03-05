@@ -183,7 +183,7 @@ public class PlayerController : GameBehaviour, IResettable
 		    out hit, 
 			groundSkinWidth + collider.bounds.extents.y,
 		    ~(1<<2 | 1<<8)
-		);
+		) && Vector3.Dot(hit.normal, Vector3.up) > .5;  // restrict ground to less than 45 deg angles
 		if(hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Icy"))
 		{
 			isOnIcyGround = true;
@@ -193,10 +193,12 @@ public class PlayerController : GameBehaviour, IResettable
 			isOnIcyGround = false;
 		}
 	}
+
 	public void GameOver()
 	{
 		WorldScript.reset();
 	}
+
 	public void HealthChange(int deltaHealth)
 	{
 		health += deltaHealth;
