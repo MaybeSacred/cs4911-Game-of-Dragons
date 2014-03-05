@@ -181,7 +181,7 @@ public class PlayerController : GameBehaviour, IResettable
 		isGrounded = Physics.Raycast(
 			new Ray(rigidbody.position, -Vector3.up), 
 		    out hit, 
-			groundSkinWidth + transform.localScale.y,
+			groundSkinWidth + collider.bounds.extents.y,
 		    ~(1<<2 | 1<<8)
 		);
 		if(hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Icy"))
