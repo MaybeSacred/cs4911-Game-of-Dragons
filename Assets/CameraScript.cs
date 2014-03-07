@@ -104,4 +104,29 @@ public class CameraScript : GameBehaviour, IResettable
 		transform.position = resetPosition;
 		transform.eulerAngles = resetRotation;
 	}
+	float shakeAmplitude;
+	public float maxCameraShakeAmplitude;
+	float shakeTimer;
+	public float minimumCameraShakeAmplitude;
+	public float shakeAmplitudeDecayRate;
+	public float shakeRate;
+	public void ActivateCameraShake(float amplitude)
+	{
+		shakeAmplitude = Mathf.Clamp(amplitude, 0, maxCameraShakeAmplitude);
+		shakeTimer = 0.001f;
+	}
+	private void ShakeCamera()
+	{
+		if(shakeTimer > 0)
+		{
+			shakeAmplitude = Mathf.Lerp(shakeAmplitude, 0, shakeAmplitudeDecayRate * Time.deltaTime);
+			transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, shakeAmplitude * Mathf.Sin(shakeRate * Time.timeSinceLevelLoad));
+			if(shakeAmplitude < minimumCameraShakeAmplitude)
+			{
+				shakeTimer = 0;
+				transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0);
+			}
+			shakeTimer += Time.deltaTime;
+		}
+	}
 }
