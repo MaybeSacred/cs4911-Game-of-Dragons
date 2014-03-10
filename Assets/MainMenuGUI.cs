@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controls the GUI on the main menu. Has buttons
+/// to start new game.
+/// </summary>
 public class MainMenuGUI : GameBehaviour 
 {
 	

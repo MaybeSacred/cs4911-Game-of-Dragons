@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class IceBlock : GameBehaviour, IResettable {
+/// <summary>
+/// Controls meltable blocks of ice.
+/// </summary>
+public class IceBlock : GameBehaviour, IResettable 
+{
 	private Vector3 initialScale;
 	private float currentScaleMagnitude;
 	public float minAcceptableSize;
@@ -20,6 +24,7 @@ public class IceBlock : GameBehaviour, IResettable {
 
 		SaveState ();
 	}
+
 	void OnTriggerStay(Collider other)
 	{
 		if(other.tag.Equals("FireBreath"))
@@ -32,10 +37,13 @@ public class IceBlock : GameBehaviour, IResettable {
 			}
 		}
 	}
-	void Update () {
+
+	void Update () 
+	{
 	
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void SaveState()
 	{
 		resetPosition = transform.localPosition;
@@ -43,6 +51,7 @@ public class IceBlock : GameBehaviour, IResettable {
 		resetScale = transform.localScale;
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void Reset()
 	{
 		transform.localPosition = resetPosition;

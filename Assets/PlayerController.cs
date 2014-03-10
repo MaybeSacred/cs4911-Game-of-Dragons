@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Takes user input and controls the player object.
+/// Controls moving, jumping, attacking, dying, etc.
+/// </summary>
 public class PlayerController : GameBehaviour, IResettable 
 {
 	public CameraScript theCamera;
@@ -42,7 +46,7 @@ public class PlayerController : GameBehaviour, IResettable
 	public int smallGems;
 	public int coins;
 
-	bool isOnIcyGround;
+	private bool isOnIcyGround;
 
 	private Vector3 resetPosition;
 	private Vector3 resetRotation;
@@ -164,12 +168,14 @@ public class PlayerController : GameBehaviour, IResettable
 			}
 		}
 	}
-
+	
+	/// <returns>A value between 0 and 1 representing the visual strength of the flame.</returns>
 	public float GetFlameScale()
 	{
 		return (flameDuration-flameTimer) / flameDuration;
 	}
-
+	
+	/// <returns>A value representing how much damage the flame can do at the current time.</returns>
 	public float GetAttackDamage()
 	{
 		return GetFlameScale() * maxAttackStrength;
@@ -194,11 +200,18 @@ public class PlayerController : GameBehaviour, IResettable
 		}
 	}
 
+	/// <summary>
+	/// Called when player is dead. Tells world to reset state.
+	/// </summary>
 	public void GameOver()
 	{
 		WorldScript.reset();
 	}
 
+	/// <summary>
+	/// Adds deltaHealth to current health and kills player if health is less than or equal to 0.
+	/// </summary>
+	/// <param name="deltaHealth">Amount to change health by.</param>
 	public void HealthChange(int deltaHealth)
 	{
 		health += deltaHealth;
@@ -213,21 +226,32 @@ public class PlayerController : GameBehaviour, IResettable
 		}
 	}
 
+	/// <summary>
+	/// Increments the gems.
+	/// </summary>
 	public void incrementGems()
 	{
 		gems++;
 	}
 
+	/// <summary>
+	/// Increments the small gems.
+	/// </summary>
 	public void incrementSmallGems()
 	{
 		smallGems++;
 	}
 
+	/// <summary>
+	/// Adds to the coint count.
+	/// </summary>
+	/// <param name="amt">Number of coins to add.</param>
 	public void addCoins(int amt)
 	{
 		coins += amt;
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void SaveState()
 	{
 		resetPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
@@ -236,6 +260,7 @@ public class PlayerController : GameBehaviour, IResettable
 		resetAngularVelocity = new Vector3(transform.rigidbody.angularVelocity.x, transform.rigidbody.angularVelocity.y, transform.rigidbody.angularVelocity.z);;
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void Reset()
 	{
 		transform.position = resetPosition;

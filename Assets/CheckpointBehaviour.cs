@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Tells the world to save the state of all Resettable objects
+/// when the player begins colliding with the checkpoint.
+/// </summary>
 public class CheckpointBehaviour : GameBehaviour 
 {
 
@@ -8,6 +12,7 @@ public class CheckpointBehaviour : GameBehaviour
 	public float letterCRotateSpeed;
 	public Material savedSwitchMaterial;
 	private Material unSavedSwitchMaterial;
+
 	// Use this for initialization
 	protected override void Start () 
 	{

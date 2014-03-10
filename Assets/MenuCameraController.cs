@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controls the camera that moves around on the main menu.
+/// </summary>
 public class MenuCameraController : GameBehaviour 
 {
 

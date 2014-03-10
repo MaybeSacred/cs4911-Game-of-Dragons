@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controls the position and direction of the player's camera. Player
+/// can control camera using mouse movements and scroll wheel.
+/// </summary>
 public class CameraScript : GameBehaviour, IResettable
 {
+
 	public PlayerController playerCharacter;
 	public Transform playerGraphics;
 	public int currentCharacter;
@@ -24,6 +29,13 @@ public class CameraScript : GameBehaviour, IResettable
 	public float cameraYZoomOffset;
 	public bool enableCollisionZoom = true;
 	public float scrollSpeed;
+
+	private float shakeAmplitude;
+	private float shakeTimer;
+	public float maxCameraShakeAmplitude;
+	public float minimumCameraShakeAmplitude;
+	public float shakeAmplitudeDecayRate;
+	public float shakeRate;
 
 	private Vector3 resetPosition;
 
@@ -97,27 +109,30 @@ public class CameraScript : GameBehaviour, IResettable
 		                                 playerCharacter.transform.position.z - transform.forward.z * currentCameraOffset);
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void SaveState()
 	{
 		resetPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 		resetRotation = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
 	}
+
+	/// <seealso cref="IResettable"/>
 	public void Reset()
 	{
 		transform.position = resetPosition;
 		transform.eulerAngles = resetRotation;
 	}
-	float shakeAmplitude;
-	public float maxCameraShakeAmplitude;
-	float shakeTimer;
-	public float minimumCameraShakeAmplitude;
-	public float shakeAmplitudeDecayRate;
-	public float shakeRate;
+
+	/// <summary>
+	/// Make camera shake with sin function with given amplitude.
+	/// </summary>
+	/// <param name="amplitude">Amplitude.</param>
 	public void ActivateCameraShake(float amplitude)
 	{
 		shakeAmplitude = Mathf.Clamp(amplitude, 0, maxCameraShakeAmplitude);
 		shakeTimer = 0.001f;
 	}
+
 	private void ShakeCamera()
 	{
 		if(shakeTimer > 0)

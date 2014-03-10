@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controls projectile snowballs that can damage the player.
+/// </summary>
 public class SnowballController : GameBehaviour 
 {
 	public bool startMelting;
@@ -32,6 +35,9 @@ public class SnowballController : GameBehaviour
 			dangerTimer = .25f;
 	}
 
+	/// <summary>
+	/// Tell the snowball to start its melting sequence.
+	/// </summary>
 	public void setStartMelting()
 	{
 		startMelting = true;

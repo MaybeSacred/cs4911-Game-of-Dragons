@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RollingStoneCollector : GameBehaviour {
+/// <summary>
+/// Destroys the rocks that collide with this instance.
+/// </summary>
+public class RollingStoneCollector : GameBehaviour 
+{
 
 	override protected void Start()
 	{

@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class HellmetBehavior : GameBehaviour, IResettable {
+/// <summary>
+/// Controls hellmet enemy
+/// </summary>
+public class HellmetBehavior : GameBehaviour, IResettable 
+{
 	public Color angryLightColor;
 	public float angryLightIntensity;
 	private Color normalLightColor;
@@ -126,10 +130,12 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 
 		SaveState ();
 	}
+
 	void OnCollisionEnter(Collision other)
 	{
 		
 	}
+
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.tag.Equals("Player"))
@@ -139,6 +145,7 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 			isStunnedTimer += Time.deltaTime;
 		}
 	}
+
 	void OnTriggerStay(Collider other)
 	{
 		if(other.tag.Equals("FireBreath"))
@@ -148,6 +155,7 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 			theAngerTimer = 0;
 		}
 	}
+
 	void Update ()
 	{
 		if(deathTimeoutTimer > 0)
@@ -237,6 +245,7 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 			ApplyBounce();
 		}
 	}
+
 	private void UpdateWhenPlayerFound(Vector3 distanceToPlayer)
 	{
 		detectionTimeoutTimer = 0;
@@ -253,6 +262,7 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 			MoveTowardsPlayer(distanceToPlayer);
 		}
 	}
+
 	private void UpdateNoPlayerFound()
 	{
 		if(detectionTimeoutTimer > detectionTimeout)
@@ -269,6 +279,7 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 			}
 		}
 	}
+
 	private void MoveTowardsPlayer(Vector3 vectorToPlayer)
 	{
 		if(updateCounter%framesToSkip ==0)
@@ -277,12 +288,14 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 		}
 		updateCounter++;
 	}
+
 	private void ReturnToCurrentPatrolPoint()
 	{
 		patrolProperties.SetNavMeshAgent(navAgent);
 		navAgent.SetDestination(patrolPoints[currentPatrolPoint]);
 		patrolPointWaitTimer = patrolPointTimeToWait;
 	}
+
 	private void PatrolPath()
 	{
 		if(patrolPointWaitTimer < patrolPointTimeToWait)
@@ -303,6 +316,7 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 			}
 		}
 	}
+
 	private void IncrementCurrentPatrolPoint()
 	{
 		currentPatrolPoint++;
@@ -311,6 +325,10 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 			currentPatrolPoint = 0;
 		}
 	}
+
+	/// <summary>
+	/// Starts death sequence
+	/// </summary>
 	public void KillMe()
 	{
 		if(deathTimeoutTimer <= 0)
@@ -320,6 +338,14 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 			deathTimeoutTimer = .0001f;
 		}
 	}
+
+	/// <summary>
+	/// Adds deltaHealth to current health.
+	/// Sets color based on health, and calls
+	/// KillMe() if health is less than or 
+	/// equal to 0.
+	/// </summary>
+	/// <param name="deltaHealth">Delta health.</param>
 	public void HealthChange(float deltaHealth)
 	{
 		health += deltaHealth;
@@ -334,21 +360,29 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 		}
 		meshMainTex.SetColor("_ReflectColor", Color.Lerp(coolColor, heatUpColor, (maxHealth-health)/maxHealth));
 	}
+
 	private void SetAngryLight()
 	{
 		guardLight.intensity = angryLightIntensity;
 		guardLight.color = angryLightColor;
 	}
+
 	private void SetNormalLight()
 	{
 		guardLight.intensity = normalLightIntensity;
 		guardLight.color = normalLightColor;
 	}
+
 	private void ApplyBounce()
 	{
 		float temp = Mathf.Sin(bounceSpeed*Time.timeSinceLevelLoad);
 		graphics.localPosition = new Vector3(graphics.localPosition.x, bounciness*temp*temp+yGraphicsOffset, graphics.localPosition.z);
 	}
+
+	/// <summary>
+	/// Communicates to "friend" hellmets that
+	/// they should attack the player.
+	/// </summary>
 	public void AlertFriends()
 	{
 		AlertMe();
@@ -357,12 +391,17 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 			hb.AlertMe();
 		}
 	}
+
+	/// <summary>
+	/// Tells hellmet to attack player
+	/// </summary>
 	public void AlertMe()
 	{
 		isUnderAttack = true;
 		theAngerTimer = 0;
 	}
 
+	/// <seealso cref="IResettable"/> 
 	public void SaveState()
 	{
 		resetGuardLight = guardLight;
@@ -388,6 +427,7 @@ public class HellmetBehavior : GameBehaviour, IResettable {
 		resetTexColor = meshMainTex.GetColor ("_ReflectColor");
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void Reset()
 	{
 		guardLight = resetGuardLight;

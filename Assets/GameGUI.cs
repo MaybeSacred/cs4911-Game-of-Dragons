@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameGUI : GameBehaviour {
+/// <summary>
+/// Controls the in-game GUI. Shows health, fire, and gem counts.
+/// </summary>
+public class GameGUI : GameBehaviour 
+{
 	public GUIStyle currentStyle;
 	public Texture2D healthTex;
 	public Texture2D emptyHealthTex;
@@ -18,6 +22,7 @@ public class GameGUI : GameBehaviour {
 
 		gemDisplayRectangle = new Rect(Screen.width - fullGemTex.width*2-brokenGemTex.width*2, 0, fullGemTex.width*2+brokenGemTex.width*2, fullGemTex.height);
 	}
+
 	void OnGUI()
 	{
 		GUI.BeginGroup(new Rect(0, 0, maxHPBarWidth, hpBarBackground.height), transHPBarBackground, currentStyle);
@@ -47,7 +52,9 @@ public class GameGUI : GameBehaviour {
 		GUI.EndGroup();
 		GUI.EndGroup();
 	}
-	void Update () {
+
+	void Update () 
+	{
 	
 	}
 }

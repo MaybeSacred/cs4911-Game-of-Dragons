@@ -1,15 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// An interface to help control sets of objects within the world.
+/// </summary>
 public class WorldScript : GameBehaviour 
 {
 	public static PlayerController thePlayer;
 	public static List<IResettable> objectsToReset = new List<IResettable>();
 	public static int cameraIgnoreLayers;
+
 	void Awake()
 	{
 		cameraIgnoreLayers = (1<<LayerMask.NameToLayer("Default") | 1<<LayerMask.NameToLayer("Icy"));
 	}
+
 	override protected void Start()
 	{
 		base.Start ();
@@ -18,6 +23,11 @@ public class WorldScript : GameBehaviour
 		Config.Initialize();
 	}
 
+	/// <summary>
+	/// Returns true if given resettable is hidden.
+	/// </summary>
+	/// <returns><c>true</c>, if resettable should be removed, <c>false</c> otherwise.</returns>
+	/// <param name="resettable">Resettable object</param>
 	public static bool removeHiddenPredicate(IResettable resettable)
 	{
 		GameBehaviour behaviour = resettable as GameBehaviour;
@@ -29,6 +39,9 @@ public class WorldScript : GameBehaviour
 		return false;
 	}
 
+	/// <summary>
+	/// Removes hidden objects and saves the state of all remaining objects.
+	/// </summary>
 	public static void save()
 	{
 		objectsToReset.RemoveAll (removeHiddenPredicate);
@@ -37,6 +50,9 @@ public class WorldScript : GameBehaviour
 				resettable.SaveState ();
 	}
 
+	/// <summary>
+	/// Unhide all hidden objects and reset them to their saved states.
+	/// </summary>
 	public static void reset()
 	{
 		foreach (IResettable resettable in objectsToReset) 
