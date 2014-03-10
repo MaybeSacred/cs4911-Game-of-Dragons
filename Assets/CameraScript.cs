@@ -22,7 +22,7 @@ public class CameraScript : GameBehaviour, IResettable
 	public float trueZoomSpeed;
 	public float additionalCameraOffset;
 	public float cameraYZoomOffset;
-
+	public bool enableCollisionZoom = true;
 	public float scrollSpeed;
 
 	private Vector3 resetPosition;
@@ -37,7 +37,7 @@ public class CameraScript : GameBehaviour, IResettable
 
 		yAxisUpperAngleBound += 360;
 		mousePos = new Vector2();
-		attemptedCameraOffset = (maxZoomCameraOffset+minZoomCameraOffset)/2;
+		//attemptedCameraOffset = (maxZoomCameraOffset+minZoomCameraOffset)/2;
 
 		SaveState ();
 	}
@@ -71,21 +71,24 @@ public class CameraScript : GameBehaviour, IResettable
 		}
 		trueCameraOffset -= Input.GetAxisRaw("Mouse ScrollWheel")*Time.deltaTime*trueZoomSpeed;
 		trueCameraOffset = Mathf.Clamp(trueCameraOffset, minZoomCameraOffset, maxZoomCameraOffset);
-		RaycastHit hit;
-		if(Physics.Raycast(WorldScript.thePlayer.transform.localPosition, -transform.forward, out hit, maxZoomCameraOffset, WorldScript.cameraIgnoreLayers))
+		if(enableCollisionZoom)
 		{
-			if(hit.distance < trueCameraOffset)
+			RaycastHit hit;
+			if(Physics.Raycast(WorldScript.thePlayer.transform.localPosition, -transform.forward, out hit, maxZoomCameraOffset, WorldScript.cameraIgnoreLayers))
 			{
-				attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, -trueCameraOffset+hit.distance-additionalCameraOffset, attemptedZoomSpeed * Time.deltaTime);
+				if(hit.distance < trueCameraOffset)
+				{
+					attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, -trueCameraOffset+hit.distance-additionalCameraOffset, attemptedZoomSpeed * Time.deltaTime);
+				}
+				else
+				{
+					attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, 0, attemptedZoomSpeed * Time.deltaTime);
+				}
 			}
 			else
 			{
 				attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, 0, attemptedZoomSpeed * Time.deltaTime);
 			}
-		}
-		else
-		{
-			attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, 0, attemptedZoomSpeed * Time.deltaTime);
 		}
 		currentCameraOffset = Mathf.Lerp(currentCameraOffset, trueCameraOffset + attemptedCameraOffset, Time.deltaTime*zoomSpeed);
 		// set camera based on rotation
