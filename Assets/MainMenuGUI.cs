@@ -10,6 +10,8 @@ public class MainMenuGUI : GameBehaviour
 	
 	public GUIStyle currentStyle;
 	private int screenMargin;
+
+	public Texture2D titleTex;
 	
 	// Use this for initialization
 	override protected void Start () 
@@ -23,7 +25,7 @@ public class MainMenuGUI : GameBehaviour
 	{
 		GUI.BeginGroup(new Rect(screenMargin, screenMargin, Screen.width-screenMargin*2, Screen.height-screenMargin*2), currentStyle);
 
-		GUI.Label(new Rect(0, 0, 300, 300), "Game of Dragons", currentStyle);
+		GUI.Label(new Rect(0, 0, 300, 300), titleTex, currentStyle);
 
 		bool newGameButton = GUI.Button ( new Rect(0, 100, 100, 40), "New Game" );
 		bool optionsButton = GUI.Button ( new Rect(0, 140, 100, 40), "Options" );
