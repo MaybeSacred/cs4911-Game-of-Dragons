@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controls an individual body part of the snowman
+/// </summary>
 public class SnowmanPartController : GameBehaviour, IResettable
 {
 	private float startScale;
@@ -9,6 +12,7 @@ public class SnowmanPartController : GameBehaviour, IResettable
 
 	private Transform resetParent;
 	private Vector3 resetPosition;
+	private Vector3 resetScale;
 	private Vector3 resetRotation;
 
 	override protected void Start()
@@ -39,6 +43,9 @@ public class SnowmanPartController : GameBehaviour, IResettable
 		return transform.localScale.x < startScale * .5;
 	}
 
+	/// <summary>
+	/// Shrinks the body part and hides it once it is small enough.
+	/// </summary>
 	public void DeathShrink()
 	{
 		transform.localScale = new Vector3(
@@ -62,19 +69,22 @@ public class SnowmanPartController : GameBehaviour, IResettable
 
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void SaveState()
 	{
 		resetParent = transform.parent;
 		resetPosition = transform.position;
 		resetRotation = transform.localEulerAngles;
+		resetScale = transform.localScale;
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void Reset()
 	{
 		transform.parent = resetParent;
 		transform.position = resetPosition;
 		transform.localEulerAngles = resetRotation;
-		transform.localScale = new Vector3(startScale, startScale, startScale);
+		transform.localScale = resetScale;
 		rigidbody.constraints = RigidbodyConstraints.FreezePositionX | 
 								RigidbodyConstraints.FreezePositionZ | 
 								RigidbodyConstraints.FreezeRotationX |

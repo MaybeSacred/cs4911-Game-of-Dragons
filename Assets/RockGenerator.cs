@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RockGenerator : GameBehaviour {
+/// <summary>
+/// Continually creates rocks that fall in the level.
+/// </summary>
+public class RockGenerator : GameBehaviour 
+{
 	public float timeBetweenRocks;
 	public Transform[] rocks;
 	private float emissionTimer;
@@ -27,6 +31,7 @@ public class RockGenerator : GameBehaviour {
 		}
 		emissionTimer += Time.deltaTime;
 	}
+
 	private void PermuteRockAttributes(Transform indy)
 	{
 		indy.localScale = indy.localScale*Random.Range(rockScalePermutePercent, 2-rockScalePermutePercent);

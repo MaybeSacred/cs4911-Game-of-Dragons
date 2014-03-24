@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlatformController : GameBehaviour {
+/// <summary>
+/// Controls the movement of a platform between two points.
+/// </summary>
+public class PlatformController : GameBehaviour 
+{
 	private Vector3 startPosition;
 	public Vector3 endPosition;
 	public bool endPositionIsFromStart;

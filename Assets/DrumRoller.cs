@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DrumRoller : GameBehaviour {
+/// <summary>
+/// Controls a set rotation on object this is applied to.
+/// </summary>
+public class DrumRoller : GameBehaviour 
+{
 	public bool isOscillating;
 	public float rotationSpeedDegrees;
 	private float oscillationTimer;
@@ -13,7 +17,8 @@ public class DrumRoller : GameBehaviour {
 		base.Start ();
 	}
 	
-	void Update () {
+	void Update () 
+	{
 		if(isOscillating)
 		{
 			

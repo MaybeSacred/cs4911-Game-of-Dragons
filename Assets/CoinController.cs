@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CoinController : GameBehaviour, IResettable {
+/// <summary>
+/// Controls the spinning and collection behavior of all token
+/// objects. This includes things that are not coins, such as
+/// gems.
+/// </summary>
+public class CoinController : GameBehaviour, IResettable 
+{
 
 	public float rotationSpeed;
 
@@ -47,11 +53,13 @@ public class CoinController : GameBehaviour, IResettable {
 		transform.rotation *= new Quaternion(0, Mathf.Sin(rotationSpeed*Time.deltaTime), 0, Mathf.Cos(rotationSpeed*Time.deltaTime));
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void SaveState()
 	{
 
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void Reset()
 	{
 

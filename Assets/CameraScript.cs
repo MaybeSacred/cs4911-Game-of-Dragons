@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controls the position and direction of the player's camera. Player
+/// can control camera using mouse movements and scroll wheel.
+/// </summary>
 public class CameraScript : GameBehaviour, IResettable
 {
+
 	public PlayerController playerCharacter;
 	public Transform playerGraphics;
 	public int currentCharacter;
@@ -21,8 +26,16 @@ public class CameraScript : GameBehaviour, IResettable
 	public float minZoomCameraOffset, maxZoomCameraOffset;
 	public float trueZoomSpeed;
 	public float additionalCameraOffset;
-
+	public float cameraYZoomOffset;
+	public bool enableCollisionZoom = true;
 	public float scrollSpeed;
+
+	private float shakeAmplitude;
+	private float shakeTimer;
+	public float maxCameraShakeAmplitude;
+	public float minimumCameraShakeAmplitude;
+	public float shakeAmplitudeDecayRate;
+	public float shakeRate;
 
 	private Vector3 resetPosition;
 
@@ -36,7 +49,7 @@ public class CameraScript : GameBehaviour, IResettable
 
 		yAxisUpperAngleBound += 360;
 		mousePos = new Vector2();
-		attemptedCameraOffset = (maxZoomCameraOffset+minZoomCameraOffset)/2;
+		//attemptedCameraOffset = (maxZoomCameraOffset+minZoomCameraOffset)/2;
 
 		SaveState ();
 	}
@@ -68,46 +81,70 @@ public class CameraScript : GameBehaviour, IResettable
 		{
 			transform.eulerAngles = new Vector3 (transform.eulerAngles.x + mousePos.y * mouseSensitivity.y, transform.eulerAngles.y + mousePos.x * mouseSensitivity.x, transform.eulerAngles.z);
 		}
-
-		// rotate to make player run in circle
-		Vector3 xzSpeed = new Vector3(playerCharacter.rigidbody.velocity.x, 0, playerCharacter.rigidbody.velocity.z);
-		float xzDist = Mathf.Sqrt (Mathf.Pow (transform.position.x - playerCharacter.transform.position.x, 2) + Mathf.Pow (transform.position.z - playerCharacter.transform.position.z, 2));
-		float rightSpeed = Vector3.Dot (xzSpeed, transform.right);
-		if (xzDist == 0)
-			xzDist = .0001f;  // prevent divide by zero
-		float deltaAngle = rightSpeed / xzDist;
-		//transform.RotateAround (Vector3.zero, Vector3.up, deltaAngle);
 		trueCameraOffset -= Input.GetAxisRaw("Mouse ScrollWheel")*Time.deltaTime*trueZoomSpeed;
 		trueCameraOffset = Mathf.Clamp(trueCameraOffset, minZoomCameraOffset, maxZoomCameraOffset);
-		RaycastHit hit;
-		if(Physics.Raycast(WorldScript.thePlayer.transform.localPosition, -transform.forward, out hit, maxZoomCameraOffset, 1))
+		if(enableCollisionZoom)
 		{
-			if(hit.distance < trueCameraOffset)
+			RaycastHit hit;
+			if(Physics.Raycast(WorldScript.thePlayer.transform.localPosition, -transform.forward, out hit, maxZoomCameraOffset, WorldScript.cameraIgnoreLayers))
 			{
-				attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, -trueCameraOffset+hit.distance-additionalCameraOffset, attemptedZoomSpeed * Time.deltaTime);
+				if(hit.distance < trueCameraOffset)
+				{
+					attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, -trueCameraOffset+hit.distance-additionalCameraOffset, attemptedZoomSpeed * Time.deltaTime);
+				}
+				else
+				{
+					attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, 0, attemptedZoomSpeed * Time.deltaTime);
+				}
 			}
 			else
 			{
 				attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, 0, attemptedZoomSpeed * Time.deltaTime);
 			}
 		}
-		else
-		{
-			attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, 0, attemptedZoomSpeed * Time.deltaTime);
-		}
 		currentCameraOffset = Mathf.Lerp(currentCameraOffset, trueCameraOffset + attemptedCameraOffset, Time.deltaTime*zoomSpeed);
 		// set camera based on rotation
-		transform.position = playerCharacter.transform.position - transform.forward * currentCameraOffset;
+		transform.position = new Vector3(playerCharacter.transform.position.x - transform.forward.x * currentCameraOffset,
+		                                 playerCharacter.transform.position.y - transform.forward.y * currentCameraOffset + (cameraYZoomOffset-currentCameraOffset/maxZoomCameraOffset),
+		                                 playerCharacter.transform.position.z - transform.forward.z * currentCameraOffset);
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void SaveState()
 	{
 		resetPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 		resetRotation = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
 	}
+
+	/// <seealso cref="IResettable"/>
 	public void Reset()
 	{
 		transform.position = resetPosition;
 		transform.eulerAngles = resetRotation;
+	}
+
+	/// <summary>
+	/// Make camera shake with sin function with given amplitude.
+	/// </summary>
+	/// <param name="amplitude">Amplitude.</param>
+	public void ActivateCameraShake(float amplitude)
+	{
+		shakeAmplitude = Mathf.Clamp(amplitude, 0, maxCameraShakeAmplitude);
+		shakeTimer = 0.001f;
+	}
+
+	private void ShakeCamera()
+	{
+		if(shakeTimer > 0)
+		{
+			shakeAmplitude = Mathf.Lerp(shakeAmplitude, 0, shakeAmplitudeDecayRate * Time.deltaTime);
+			transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, shakeAmplitude * Mathf.Sin(shakeRate * Time.timeSinceLevelLoad));
+			if(shakeAmplitude < minimumCameraShakeAmplitude)
+			{
+				shakeTimer = 0;
+				transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0);
+			}
+			shakeTimer += Time.deltaTime;
+		}
 	}
 }

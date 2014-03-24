@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ExplosionScript : GameBehaviour {
+/// <summary>
+/// Controls a particle system representing an explosion.
+/// </summary>
+public class ExplosionScript : GameBehaviour 
+{
 	private float destructionTimer;
 	private ParticleSystem ps;
 
@@ -12,7 +16,8 @@ public class ExplosionScript : GameBehaviour {
 		ps = GetComponent<ParticleSystem>();
 	}
 	
-	void Update () {
+	void Update () 
+	{
 		destructionTimer += Time.deltaTime;
 		if(destructionTimer > ps.duration + ps.startLifetime)
 		{

@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controls an enemy snowman that throws snowballs at the player.
+/// </summary>
 public class SnowmanController : GameBehaviour, IResettable
 {
 	public Transform graphics;
@@ -139,6 +142,7 @@ public class SnowmanController : GameBehaviour, IResettable
 		}
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void SaveState()
 	{
 		resetThrowTimer = throwTimer;
@@ -150,6 +154,7 @@ public class SnowmanController : GameBehaviour, IResettable
 		resetBranchPosition = rightBranch.transform.localPosition;
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void Reset()
 	{
 		throwTimer = resetThrowTimer;

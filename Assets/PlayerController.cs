@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Takes user input and controls the player object.
+/// Controls moving, jumping, attacking, dying, etc.
+/// </summary>
 public class PlayerController : GameBehaviour, IResettable 
 {
 	public CameraScript theCamera;
@@ -25,7 +29,8 @@ public class PlayerController : GameBehaviour, IResettable
 	public float groundSkinWidth;
 	private bool isGrounded;
 	public float minSpeed;
-
+	public float iceDrag;
+	
 	public float startFlameEmissionRate;
 	private float flameStartSize;
 	public float flameDuration;
@@ -41,7 +46,7 @@ public class PlayerController : GameBehaviour, IResettable
 	public int smallGems;
 	public int coins;
 
-	bool isOnIcyGround;
+	private bool isOnIcyGround;
 
 	private Vector3 resetPosition;
 	private Vector3 resetRotation;
@@ -57,7 +62,6 @@ public class PlayerController : GameBehaviour, IResettable
 		oldPosition = rigidbody.position;
 		startFlameEmissionRate = flames.emissionRate;
 		flameStartSize = flames.startSize;
-
 		SaveState ();
 	}
 
@@ -129,11 +133,12 @@ public class PlayerController : GameBehaviour, IResettable
 			setVelocityX (0);  // player shouldn't slide when on ground
 			setVelocityZ (0);
 		}
-		if(!isOnIcyGround)
+		else if(isOnIcyGround)
 		{
-			if(verticalInput != 0 || horizontalInput != 0)
-				realTransform.forward = Vector3.RotateTowards(realTransform.forward, new Vector3(controlVector.x, 0, controlVector.y), rotationSpeed*Time.deltaTime, 0);
+			rigidbody.velocity *= iceDrag;
 		}
+		if(verticalInput != 0 || horizontalInput != 0)
+			realTransform.forward = Vector3.RotateTowards(realTransform.forward, new Vector3(controlVector.x, 0, controlVector.y), rotationSpeed*Time.deltaTime, 0);
 		oldPosition = rigidbody.position;
 	}
 
@@ -163,12 +168,14 @@ public class PlayerController : GameBehaviour, IResettable
 			}
 		}
 	}
-
+	
+	/// <returns>A value between 0 and 1 representing the visual strength of the flame.</returns>
 	public float GetFlameScale()
 	{
 		return (flameDuration-flameTimer) / flameDuration;
 	}
-
+	
+	/// <returns>A value representing how much damage the flame can do at the current time.</returns>
 	public float GetAttackDamage()
 	{
 		return GetFlameScale() * maxAttackStrength;
@@ -180,9 +187,9 @@ public class PlayerController : GameBehaviour, IResettable
 		isGrounded = Physics.Raycast(
 			new Ray(rigidbody.position, -Vector3.up), 
 		    out hit, 
-			groundSkinWidth + transform.localScale.y,
+			groundSkinWidth + collider.bounds.extents.y,
 		    ~(1<<2 | 1<<8)
-		);
+		) && Vector3.Dot(hit.normal, Vector3.up) > .5;  // restrict ground to less than 45 deg angles
 		if(hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Icy"))
 		{
 			isOnIcyGround = true;
@@ -192,10 +199,19 @@ public class PlayerController : GameBehaviour, IResettable
 			isOnIcyGround = false;
 		}
 	}
+
+	/// <summary>
+	/// Called when player is dead. Tells world to reset state.
+	/// </summary>
 	public void GameOver()
 	{
 		WorldScript.reset();
 	}
+
+	/// <summary>
+	/// Adds deltaHealth to current health and kills player if health is less than or equal to 0.
+	/// </summary>
+	/// <param name="deltaHealth">Amount to change health by.</param>
 	public void HealthChange(int deltaHealth)
 	{
 		health += deltaHealth;
@@ -210,21 +226,32 @@ public class PlayerController : GameBehaviour, IResettable
 		}
 	}
 
+	/// <summary>
+	/// Increments the gems.
+	/// </summary>
 	public void incrementGems()
 	{
 		gems++;
 	}
 
+	/// <summary>
+	/// Increments the small gems.
+	/// </summary>
 	public void incrementSmallGems()
 	{
 		smallGems++;
 	}
 
+	/// <summary>
+	/// Adds to the coint count.
+	/// </summary>
+	/// <param name="amt">Number of coins to add.</param>
 	public void addCoins(int amt)
 	{
 		coins += amt;
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void SaveState()
 	{
 		resetPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
@@ -233,6 +260,7 @@ public class PlayerController : GameBehaviour, IResettable
 		resetAngularVelocity = new Vector3(transform.rigidbody.angularVelocity.x, transform.rigidbody.angularVelocity.y, transform.rigidbody.angularVelocity.z);;
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void Reset()
 	{
 		transform.position = resetPosition;

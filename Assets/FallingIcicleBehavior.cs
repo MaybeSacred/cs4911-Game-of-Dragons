@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FallingIcicleBehavior : GameBehaviour, IResettable {
+/// <summary>
+/// Controls icicles that fall when the player is below them.
+/// </summary>
+public class FallingIcicleBehavior : GameBehaviour, IResettable 
+{
 	public float dropTimeAfterTriggered;
 	public float deathTimeout;
 	private float dropTimer;
@@ -53,6 +57,7 @@ public class FallingIcicleBehavior : GameBehaviour, IResettable {
 			}
 		}
 	}
+
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.tag.Equals("Player"))
@@ -61,12 +66,14 @@ public class FallingIcicleBehavior : GameBehaviour, IResettable {
 		}
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void SaveState()
 	{
 		initialPosition = transform.position;
 		initialScale = transform.localScale;
 	}
 
+	/// <seealso cref="IResettable"/>
 	public void Reset()
 	{
 		dropTimer = 0;

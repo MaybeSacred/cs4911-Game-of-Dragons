@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class HellmetBehavior : GameBehaviour {
+/// <summary>
+/// Controls hellmet enemy
+/// </summary>
+public class HellmetBehavior : GameBehaviour, IResettable 
+{
 	public Color angryLightColor;
 	public float angryLightIntensity;
 	private Color normalLightColor;
@@ -61,6 +65,28 @@ public class HellmetBehavior : GameBehaviour {
 	public float angerTime;
 	private float theAngerTimer;
 
+	private Light resetGuardLight;
+	private float resetTimer;
+	private int resetUpdateCounter;
+	private float resetIsStunnedTimer;
+	private float resetDetectionTimeoutTimer;
+	private float resetDeathTimeoutTimer;
+	private Vector3[] resetPatrolPoints;
+	private int resetCurrentPatrolPoint;
+	private float resetPatrolPointWaitTimer;
+	private bool resetFoundPlayer;
+	private Vector3 resetMedianPoint;
+	private bool resetIsUnderAttack;
+	private float resetTheAngerTimer;
+	private Vector3 resetPosition;
+	private Vector3 resetRotation;
+	private Vector3 resetScale;
+	private Vector3 resetGraphicsPosition;
+	private Vector3 resetGraphicsRotation;
+	private Vector3 resetGraphicsScale;
+	private Color resetTexColor;
+	private float resetHealth;
+
 	override protected void Start()
 	{
 		base.Start ();
@@ -101,11 +127,15 @@ public class HellmetBehavior : GameBehaviour {
 		Destroy(editorPatrolPoints.gameObject);
 		meshMainTex.SetColor("_ReflectColor", coolColor);
 		ReturnToCurrentPatrolPoint();
+
+		SaveState ();
 	}
+
 	void OnCollisionEnter(Collision other)
 	{
 		
 	}
+
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.tag.Equals("Player"))
@@ -115,6 +145,7 @@ public class HellmetBehavior : GameBehaviour {
 			isStunnedTimer += Time.deltaTime;
 		}
 	}
+
 	void OnTriggerStay(Collider other)
 	{
 		if(other.tag.Equals("FireBreath"))
@@ -124,6 +155,7 @@ public class HellmetBehavior : GameBehaviour {
 			theAngerTimer = 0;
 		}
 	}
+
 	void Update ()
 	{
 		if(deathTimeoutTimer > 0)
@@ -131,11 +163,15 @@ public class HellmetBehavior : GameBehaviour {
 			if(deathTimeoutTimer > deathTimeout)
 			{
 				Instantiate(deathParticleSystem, graphics.position, graphics.rotation);
-				Destroy(gameObject);
+				//Destroy(gameObject);
+				Hide ();
 			}
-			guardLight.intensity = Mathf.Lerp(guardLight.intensity, 0, Time.deltaTime);
-			GetComponentInChildren<ParticleSystem>().emissionRate = Mathf.Lerp(GetComponentInChildren<ParticleSystem>().emissionRate, 0, Time.deltaTime);
-			deathTimeoutTimer += Time.deltaTime;
+			else
+			{
+				guardLight.intensity = Mathf.Lerp(guardLight.intensity, 0, Time.deltaTime);
+				GetComponentInChildren<ParticleSystem>().emissionRate = Mathf.Lerp(GetComponentInChildren<ParticleSystem>().emissionRate, 0, Time.deltaTime);
+				deathTimeoutTimer += Time.deltaTime;
+			}
 		}
 		else
 		{
@@ -209,6 +245,7 @@ public class HellmetBehavior : GameBehaviour {
 			ApplyBounce();
 		}
 	}
+
 	private void UpdateWhenPlayerFound(Vector3 distanceToPlayer)
 	{
 		detectionTimeoutTimer = 0;
@@ -225,6 +262,7 @@ public class HellmetBehavior : GameBehaviour {
 			MoveTowardsPlayer(distanceToPlayer);
 		}
 	}
+
 	private void UpdateNoPlayerFound()
 	{
 		if(detectionTimeoutTimer > detectionTimeout)
@@ -241,6 +279,7 @@ public class HellmetBehavior : GameBehaviour {
 			}
 		}
 	}
+
 	private void MoveTowardsPlayer(Vector3 vectorToPlayer)
 	{
 		if(updateCounter%framesToSkip ==0)
@@ -249,12 +288,14 @@ public class HellmetBehavior : GameBehaviour {
 		}
 		updateCounter++;
 	}
+
 	private void ReturnToCurrentPatrolPoint()
 	{
 		patrolProperties.SetNavMeshAgent(navAgent);
 		navAgent.SetDestination(patrolPoints[currentPatrolPoint]);
 		patrolPointWaitTimer = patrolPointTimeToWait;
 	}
+
 	private void PatrolPath()
 	{
 		if(patrolPointWaitTimer < patrolPointTimeToWait)
@@ -275,6 +316,7 @@ public class HellmetBehavior : GameBehaviour {
 			}
 		}
 	}
+
 	private void IncrementCurrentPatrolPoint()
 	{
 		currentPatrolPoint++;
@@ -283,6 +325,10 @@ public class HellmetBehavior : GameBehaviour {
 			currentPatrolPoint = 0;
 		}
 	}
+
+	/// <summary>
+	/// Starts death sequence
+	/// </summary>
 	public void KillMe()
 	{
 		if(deathTimeoutTimer <= 0)
@@ -292,6 +338,14 @@ public class HellmetBehavior : GameBehaviour {
 			deathTimeoutTimer = .0001f;
 		}
 	}
+
+	/// <summary>
+	/// Adds deltaHealth to current health.
+	/// Sets color based on health, and calls
+	/// KillMe() if health is less than or 
+	/// equal to 0.
+	/// </summary>
+	/// <param name="deltaHealth">Delta health.</param>
 	public void HealthChange(float deltaHealth)
 	{
 		health += deltaHealth;
@@ -306,21 +360,29 @@ public class HellmetBehavior : GameBehaviour {
 		}
 		meshMainTex.SetColor("_ReflectColor", Color.Lerp(coolColor, heatUpColor, (maxHealth-health)/maxHealth));
 	}
+
 	private void SetAngryLight()
 	{
 		guardLight.intensity = angryLightIntensity;
 		guardLight.color = angryLightColor;
 	}
+
 	private void SetNormalLight()
 	{
 		guardLight.intensity = normalLightIntensity;
 		guardLight.color = normalLightColor;
 	}
+
 	private void ApplyBounce()
 	{
 		float temp = Mathf.Sin(bounceSpeed*Time.timeSinceLevelLoad);
 		graphics.localPosition = new Vector3(graphics.localPosition.x, bounciness*temp*temp+yGraphicsOffset, graphics.localPosition.z);
 	}
+
+	/// <summary>
+	/// Communicates to "friend" hellmets that
+	/// they should attack the player.
+	/// </summary>
 	public void AlertFriends()
 	{
 		AlertMe();
@@ -329,9 +391,68 @@ public class HellmetBehavior : GameBehaviour {
 			hb.AlertMe();
 		}
 	}
+
+	/// <summary>
+	/// Tells hellmet to attack player
+	/// </summary>
 	public void AlertMe()
 	{
 		isUnderAttack = true;
 		theAngerTimer = 0;
+	}
+
+	/// <seealso cref="IResettable"/> 
+	public void SaveState()
+	{
+		resetGuardLight = guardLight;
+		resetTimer = timer;
+		resetUpdateCounter = updateCounter;
+		resetIsStunnedTimer = isStunnedTimer;
+		resetDetectionTimeoutTimer = detectionTimeoutTimer;
+		resetDeathTimeoutTimer = deathTimeoutTimer;
+		resetPatrolPoints = (Vector3[])patrolPoints.Clone();
+		resetCurrentPatrolPoint = currentPatrolPoint;
+		resetPatrolPointWaitTimer = patrolPointWaitTimer;
+		resetFoundPlayer = foundPlayer;
+		resetMedianPoint = medianPoint;
+		resetIsUnderAttack = isUnderAttack;
+		resetTheAngerTimer = theAngerTimer;
+		resetPosition = transform.localPosition;
+		resetRotation = transform.localEulerAngles;
+		resetScale = transform.localScale;
+		resetGraphicsPosition = graphics.transform.localPosition;
+		resetGraphicsRotation = graphics.transform.localEulerAngles;
+		resetGraphicsScale = graphics.transform.localScale;
+		resetHealth = health;
+		resetTexColor = meshMainTex.GetColor ("_ReflectColor");
+	}
+
+	/// <seealso cref="IResettable"/>
+	public void Reset()
+	{
+		guardLight = resetGuardLight;
+		timer = resetTimer;
+		updateCounter = resetUpdateCounter;
+		isStunnedTimer = resetIsStunnedTimer;
+		detectionTimeoutTimer = resetDetectionTimeoutTimer;
+		deathTimeoutTimer = resetDeathTimeoutTimer;
+		patrolPoints = (Vector3[])resetPatrolPoints.Clone();
+		currentPatrolPoint = resetCurrentPatrolPoint;
+		patrolPointWaitTimer = resetPatrolPointWaitTimer;
+		foundPlayer = resetFoundPlayer;
+		medianPoint = resetMedianPoint;
+		isUnderAttack = resetIsUnderAttack;
+		theAngerTimer = resetTheAngerTimer;
+		transform.localPosition = resetPosition;
+		transform.localEulerAngles = resetRotation;
+		transform.localScale = resetScale;
+		graphics.transform.localPosition = resetGraphicsPosition;
+		graphics.transform.localEulerAngles = resetGraphicsRotation;
+		graphics.transform.localScale = resetGraphicsScale;
+		meshMainTex.SetColor ("_ReflectColor", resetTexColor);
+		health = resetHealth;
+		navAgent.enabled = true;
+		if (graphics.gameObject.rigidbody != null)
+			Destroy(graphics.gameObject.rigidbody);
 	}
 }
