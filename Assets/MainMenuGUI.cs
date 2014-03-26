@@ -9,6 +9,9 @@ public class MainMenuGUI : GameBehaviour
 {
 	
 	public GUIStyle currentStyle;
+
+	public GUISkin currentSkin;
+
 	private int screenMargin;
 
 	public Texture2D titleTex;
@@ -23,18 +26,21 @@ public class MainMenuGUI : GameBehaviour
 	
 	void OnGUI()
 	{
+		GUI.skin = currentSkin;
+
 		GUI.BeginGroup(new Rect(screenMargin, screenMargin, Screen.width-screenMargin*2, Screen.height-screenMargin*2), currentStyle);
 
 		GUI.Label(new Rect(0, 0, 300, 300), titleTex, currentStyle);
 
-		bool newGameButton = GUI.Button ( new Rect(0, 100, 100, 40), "New Game" );
-		bool optionsButton = GUI.Button ( new Rect(0, 140, 100, 40), "Options" );
-		bool exitButton = GUI.Button ( new Rect(0, 180, 100, 40), "Exit" );
+		bool newGameButton = GUI.Button ( new Rect(10, 80, 100, 30), "New Game" );
+		bool optionsButton = GUI.Button ( new Rect(10, 110, 100, 30), "Options" );
+		bool exitButton = GUI.Button ( new Rect(10, 140, 100, 30), "Exit" );
 
 		if (newGameButton) 
-		{
 			Application.LoadLevel("Scene0");
-		}
+
+		if (exitButton)
+			Application.Quit ();
 
 		GUI.EndGroup ();
 	}
