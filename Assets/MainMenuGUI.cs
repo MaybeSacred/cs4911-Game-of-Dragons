@@ -33,8 +33,8 @@ public class MainMenuGUI : GameBehaviour
 		GUI.Label(new Rect(0, 0, 300, 300), titleTex, currentStyle);
 
 		bool newGameButton = GUI.Button ( new Rect(10, 80, 100, 30), "New Game" );
-		bool optionsButton = GUI.Button ( new Rect(10, 110, 100, 30), "Options" );
-		bool exitButton = GUI.Button ( new Rect(10, 140, 100, 30), "Exit" );
+		//bool optionsButton = GUI.Button ( new Rect(10, 110, 100, 30), "Options" );
+		bool exitButton = GUI.Button ( new Rect(10, 110, 100, 30), "Exit" );
 
 		if (newGameButton) 
 			Application.LoadLevel("Scene0");
