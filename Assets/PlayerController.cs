@@ -7,6 +7,8 @@ using System.Collections;
 /// </summary>
 public class PlayerController : GameBehaviour, IResettable 
 {
+	public static readonly int FRAGMENTS_PER_GEM = 4;
+
 	public CameraScript theCamera;
 	public Transform realTransform;
 	public ParticleSystem flames;
@@ -52,6 +54,9 @@ public class PlayerController : GameBehaviour, IResettable
 	private Vector3 resetRotation;
 	private Vector3 resetVelocity;
 	private Vector3 resetAngularVelocity;
+	private int resetGems;
+	private int resetSmallGems;
+	private int resetCoins;
 
 
 	override protected void Start()
@@ -240,6 +245,11 @@ public class PlayerController : GameBehaviour, IResettable
 	public void incrementSmallGems()
 	{
 		smallGems++;
+		if (smallGems == FRAGMENTS_PER_GEM) 
+		{
+			smallGems = 0;
+			gems++;
+		}
 	}
 
 	/// <summary>
@@ -258,6 +268,9 @@ public class PlayerController : GameBehaviour, IResettable
 		resetRotation = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
 		resetVelocity = new Vector3(transform.rigidbody.velocity.x, transform.rigidbody.velocity.y, transform.rigidbody.velocity.z);
 		resetAngularVelocity = new Vector3(transform.rigidbody.angularVelocity.x, transform.rigidbody.angularVelocity.y, transform.rigidbody.angularVelocity.z);;
+		resetGems = gems;
+		resetSmallGems = smallGems;
+		resetCoins = coins;
 	}
 
 	/// <seealso cref="IResettable"/>
@@ -267,6 +280,9 @@ public class PlayerController : GameBehaviour, IResettable
 		transform.eulerAngles = resetRotation;
 		transform.rigidbody.velocity = resetVelocity;
 		transform.rigidbody.angularVelocity = resetAngularVelocity;
+		gems = resetGems;
+		smallGems = resetSmallGems;
+		coins = resetCoins;
 		health = maxHealth;
 	}
 
