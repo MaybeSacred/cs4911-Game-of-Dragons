@@ -29,6 +29,9 @@ public class SnowmanController : GameBehaviour, IResettable
 	private SnowmanPartController middle;
 	private SnowmanPartController bottom;
 
+	public Transform gemFragment;
+	private bool gemFragmentGiven;  // can't just disable fragment since fragment hides when collected
+
 	private float resetThrowTimer;
 	private float resetCurAngle;
 	private float resetThrowSpeed;
@@ -36,6 +39,9 @@ public class SnowmanController : GameBehaviour, IResettable
 	private Vector3 resetGraphicsRotation;
 	private Vector3 resetBranchRotation;
 	private Vector3 resetBranchPosition;
+	private Transform resetTop;
+	private Transform resetMiddle;
+	private Transform resetBottom;
 
 	override protected void Start()
 	{
@@ -49,6 +55,9 @@ public class SnowmanController : GameBehaviour, IResettable
 		top = (SnowmanPartController)(topSphere.GetComponent("SnowmanPartController"));
 		middle = (SnowmanPartController)(middleSphere.GetComponent("SnowmanPartController"));
 		bottom = (SnowmanPartController)(bottomSphere.GetComponent("SnowmanPartController"));
+
+		gemFragment.gameObject.SetActive (false);
+		gemFragmentGiven = false;
 
 		SaveState ();
 	}
@@ -66,14 +75,16 @@ public class SnowmanController : GameBehaviour, IResettable
 		bool isDead = (top == null || top.isDead ()) || (middle == null || middle.isDead ()) || (bottom == null || bottom.isDead ());
 		if (isDead) 
 		{
-			if (snowBall != null)
+			if ( !gemFragmentGiven )
 			{
-				snowBall.rigidbody.isKinematic = false;
-				snowBall.parent = null;
+				gemFragment.gameObject.SetActive( true );
+				gemFragmentGiven = true;
+				gemFragment.parent = null;
 			}
 
 			if (snowBall != null)
 			{
+				snowBall.parent = null;	
 				snowBall.rigidbody.isKinematic = false;
 				SnowballController sc = (SnowballController)(snowBall.GetComponent("SnowballController"));
 				sc.setStartMelting();
@@ -86,7 +97,7 @@ public class SnowmanController : GameBehaviour, IResettable
 			if (bottom.gameObject.activeSelf)
 				bottom.DeathShrink();
 
-			if (!top.gameObject.activeSelf && !middle.gameObject.activeSelf && !bottom.gameObject.activeSelf)
+			if (gameObject.activeSelf && !top.gameObject.activeSelf && !middle.gameObject.activeSelf && !bottom.gameObject.activeSelf)
 				Hide ();
 		} 
 		else 
@@ -152,6 +163,9 @@ public class SnowmanController : GameBehaviour, IResettable
 		resetGraphicsRotation = graphics.transform.localEulerAngles;
 		resetBranchRotation = rightBranch.transform.localEulerAngles;
 		resetBranchPosition = rightBranch.transform.localPosition;
+		resetTop = topSphere;
+		resetMiddle = middleSphere;
+		resetBottom = bottomSphere;
 	}
 
 	/// <seealso cref="IResettable"/>
@@ -164,6 +178,9 @@ public class SnowmanController : GameBehaviour, IResettable
 		graphics.transform.localEulerAngles = resetGraphicsRotation;
 		rightBranch.transform.localEulerAngles = resetBranchRotation;
 		rightBranch.transform.localPosition = resetBranchPosition;
+		topSphere = resetTop;
+		middleSphere = resetMiddle;
+		bottomSphere = resetBottom;
 		resetSnowball ();
 	}
 
