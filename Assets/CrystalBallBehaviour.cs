@@ -6,24 +6,26 @@ using System.Collections.Generic;
 /// </summary>
 public class CrystalBallBehaviour : MonoBehaviour 
 {
-	public Transform gate;
+	public GateBehaviour gate;
 	private bool movingGate;
+	public float cameraShakeAmplitude;
 	void Start () {
 		
 	}
 	
 	void Update () {
-		if(movingGate)
-		{
-			
-		}
+	
 	}
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag.Equals("Player"))
+		if(!movingGate)
 		{
-			movingGate = true;
-			WorldScript.theCamera.ActivateCameraShake(3);
+			if(other.tag.Equals("Player"))
+			{
+				gate.Activate();
+				movingGate = true;
+				WorldScript.theCamera.ActivateCameraShake(cameraShakeAmplitude);
+			}
 		}
 	}
 }

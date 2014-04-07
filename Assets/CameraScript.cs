@@ -102,6 +102,10 @@ public class CameraScript : GameBehaviour, IResettable
 				attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, 0, attemptedZoomSpeed * Time.deltaTime);
 			}
 		}
+		if(shakeTimer > 0)
+		{
+			ShakeCamera();
+		}
 		currentCameraOffset = Mathf.Lerp(currentCameraOffset, trueCameraOffset + attemptedCameraOffset, Time.deltaTime*zoomSpeed);
 		// set camera based on rotation
 		transform.position = new Vector3(playerCharacter.transform.position.x - transform.forward.x * currentCameraOffset,
@@ -135,16 +139,13 @@ public class CameraScript : GameBehaviour, IResettable
 
 	private void ShakeCamera()
 	{
-		if(shakeTimer > 0)
+		shakeAmplitude = Mathf.Lerp(shakeAmplitude, 0, shakeAmplitudeDecayRate * Time.deltaTime);
+		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x + shakeAmplitude*(Random.value-.5f), transform.localEulerAngles.y, shakeAmplitude * Mathf.Sin(shakeRate * Time.timeSinceLevelLoad));
+		shakeTimer += Time.deltaTime;
+		if(shakeAmplitude < minimumCameraShakeAmplitude)
 		{
-			shakeAmplitude = Mathf.Lerp(shakeAmplitude, 0, shakeAmplitudeDecayRate * Time.deltaTime);
-			transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, shakeAmplitude * Mathf.Sin(shakeRate * Time.timeSinceLevelLoad));
-			if(shakeAmplitude < minimumCameraShakeAmplitude)
-			{
-				shakeTimer = 0;
-				transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0);
-			}
-			shakeTimer += Time.deltaTime;
+			shakeTimer = 0;
+			transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0);
 		}
 	}
 }
