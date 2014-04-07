@@ -65,6 +65,9 @@ public class HellmetBehavior : GameBehaviour, IResettable
 	public float angerTime;
 	private float theAngerTimer;
 
+	public Transform gemFragment;
+	private bool gemFragmentGiven;
+
 	private Light resetGuardLight;
 	private float resetTimer;
 	private int resetUpdateCounter;
@@ -86,6 +89,7 @@ public class HellmetBehavior : GameBehaviour, IResettable
 	private Vector3 resetGraphicsScale;
 	private Color resetTexColor;
 	private float resetHealth;
+	private bool resetGemFragmentGiven;
 
 	override protected void Start()
 	{
@@ -127,6 +131,9 @@ public class HellmetBehavior : GameBehaviour, IResettable
 		Destroy(editorPatrolPoints.gameObject);
 		meshMainTex.SetColor("_ReflectColor", coolColor);
 		ReturnToCurrentPatrolPoint();
+
+		gemFragment.gameObject.SetActive (false);
+		gemFragmentGiven = false;
 
 		SaveState ();
 	}
@@ -331,6 +338,13 @@ public class HellmetBehavior : GameBehaviour, IResettable
 	/// </summary>
 	public void KillMe()
 	{
+		if (!gemFragmentGiven) 
+		{
+			gemFragment.gameObject.SetActive( true );
+			gemFragmentGiven = true;
+			gemFragment.parent = null;
+		}
+
 		if(deathTimeoutTimer <= 0)
 		{
 			graphics.gameObject.AddComponent<Rigidbody>();
@@ -425,6 +439,7 @@ public class HellmetBehavior : GameBehaviour, IResettable
 		resetGraphicsScale = graphics.transform.localScale;
 		resetHealth = health;
 		resetTexColor = meshMainTex.GetColor ("_ReflectColor");
+		resetGemFragmentGiven = gemFragmentGiven;
 	}
 
 	/// <seealso cref="IResettable"/>
@@ -452,6 +467,7 @@ public class HellmetBehavior : GameBehaviour, IResettable
 		meshMainTex.SetColor ("_ReflectColor", resetTexColor);
 		health = resetHealth;
 		navAgent.enabled = true;
+		gemFragmentGiven = resetGemFragmentGiven;
 		if (graphics.gameObject.rigidbody != null)
 			Destroy(graphics.gameObject.rigidbody);
 	}
