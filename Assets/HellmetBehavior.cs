@@ -343,6 +343,9 @@ public class HellmetBehavior : GameBehaviour, IResettable
 			gemFragment.gameObject.SetActive( true );
 			gemFragmentGiven = true;
 			gemFragment.parent = null;
+
+			CoinController cc = (CoinController)(gemFragment.GetComponent("CoinController"));
+			cc.bounce( 10, Physics.gravity.y );
 		}
 
 		if(deathTimeoutTimer <= 0)

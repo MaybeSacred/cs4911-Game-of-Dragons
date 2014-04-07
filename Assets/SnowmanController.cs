@@ -80,6 +80,9 @@ public class SnowmanController : GameBehaviour, IResettable
 				gemFragment.gameObject.SetActive( true );
 				gemFragmentGiven = true;
 				gemFragment.parent = null;
+
+				CoinController cc = (CoinController)(gemFragment.GetComponent("CoinController"));
+				cc.bounce( 10, Physics.gravity.y );
 			}
 
 			if (snowBall != null)
