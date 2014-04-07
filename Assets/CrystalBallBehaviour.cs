@@ -7,12 +7,23 @@ using System.Collections.Generic;
 public class CrystalBallBehaviour : MonoBehaviour 
 {
 	public Transform gate;
-
+	private bool movingGate;
 	void Start () {
-	
+		
 	}
 	
 	void Update () {
-	
+		if(movingGate)
+		{
+			
+		}
+	}
+	void OnTriggerEnter(Collider other)
+	{
+		if(other.tag.Equals("Player"))
+		{
+			movingGate = true;
+			WorldScript.theCamera.ActivateCameraShake(3);
+		}
 	}
 }

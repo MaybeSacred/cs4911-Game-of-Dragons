@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class WorldScript : GameBehaviour 
 {
 	public static PlayerController thePlayer;
+	public static CameraScript theCamera;
 	public static List<IResettable> objectsToReset = new List<IResettable>();
 	public static int cameraIgnoreLayers;
 
@@ -18,7 +19,7 @@ public class WorldScript : GameBehaviour
 	override protected void Start()
 	{
 		base.Start ();
-
+		theCamera = GetComponentInChildren<CameraScript>();
 		thePlayer = GetComponentInChildren<PlayerController>();
 		Config.Initialize();
 	}
