@@ -72,4 +72,9 @@ public class WorldScript : GameBehaviour
 		}
 		GameBehaviour.UnHideAll ();
 	}
+	
+	public static void EndGame()
+	{
+		Debug.Log("Game has ended");
+	}
 }
