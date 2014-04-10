@@ -41,6 +41,15 @@ public class WorldScript : GameBehaviour
 	}
 
 	/// <summary>
+	/// Gets the number of large gems plus the number of large gems that can be made with small gems.
+	/// </summary>
+	/// <returns>The number of large gems plus the number of large gems that can be made with small gems</returns>
+	public static int getTotalGems()
+	{
+		return CoinController.totalLargeGems + (int)(CoinController.totalSmallGems / PlayerController.FRAGMENTS_PER_GEM);
+	}
+
+	/// <summary>
 	/// Removes hidden objects and saves the state of all remaining objects.
 	/// </summary>
 	public static void save()

@@ -9,6 +9,9 @@ using System.Collections;
 public class CoinController : GameBehaviour, IResettable 
 {
 
+	public static int totalLargeGems = 0;
+	public static int totalSmallGems = 0;
+
 	public float rotationSpeed;
 
 	private Vector3 originalPosition;
@@ -17,6 +20,20 @@ public class CoinController : GameBehaviour, IResettable
 	private float vy = 0;
 	private float ay = 0;
 
+	private bool initialized = false;
+
+
+	void Awake()
+	{
+		if (!initialized) {
+			if (gameObject.tag.Equals ("Gem"))
+				totalLargeGems++;
+			else if (gameObject.tag.Equals ("SmallGem"))
+				totalSmallGems++;
+			
+			initialized = true;
+		}
+	}
 
 	override protected void Start()
 	{
