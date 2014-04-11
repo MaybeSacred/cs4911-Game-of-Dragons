@@ -20,6 +20,8 @@ public class PlayerController : GameBehaviour, IResettable
 	public int totalJumps;
 	public float jumpStrength;
 	public float repeatedJumpStrengthFalloff;
+	private float timeSinceLastJump;
+	private float timeBetweenJumps;
 	
 	public float airAcceleration;
 	public float groundAcceleration;
@@ -68,6 +70,9 @@ public class PlayerController : GameBehaviour, IResettable
 		startFlameEmissionRate = flames.emissionRate;
 		flameStartSize = flames.startSize;
 		SaveState ();
+
+		timeSinceLastJump = 0;
+		timeBetweenJumps = .7f;
 	}
 
 	void Update()
@@ -93,8 +98,8 @@ public class PlayerController : GameBehaviour, IResettable
 
 	private void PlayerControlForces()
 	{
-		if (Input.GetKeyDown ("k"))
-			GameOver ();  // instant kill for debugging
+		//if (Input.GetKeyDown ("k"))
+		//	GameOver ();  // instant kill for debugging
 
 		UpdateGroundedState();
 		if(!isOnIcyGround)
@@ -118,11 +123,14 @@ public class PlayerController : GameBehaviour, IResettable
 		addVelocityX (controlVector.x * groundAcceleration);
 		addVelocityZ (controlVector.y * groundAcceleration);
 
-		if(Input.GetKeyDown(Config.keyJump) && currentJumpNumber < totalJumps)
+		timeSinceLastJump += Time.deltaTime;
+
+		if(Input.GetKeyDown(Config.keyJump) && currentJumpNumber < totalJumps && timeSinceLastJump >= timeBetweenJumps)
 		{
 			setVelocityY(jumpStrength * Mathf.Pow(repeatedJumpStrengthFalloff, currentJumpNumber));
 			currentJumpNumber++;
 			isGrounded = false;
+			timeSinceLastJump = 0;
 		}
 
 		Vector3 xzSpeed = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
