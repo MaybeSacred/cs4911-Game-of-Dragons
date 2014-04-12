@@ -22,6 +22,8 @@ public class PlayerController : GameBehaviour, IResettable
 	public float repeatedJumpStrengthFalloff;
 	private float timeSinceLastJump;
 	private float timeBetweenJumps;
+	private int jumpsQueued;
+	private int jumpsSinceGround;
 	
 	public float airAcceleration;
 	public float groundAcceleration;
@@ -72,7 +74,9 @@ public class PlayerController : GameBehaviour, IResettable
 		SaveState ();
 
 		timeSinceLastJump = 0;
-		timeBetweenJumps = .7f;
+		timeBetweenJumps = .65f;
+		jumpsQueued = 0;
+		jumpsSinceGround = 0;
 	}
 
 	void Update()
@@ -107,8 +111,12 @@ public class PlayerController : GameBehaviour, IResettable
 			if (Vector3.Distance (oldPosition, rigidbody.position) < minSpeed)
 				rigidbody.position = oldPosition;  // prevent small movements from slopes
 		}
-		if (isGrounded)
+		if (isGrounded) 
+		{
 			currentJumpNumber = 0;
+			jumpsQueued = 0;
+			jumpsSinceGround = 0;
+		}
 		float verticalInput = Input.GetAxisRaw("Vertical");
 		float horizontalInput = Input.GetAxisRaw("Horizontal");
 
@@ -125,12 +133,19 @@ public class PlayerController : GameBehaviour, IResettable
 
 		timeSinceLastJump += Time.deltaTime;
 
-		if(Input.GetKeyDown(Config.keyJump) && currentJumpNumber < totalJumps && timeSinceLastJump >= timeBetweenJumps)
+		if(Input.GetKeyDown(Config.keyJump) && currentJumpNumber < totalJumps)
 		{
-			setVelocityY(jumpStrength * Mathf.Pow(repeatedJumpStrengthFalloff, currentJumpNumber));
+			jumpsQueued++;
 			currentJumpNumber++;
+		}
+
+		if (jumpsQueued > 0 && timeSinceLastJump >= timeBetweenJumps) 
+		{
+			jumpsQueued--;
+			setVelocityY(jumpStrength * Mathf.Pow(repeatedJumpStrengthFalloff, jumpsSinceGround));
 			isGrounded = false;
 			timeSinceLastJump = 0;
+			jumpsSinceGround++;
 		}
 
 		Vector3 xzSpeed = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
