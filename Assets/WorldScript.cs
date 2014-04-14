@@ -11,6 +11,8 @@ public class WorldScript : GameBehaviour
 	public static List<IResettable> objectsToReset = new List<IResettable>();
 	public static int cameraIgnoreLayers;
 
+	public static float totalTime = 0;
+
 	void Awake()
 	{
 		cameraIgnoreLayers = (1<<LayerMask.NameToLayer("Default") | 1<<LayerMask.NameToLayer("Icy"));
@@ -22,6 +24,13 @@ public class WorldScript : GameBehaviour
 		theCamera = GetComponentInChildren<CameraScript>();
 		thePlayer = GetComponentInChildren<PlayerController>();
 		Config.Initialize();
+
+		totalTime = 0;
+	}
+
+	void Update()
+	{
+		totalTime += Time.deltaTime;
 	}
 
 	/// <summary>
@@ -75,6 +84,13 @@ public class WorldScript : GameBehaviour
 	
 	public static void EndGame()
 	{
-		Debug.Log("Game has ended");
+		PlayerController player = (PlayerController)GameObject.Find ("Player").GetComponent("PlayerController");
+
+		PlayerPrefs.SetFloat ("totalTime", totalTime);
+		PlayerPrefs.SetInt ("totalCoins", player.coins);
+		PlayerPrefs.SetInt ("totalGems", player.gems);
+		PlayerPrefs.SetInt ("totalSmallGems", player.smallGems);
+
+		Application.LoadLevel("Scene0-end");
 	}
 }
