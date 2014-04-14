@@ -18,9 +18,11 @@ public class CrystalBallBehaviour : MonoBehaviour
 	}
 	void OnTriggerEnter(Collider other)
 	{
-		if(!movingGate)
+		PlayerController player = (PlayerController)GameObject.Find ("Player").GetComponent("PlayerController");
+
+		if(!movingGate && player.gems >= WorldScript.getTotalGems()-1) // allow player to miss 1 gem
 		{
-			if(other.tag.Equals("Player"))
+			if(other.tag.Equals("FireBreath") || other.tag.Equals ("Player"))
 			{
 				gate.Activate();
 				movingGate = true;

@@ -21,7 +21,7 @@ public class CoinController : GameBehaviour, IResettable
 	private float ay = 0;
 
 	private bool initialized = false;
-
+	
 
 	void Awake()
 	{
