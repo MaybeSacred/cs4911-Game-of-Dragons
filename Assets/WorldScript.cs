@@ -16,6 +16,8 @@ public class WorldScript : GameBehaviour
 	void Awake()
 	{
 		cameraIgnoreLayers = (1<<LayerMask.NameToLayer("Default") | 1<<LayerMask.NameToLayer("Icy"));
+
+		objectsToReset.Clear ();
 	}
 
 	override protected void Start()
