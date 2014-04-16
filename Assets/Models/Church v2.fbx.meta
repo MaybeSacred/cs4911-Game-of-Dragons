@@ -54,6 +54,7 @@ ModelImporter:
     100096: Plane_001
     100098: Plane_002
     100100: Plane_004
+    100102: Plane_003
     400000: //RootNode
     400002: Cube
     400004: Cube_001
@@ -105,6 +106,7 @@ ModelImporter:
     400096: Plane_001
     400098: Plane_002
     400100: Plane_004
+    400102: Plane_003
     2300000: Cube
     2300002: Cube_001
     2300004: Cube_002
@@ -155,6 +157,7 @@ ModelImporter:
     2300094: Plane_001
     2300096: Plane_002
     2300098: Plane_004
+    2300100: Plane_003
     3300000: Cube
     3300002: Cube_001
     3300004: Cube_002
@@ -205,6 +208,7 @@ ModelImporter:
     3300094: Plane_001
     3300096: Plane_002
     3300098: Plane_004
+    3300100: Plane_003
     4300000: Cube_013
     4300002: Cube_012
     4300004: Cube_011
@@ -255,6 +259,7 @@ ModelImporter:
     4300094: Cylinder_008
     4300096: Cylinder_007
     4300098: Cylinder_006
+    4300100: Plane_003
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -292,7 +297,7 @@ ModelImporter:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
