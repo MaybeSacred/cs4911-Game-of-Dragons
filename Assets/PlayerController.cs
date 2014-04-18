@@ -134,6 +134,7 @@ public class PlayerController : GameBehaviour, IResettable
 		if (!isGrounded){
 			controlVector = new Vector2 (controlVector.x * airAcceleration, controlVector.y * airAcceleration);
 			this.dragonAnimator.SetBool("isGrounded", false);
+			this.dragonAnimator.SetBool("inFlight", false);
 		}
 		else{
 			this.dragonAnimator.SetBool("isGrounded", true);
