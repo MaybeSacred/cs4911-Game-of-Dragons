@@ -63,6 +63,10 @@ public class PlayerController : GameBehaviour, IResettable
 	private int resetCoins;
 
 
+	//for animation
+	public GameObject dragon;
+	public Animator dragonAnimator;
+
 	override protected void Start()
 	{
 		base.Start ();
@@ -77,6 +81,8 @@ public class PlayerController : GameBehaviour, IResettable
 		timeBetweenJumps = .65f;
 		jumpsQueued = 0;
 		jumpsSinceGround = 0;
+
+		this.dragonAnimator = this.dragon.GetComponent<Animator>();
 	}
 
 	void Update()
@@ -125,8 +131,14 @@ public class PlayerController : GameBehaviour, IResettable
 			theCamera.transform.forward.z * verticalInput + theCamera.transform.right.z * horizontalInput
 		);
 		controlVector = controlVector.normalized;
-		if (!isGrounded)
+		if (!isGrounded){
 			controlVector = new Vector2 (controlVector.x * airAcceleration, controlVector.y * airAcceleration);
+			this.dragonAnimator.SetBool("isGrounded", false);
+			this.dragonAnimator.SetBool("inFlight", false);
+		}
+		else{
+			this.dragonAnimator.SetBool("isGrounded", true);
+		}
 
 		addVelocityX (controlVector.x * groundAcceleration);
 		addVelocityZ (controlVector.y * groundAcceleration);
@@ -146,6 +158,7 @@ public class PlayerController : GameBehaviour, IResettable
 			isGrounded = false;
 			timeSinceLastJump = 0;
 			jumpsSinceGround++;
+			this.dragonAnimator.SetBool("inFlight", true);
 		}
 
 		Vector3 xzSpeed = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
@@ -167,6 +180,14 @@ public class PlayerController : GameBehaviour, IResettable
 		}
 		if(verticalInput != 0 || horizontalInput != 0)
 			realTransform.forward = Vector3.RotateTowards(realTransform.forward, new Vector3(controlVector.x, 0, controlVector.y), rotationSpeed*Time.deltaTime, 0);
+
+
+		if((verticalInput != 0 || horizontalInput != 0) && isGrounded){
+			this.dragonAnimator.SetBool("walk", true);
+		}
+		else{
+			this.dragonAnimator.SetBool("walk", false);
+		}
 		oldPosition = rigidbody.position;
 	}
 
