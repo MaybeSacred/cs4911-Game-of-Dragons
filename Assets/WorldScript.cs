@@ -83,7 +83,10 @@ public class WorldScript : GameBehaviour
 		}
 		GameBehaviour.UnHideAll ();
 	}
-	
+
+	/// <summary>
+	/// Ends the game and opens the end game screen.
+	/// </summary>
 	public static void EndGame()
 	{
 		PlayerController player = (PlayerController)GameObject.Find ("Player").GetComponent("PlayerController");

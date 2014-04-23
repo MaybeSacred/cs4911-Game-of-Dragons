@@ -9,6 +9,7 @@ public class CrystalBallBehaviour : MonoBehaviour
 	public GateBehaviour gate;
 	private bool movingGate;
 	public float cameraShakeAmplitude;
+
 	void Start () {
 		
 	}
@@ -16,6 +17,11 @@ public class CrystalBallBehaviour : MonoBehaviour
 	void Update () {
 	
 	}
+
+	/// <summary>
+	/// Opens the castle gate when touched and when player has enough gems
+	/// </summary>
+	/// <param name="other">Object colliding with crystal ball</param>
 	void OnTriggerEnter(Collider other)
 	{
 		PlayerController player = (PlayerController)GameObject.Find ("Player").GetComponent("PlayerController");

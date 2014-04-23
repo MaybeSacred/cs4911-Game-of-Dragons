@@ -62,10 +62,10 @@ public class PlayerController : GameBehaviour, IResettable
 	private int resetSmallGems;
 	private int resetCoins;
 
-
 	//for animation
 	public GameObject dragon;
 	public Animator dragonAnimator;
+
 
 	override protected void Start()
 	{
@@ -91,11 +91,6 @@ public class PlayerController : GameBehaviour, IResettable
 		PlayerControlForces();
 	}
 
-	void FixedUpdate () 
-	{
-
-	}
-
 	void OnCollisionEnter(Collision theCollision)
 	{
 
@@ -106,6 +101,9 @@ public class PlayerController : GameBehaviour, IResettable
 		
 	}
 
+	/// <summary>
+	/// Control dragon from user input
+	/// </summary>
 	private void PlayerControlForces()
 	{
 		//if (Input.GetKeyDown ("k"))
@@ -181,7 +179,6 @@ public class PlayerController : GameBehaviour, IResettable
 		if(verticalInput != 0 || horizontalInput != 0)
 			realTransform.forward = Vector3.RotateTowards(realTransform.forward, new Vector3(controlVector.x, 0, controlVector.y), rotationSpeed*Time.deltaTime, 0);
 
-
 		if((verticalInput != 0 || horizontalInput != 0) && isGrounded){
 			this.dragonAnimator.SetBool("walk", true);
 		}
@@ -191,6 +188,9 @@ public class PlayerController : GameBehaviour, IResettable
 		oldPosition = rigidbody.position;
 	}
 
+	/// <summary>
+	/// Controls for player's attack
+	/// </summary>
 	void PlayerAttack()
 	{
 		if(Input.GetMouseButton(0) || Input.GetKey(Config.keyBreath))
@@ -230,6 +230,10 @@ public class PlayerController : GameBehaviour, IResettable
 		return GetFlameScale() * maxAttackStrength;
 	}
 
+	/// <summary>
+	/// Determine whether or not the player is on the ground
+	/// and what type of ground it is.
+	/// </summary>
 	private void UpdateGroundedState()
 	{
 		RaycastHit hit;

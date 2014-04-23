@@ -38,9 +38,13 @@ public class SnowmanPartController : GameBehaviour, IResettable
 		}
 	}
 
+	/// <summary>
+	/// Returns true if snowman is dead
+	/// </summary>
+	/// <returns><c>true</c>, if snowman is dead, <c>false</c> otherwise.</returns>
 	public bool isDead()
 	{
-		return transform.localScale.x < startScale * .5;
+		return transform.localScale.x < startScale * .5;  // snowman is dead if any body part is less than half its original size
 	}
 
 	/// <summary>

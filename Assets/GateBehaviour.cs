@@ -1,17 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class GateBehaviour : MonoBehaviour {
-	private const float MESHSWITCHZ = 1.191f;
+/// <summary>
+/// Controls the opening of the castle gate.
+/// </summary>
+public class GateBehaviour : MonoBehaviour 
+{
+	private const float MESHSWITCHZ = 1.191f; // the position at which to switch to the smaller gate mesh
+
 	public Mesh halfGate;
 	private bool activated;
 	public float openingSpeed;
 	public float maxZPosition;
+
 	void Start () {
 	
 	}
 	
-	void Update () {
+	void Update () 
+	{
 		if(activated)
 		{
 			if(transform.localPosition.z < maxZPosition)
@@ -26,6 +33,10 @@ public class GateBehaviour : MonoBehaviour {
 			}
 		}
 	}
+
+	/// <summary>
+	/// Make the gate begin to raise if has not already
+	/// </summary>
 	public void Activate()
 	{
 		activated = true;

@@ -71,15 +71,22 @@ public class CoinController : GameBehaviour, IResettable
 		}
 	}
 
+	/// <summary>
+	/// Bounce the coint with a given velocity and acceleration
+	/// </summary>
+	/// <param name="vy">Initial y velocity of the bounce animation</param>
+	/// <param name="ay">y acceleration of the bounce animation</param>
 	public void bounce( float vy, float ay )
 	{
 		bouncing = true;
 		this.vy = vy;
 		this.ay = ay;
-		//originalPosition = gameObject.transform.position;
 		originalPosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y-.05f, gameObject.transform.position.z);
 	}
-	
+
+	/// <summary>
+	/// Do the rotation and bounce animations
+	/// </summary>
 	void Update () 
 	{
 		transform.rotation *= new Quaternion(0, Mathf.Sin(rotationSpeed*Time.deltaTime), 0, Mathf.Cos(rotationSpeed*Time.deltaTime));
@@ -103,12 +110,12 @@ public class CoinController : GameBehaviour, IResettable
 	/// <seealso cref="IResettable"/>
 	public void SaveState()
 	{
-
+		// don't save anything to reset
 	}
 
 	/// <seealso cref="IResettable"/>
 	public void Reset()
 	{
-
+		// don't do anything to reset
 	}
 }
