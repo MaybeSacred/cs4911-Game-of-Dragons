@@ -20,6 +20,10 @@ public class CheckpointBehaviour : GameBehaviour
 		unSavedSwitchMaterial = letterC.renderer.material;
 	}
 
+	/// <summary>
+	/// Save the game when the player touches the checkpoint
+	/// </summary>
+	/// <param name="other">Object colliding with the checkpoint</param>
 	void OnTriggerEnter(Collider other)
 	{
 		switch (other.gameObject.tag) 

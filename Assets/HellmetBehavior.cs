@@ -23,7 +23,6 @@ public class HellmetBehavior : GameBehaviour, IResettable
 	public float yGraphicsOffset;
 	private NavMeshAgent navAgent;
 	private float timer;
-	public float graphicsRotationSpeed;
 	private int updateCounter;
 	public int framesToSkip;
 	public int damageToPlayer;
@@ -253,6 +252,10 @@ public class HellmetBehavior : GameBehaviour, IResettable
 		}
 	}
 
+	/// <summary>
+	/// Controls what happens when the Hellmet knows where the player is
+	/// </summary>
+	/// <param name="distanceToPlayer">Distance to player.</param>
 	private void UpdateWhenPlayerFound(Vector3 distanceToPlayer)
 	{
 		detectionTimeoutTimer = 0;
@@ -270,6 +273,9 @@ public class HellmetBehavior : GameBehaviour, IResettable
 		}
 	}
 
+	/// <summary>
+	/// Controls what happens when the Hellmet does not know where the player is
+	/// </summary>
 	private void UpdateNoPlayerFound()
 	{
 		if(detectionTimeoutTimer > detectionTimeout)
@@ -287,6 +293,10 @@ public class HellmetBehavior : GameBehaviour, IResettable
 		}
 	}
 
+	/// <summary>
+	/// Moves Hellmet towards player.
+	/// </summary>
+	/// <param name="vectorToPlayer">Vector to player.</param>
 	private void MoveTowardsPlayer(Vector3 vectorToPlayer)
 	{
 		if(updateCounter%framesToSkip ==0)
@@ -296,6 +306,9 @@ public class HellmetBehavior : GameBehaviour, IResettable
 		updateCounter++;
 	}
 
+	/// <summary>
+	/// Returns to current patrol point.
+	/// </summary>
 	private void ReturnToCurrentPatrolPoint()
 	{
 		patrolProperties.SetNavMeshAgent(navAgent);
@@ -303,6 +316,9 @@ public class HellmetBehavior : GameBehaviour, IResettable
 		patrolPointWaitTimer = patrolPointTimeToWait;
 	}
 
+	/// <summary>
+	/// Patrols the path.
+	/// </summary>
 	private void PatrolPath()
 	{
 		if(patrolPointWaitTimer < patrolPointTimeToWait)
@@ -324,6 +340,9 @@ public class HellmetBehavior : GameBehaviour, IResettable
 		}
 	}
 
+	/// <summary>
+	/// Increments the current patrol point.
+	/// </summary>
 	private void IncrementCurrentPatrolPoint()
 	{
 		currentPatrolPoint++;
@@ -378,18 +397,27 @@ public class HellmetBehavior : GameBehaviour, IResettable
 		meshMainTex.SetColor("_ReflectColor", Color.Lerp(coolColor, heatUpColor, (maxHealth-health)/maxHealth));
 	}
 
+	/// <summary>
+	/// Sets the light to angry mode
+	/// </summary>
 	private void SetAngryLight()
 	{
 		guardLight.intensity = angryLightIntensity;
 		guardLight.color = angryLightColor;
 	}
 
+	/// <summary>
+	/// Sets the light to normal mode
+	/// </summary>
 	private void SetNormalLight()
 	{
 		guardLight.intensity = normalLightIntensity;
 		guardLight.color = normalLightColor;
 	}
 
+	/// <summary>
+	/// Do bounce animation
+	/// </summary>
 	private void ApplyBounce()
 	{
 		float temp = Mathf.Sin(bounceSpeed*Time.timeSinceLevelLoad);

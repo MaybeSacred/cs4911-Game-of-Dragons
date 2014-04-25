@@ -9,26 +9,20 @@ public class CameraScript : GameBehaviour, IResettable
 {
 
 	public PlayerController playerCharacter;
-	public Transform playerGraphics;
-	public int currentCharacter;
 
 	public Vector2 mousePos;
 	public Vector2 mouseSensitivity;
-
-	public float movingRotationSpeed;
-	public float stationaryRotationSpeed;
 	
 	public float yAxisUpperAngleBound, yAxisLowerAngleBound;
 
-	private float currentCameraOffset, attemptedCameraOffset, trueCameraOffset;
 	public float attemptedZoomSpeed;
 	public float zoomSpeed;
-	public float minZoomCameraOffset, maxZoomCameraOffset;
 	public float trueZoomSpeed;
+	private float currentCameraOffset, attemptedCameraOffset, trueCameraOffset;
+	public float minZoomCameraOffset, maxZoomCameraOffset;
 	public float additionalCameraOffset;
 	public float cameraYZoomOffset;
 	public bool enableCollisionZoom = true;
-	public float scrollSpeed;
 
 	private float shakeAmplitude;
 	private float shakeTimer;
@@ -38,9 +32,6 @@ public class CameraScript : GameBehaviour, IResettable
 	public float shakeRate;
 
 	private Vector3 resetPosition;
-
-	private bool isColliding;
-
 	private Vector3 resetRotation;
 
 	override protected void Start()
@@ -49,7 +40,6 @@ public class CameraScript : GameBehaviour, IResettable
 
 		yAxisUpperAngleBound += 360;
 		mousePos = new Vector2();
-		//attemptedCameraOffset = (maxZoomCameraOffset+minZoomCameraOffset)/2;
 
 		SaveState ();
 	}
@@ -60,6 +50,9 @@ public class CameraScript : GameBehaviour, IResettable
 		psychonautStyle();
 	}
 
+	/// <summary>
+	/// Use a control scheme similar to the PC platformer, Psychonauts
+	/// </summary>
 	void psychonautStyle()
 	{
 		mousePos.x = Input.GetAxis("Mouse X");
@@ -81,8 +74,10 @@ public class CameraScript : GameBehaviour, IResettable
 		{
 			transform.eulerAngles = new Vector3 (transform.eulerAngles.x + mousePos.y * mouseSensitivity.y, transform.eulerAngles.y + mousePos.x * mouseSensitivity.x, transform.eulerAngles.z);
 		}
+
 		trueCameraOffset -= Input.GetAxisRaw("Mouse ScrollWheel")*Time.deltaTime*trueZoomSpeed;
 		trueCameraOffset = Mathf.Clamp(trueCameraOffset, minZoomCameraOffset, maxZoomCameraOffset);
+
 		if(enableCollisionZoom)
 		{
 			RaycastHit hit;
@@ -102,11 +97,12 @@ public class CameraScript : GameBehaviour, IResettable
 				attemptedCameraOffset = Mathf.Lerp(attemptedCameraOffset, 0, attemptedZoomSpeed * Time.deltaTime);
 			}
 		}
+
 		if(shakeTimer > 0)
-		{
 			ShakeCamera();
-		}
+
 		currentCameraOffset = Mathf.Lerp(currentCameraOffset, trueCameraOffset + attemptedCameraOffset, Time.deltaTime*zoomSpeed);
+
 		// set camera based on rotation
 		transform.position = new Vector3(playerCharacter.transform.position.x - transform.forward.x * currentCameraOffset,
 		                                 playerCharacter.transform.position.y - transform.forward.y * currentCameraOffset + (cameraYZoomOffset-currentCameraOffset/maxZoomCameraOffset),
@@ -137,6 +133,9 @@ public class CameraScript : GameBehaviour, IResettable
 		shakeTimer = 0.001f;
 	}
 
+	/// <summary>
+	/// Shakes the camera.
+	/// </summary>
 	private void ShakeCamera()
 	{
 		shakeAmplitude = Mathf.Lerp(shakeAmplitude, 0, shakeAmplitudeDecayRate * Time.deltaTime);

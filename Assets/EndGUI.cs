@@ -14,8 +14,6 @@ public class EndGUI : GameBehaviour
 	
 	private int screenMargin;
 	
-	//public Texture2D titleTex;
-	
 	// Use this for initialization
 	override protected void Start () 
 	{
@@ -23,7 +21,10 @@ public class EndGUI : GameBehaviour
 		
 		screenMargin = 25;
 	}
-	
+
+	/// <summary>
+	/// Draw the finish screen
+	/// </summary>
 	void OnGUI()
 	{
 		GUI.skin = currentSkin;

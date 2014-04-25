@@ -20,7 +20,7 @@ public class GameGUI : GameBehaviour
 	{
 		base.Start ();
 
-		gemDisplayRectangle = new Rect(Screen.width - fullGemTex.width*2-brokenGemTex.width*2, 0, fullGemTex.width*2+brokenGemTex.width*2, fullGemTex.height);
+		gemDisplayRectangle = new Rect(Screen.width - fullGemTex.width*2-brokenGemTex.width*2 - 20, 0, fullGemTex.width*2+brokenGemTex.width*2, fullGemTex.height);
 	}
 
 	void OnGUI()
@@ -44,11 +44,11 @@ public class GameGUI : GameBehaviour
 		GUI.BeginGroup(gemDisplayRectangle, currentStyle);
 		GUI.BeginGroup(new Rect(0, 0, gemDisplayRectangle.width/2, gemDisplayRectangle.height));
 		GUI.Label(new Rect(0, 0, brokenGemTex.width, brokenGemTex.height), brokenGemTex, currentStyle);
-		GUI.Label(new Rect(brokenGemTex.width, 0, brokenGemTex.width, brokenGemTex.height), WorldScript.thePlayer.smallGems.ToString(), currentStyle);
+		GUI.Label(new Rect(brokenGemTex.width, 0, brokenGemTex.width, brokenGemTex.height), WorldScript.thePlayer.smallGems.ToString() + "/4", currentStyle);
 		GUI.EndGroup();
 		GUI.BeginGroup(new Rect(gemDisplayRectangle.width/2, 0, gemDisplayRectangle.width/2, gemDisplayRectangle.height));
 		GUI.Label(new Rect(0, 0, fullGemTex.width, fullGemTex.height), fullGemTex, currentStyle);
-		GUI.Label(new Rect(fullGemTex.width, 0, fullGemTex.width, fullGemTex.height), WorldScript.thePlayer.gems.ToString(), currentStyle);
+		GUI.Label(new Rect(fullGemTex.width, 0, fullGemTex.width, fullGemTex.height), WorldScript.thePlayer.gems.ToString() + "/" + (int)(WorldScript.getTotalGems()*.7f), currentStyle);
 		GUI.EndGroup();
 		GUI.EndGroup();
 	}

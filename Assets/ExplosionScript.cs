@@ -15,7 +15,10 @@ public class ExplosionScript : GameBehaviour
 
 		ps = GetComponent<ParticleSystem>();
 	}
-	
+
+	/// <summary>
+	/// Update timer and remove object after set time
+	/// </summary>
 	void Update () 
 	{
 		destructionTimer += Time.deltaTime;

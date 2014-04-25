@@ -12,6 +12,6 @@ public class Config
 
 	public static void Initialize()
 	{
-		
+		// we never actually used this
 	}
 }
