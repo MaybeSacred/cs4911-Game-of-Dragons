@@ -24,6 +24,7 @@ Where to Find Documentation
 2. Documentation for 3D modeling is found below
 
 //=============================== 3D modeling==================================
+
 How to create a 3D model: 
 	http://autodesk-maya.wonderhowto.com/how-to/model-dolphin-maya-261205/
 
