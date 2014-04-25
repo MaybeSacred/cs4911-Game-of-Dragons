@@ -15,7 +15,7 @@ How to build and run source code
 How to run the executable
 
 1. Play the latest version at http://jtyson3.wordpress.com , or
-2. Play the GameOfDragons.unity3d executable within this repository by double clicking it
+2. Play the build.unity3d executable (find in the build directory) by double clicking it , or the build.html (May not work on Chrome).
 
 
 Where to Find Documentation
