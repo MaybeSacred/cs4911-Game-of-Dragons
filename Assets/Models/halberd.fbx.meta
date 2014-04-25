@@ -1,34 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: 6dd16dab7e83e0046ab79f836f6b93a4
-ModelImporter:
-  serializedVersion: 16
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: BezierCurve
-    100004: BezierCurve_001
-    100006: BezierCurve_002
-    100008: Cylinder
-    400000: //RootNode
-    400002: BezierCurve
-    400004: BezierCurve_001
-    400006: BezierCurve_002
-    400008: Cylinder
-    2300000: //RootNode
-    2300002: BezierCurve
-    2300004: BezierCurve_001
-    2300006: BezierCurve_002
-    2300008: Cylinder
-    3300000: //RootNode
-    3300002: BezierCurve
-    3300004: BezierCurve_001
-    3300006: BezierCurve_002
-    3300008: Cylinder
-    4300000: Cylinder
-    4300002: BezierCurve_002
-    4300004: BezierCurve_001
-=======
-guid: dc3f3e2033d5c5f4c87bfad76242072c
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -53,7 +24,6 @@ ModelImporter:
     4300000: BezierCurve_002
     4300002: BezierCurve_001
     4300004: Cylinder
->>>>>>> 32696fbd2b71a6a4e4ca606eeeebc04bca8a55bd
     4300006: BezierCurve
     9500000: //RootNode
   materials:
@@ -74,11 +44,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-<<<<<<< HEAD
     globalScale: 1
-=======
-    globalScale: .00999999978
->>>>>>> 32696fbd2b71a6a4e4ca606eeeebc04bca8a55bd
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
