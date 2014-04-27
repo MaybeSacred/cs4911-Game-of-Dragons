@@ -26,7 +26,7 @@ public class CrystalBallBehaviour : MonoBehaviour
 	{
 		PlayerController player = (PlayerController)GameObject.Find ("Player").GetComponent("PlayerController");
 
-		if(!movingGate && player.gems >= WorldScript.getTotalGems() * .7) // allow player to miss 30% of gems
+		if(!movingGate && player.gems >= (int)(WorldScript.getTotalGems() * .7)) // allow player to miss 30% of gems
 		{
 			if(other.tag.Equals("FireBreath") || other.tag.Equals ("Player"))
 			{

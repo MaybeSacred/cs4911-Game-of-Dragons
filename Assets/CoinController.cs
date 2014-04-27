@@ -81,7 +81,7 @@ public class CoinController : GameBehaviour, IResettable
 		bouncing = true;
 		this.vy = vy;
 		this.ay = ay;
-		originalPosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y-.05f, gameObject.transform.position.z);
+		originalPosition = new Vector3(transform.position.x, transform.position.y-.05f, transform.position.z);
 	}
 
 	/// <summary>
@@ -93,16 +93,16 @@ public class CoinController : GameBehaviour, IResettable
 	
 		if (bouncing) 
 		{
-			gameObject.transform.position = new Vector3(gameObject.transform.position.x,
-			                                            gameObject.transform.position.y + vy * Time.deltaTime,
-			                                            gameObject.transform.position.z
+			transform.position = new Vector3(transform.position.x,
+			                                            transform.position.y + vy * Time.deltaTime,
+			                                            transform.position.z
 			);
 
 			vy += ay * Time.deltaTime;
 			if ( gameObject.transform.position.y < originalPosition.y )
 			{
 				bouncing = false;
-				gameObject.transform.position = new Vector3(originalPosition.x, originalPosition.y, originalPosition.z);
+				transform.position = new Vector3(originalPosition.x, originalPosition.y, originalPosition.z);
 			}
 		}
 	}

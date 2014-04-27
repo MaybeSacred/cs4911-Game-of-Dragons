@@ -41,6 +41,8 @@ public class CameraScript : GameBehaviour, IResettable
 		yAxisUpperAngleBound += 360;
 		mousePos = new Vector2();
 
+		trueCameraOffset = 6;
+
 		SaveState ();
 	}
 
