@@ -33,18 +33,40 @@ We do not use an automated build because doing so is not reasonable within
 the Unity framework.
 
 
-
 Architecture Design:
 ---------------------
 Our code architecture is detailed in the file CodeArchitecture.pdf. Due to
 the flat nature of our class heirarchy, we do not provide a diagram of its
 structure. Each class is a self-contained component which can be attached
 to a game object in the Unity editor, and the behavior of each class and
-function is described in code comments above each item.
+function is described in code comments above each item. So, if you want to
+understand all about how the Hellmet enemy works, it is only necessary to
+look in the HellmetBehavior class.
 
 
 User Interface:
 ----------------
+The first screen of Game of Dragons is the start menu. This menu only has
+two options, 'New Game' and 'Exit'. The exit button is only functional 
+when the game is built as a standalone application as opposed to a web
+application. The new game button starts a new instance of the game from 
+the beginning.
 
+After starting a game, the player will see their dragon avatar from a 
+third person perspective. The player can move the dragon by pressing the
+W/S/A/D keys, and the dragon will move in the corresponding direction 
+based on the direction the player's perspective is pointing. Pressing
+the shift key or the left mouse button will make the dragon attack with
+fire breath, and pressing the space bar will allow the player to jump
+up to three times without touching the ground.
 
-
+The game interface also includes a HUD, which displays the player's state
+and progress in the game. The top-left corner of the HUD has several 
+hearts which represent how much health the player has based on how many
+of the hearts are still red. Under the hearts is an image of fire, which
+becomes more transparent as the player depletes their fire breath. The 
+top-right corner of the HUD shows how many gem fragments the player has
+collected as well as the number of fragments needed to create a full gem.
+Next to the fragments is a display of how many full gems have been 
+collected along with how many gems need to be collected to complete the 
+game.
